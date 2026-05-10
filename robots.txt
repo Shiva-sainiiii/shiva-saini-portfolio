@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://shivasainiportfolio.vercel.app/sitemap.xml
