@@ -150,6 +150,42 @@ function initTyping() {
   tick();
 }
 
+/* ═══════════════ SCRAMBLE TEXT EFFECT ═══════════════ */
+function initScrambleText() {
+  const el = document.querySelector('.name');
+  if (!el) return;
+
+  const finalText = el.textContent.trim();
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&*';
+  let iteration = 0;
+  let frame;
+
+  function scramble() {
+    el.textContent = finalText
+      .split('')
+      .map((char, i) => {
+        if (char === ' ') return ' ';
+        if (i < Math.floor(iteration)) return finalText[i];
+        return chars[Math.floor(Math.random() * chars.length)];
+      })
+      .join('');
+
+    if (iteration < finalText.length) {
+      iteration += 0.45;
+      frame = requestAnimationFrame(scramble);
+    } else {
+      el.textContent = finalText; // ensure clean final state
+    }
+  }
+
+  // Small delay so page paints first
+  setTimeout(() => {
+    iteration = 0;
+    cancelAnimationFrame(frame);
+    scramble();
+  }, 300);
+}
+
 /* ═══════════════ GSAP SCROLL ANIMATIONS ═══════════════ */
 function initGSAP() {
   if (typeof gsap === 'undefined') return;
