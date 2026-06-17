@@ -177,7 +177,7 @@ function initScrambleText() {
       .join('');
 
     if (iteration < finalText.length) {
-      iteration += 0.18; // slower
+      iteration += 0.09; // slower
       frame = requestAnimationFrame(scramble);
     } else {
       el.textContent = finalText;
@@ -192,7 +192,7 @@ function initScrambleText() {
     iteration = 0;
     cancelAnimationFrame(frame);
     scramble();
-  }, 10000);
+  }, 1500);
 }
 
 /* ═══════════════ GSAP SCROLL ANIMATIONS ═══════════════ */
