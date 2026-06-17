@@ -379,6 +379,11 @@ nav#navbar.scrolled {
   margin-bottom: 18px;
   letter-spacing: -1px;
 }
+.name {
+  /* existing properties rakhna... bas ye add karo: */
+  letter-spacing: 0.02em;
+  transition: letter-spacing 0.5s ease;
+}
 
 .typing-wrap {
   font-size: clamp(1rem, 3vw, 1.3rem);
