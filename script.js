@@ -694,6 +694,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initHamburger();
   initTyping();
+   initScrambleText();
   initLightbox();
   initAiChat();
   initFooterYear();
