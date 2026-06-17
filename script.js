@@ -177,7 +177,7 @@ function initScrambleText() {
       .join('');
 
     if (iteration < finalText.length) {
-      iteration += 0.09; // slower
+      iteration += 0.18; // slower
       frame = requestAnimationFrame(scramble);
     } else {
       el.textContent = finalText;
