@@ -87,27 +87,19 @@ const server = http.createServer(async (req, res) => {
     return handleApiAsk(req, res);
   }
 
-  let filePath = path.join(__dirname, url === '/' ? 'index.html' : url);
+  const distDir = path.join(__dirname, 'dist');
+  let filePath = path.join(distDir, url === '/' ? 'index.html' : url);
+  if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
+    filePath = path.join(distDir, 'index.html');
+  }
 
   const ext = path.extname(filePath).toLowerCase();
   const contentType = mimeTypes[ext] || 'application/octet-stream';
 
   fs.readFile(filePath, (err, data) => {
     if (err) {
-      if (err.code === 'ENOENT') {
-        fs.readFile(path.join(__dirname, 'index.html'), (err2, data2) => {
-          if (err2) {
-            res.writeHead(404);
-            res.end('Not found');
-          } else {
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.end(data2);
-          }
-        });
-      } else {
-        res.writeHead(500);
-        res.end('Server error');
-      }
+      res.writeHead(404);
+      res.end('Not found');
       return;
     }
     res.writeHead(200, { 'Content-Type': contentType });
