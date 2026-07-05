@@ -7,16 +7,18 @@
 /* ─── Floating Admin Button ─── */
 .admin-fab {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
-  width: 54px;
-  height: 54px;
+  bottom: max(20px, env(safe-area-inset-bottom));
+  right: 18px;
+  width: 46px;
+  height: 46px;
+  min-width: 46px;
+  min-height: 46px;
   border-radius: 50%;
   border: 1px solid var(--border);
   background: rgba(20, 20, 35, 0.85);
   backdrop-filter: var(--glass-blur);
   color: var(--text-muted);
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   font-weight: 300;
   line-height: 1;
   cursor: pointer;
@@ -26,6 +28,8 @@
   justify-content: center;
   transition: var(--transition);
   box-shadow: var(--shadow-card);
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .admin-fab:hover {
