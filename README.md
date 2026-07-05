@@ -52,15 +52,16 @@ Deployment      →  Vercel (GitHub CI/CD)
 ```
 shiva-saini-portfolio/
 │
-├── index.html          # Main UI — all sections in one page
-├── style.css           # Design system — variables, components, responsive
-├── script.js           # Core logic — animations, game, nav, UI interactions
-├── firebase.js         # Firestore integration — real-time feedback system
-│
+├── index.html          ← REPLACE (updated version)
+├── style.css           ← same rehne do (untouched)
+├── script.js           ← same rehne do (untouched)
+├── admin.css           ← NEW — add this
+├── admin.js            ← NEW — add this
+├── config.js           ← NEW — add this
+├── firebase.js
 ├── api/
-│   └── ask.js          # Vercel serverless function — AI chat proxy
-│
-└── assets/             # Images, PDFs, icons, certificates
+│   └── ask.js
+└── assets/
 ```
 
 ---
