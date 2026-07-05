@@ -1,0 +1,240 @@
+/* ============================================================
+   admin.css — Admin Panel Styles
+   Append this to style.css, or link separately after style.css.
+   Matches existing --purple / --cyan / glass design system.
+   ============================================================ */
+
+/* ─── Floating Admin Button ─── */
+.admin-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: rgba(20, 20, 35, 0.85);
+  backdrop-filter: var(--glass-blur);
+  color: var(--text-muted);
+  font-size: 1.6rem;
+  font-weight: 300;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  box-shadow: var(--shadow-card);
+}
+
+.admin-fab:hover {
+  border-color: var(--border-hover);
+  color: var(--text);
+  transform: translateY(-2px) scale(1.05);
+}
+
+.admin-fab-active {
+  background: var(--gradient);
+  color: #fff;
+  border: none;
+}
+
+/* ─── Modal Overlay ─── */
+.admin-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 5, 12, 0.7);
+  backdrop-filter: blur(6px);
+  z-index: 9500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  padding: 20px;
+}
+
+.admin-modal-overlay.show { opacity: 1; }
+
+.admin-modal-box {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 32px 26px;
+  border-radius: var(--radius-lg);
+  transform: translateY(16px);
+  transition: transform 0.25s ease;
+}
+
+.admin-modal-overlay.show .admin-modal-box { transform: translateY(0); }
+
+.admin-panel-large .admin-modal-box { max-width: 560px; }
+
+.admin-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transition: var(--transition);
+}
+
+.admin-modal-close:hover { background: var(--bg-card-hover); color: var(--text); }
+
+.admin-modal-box h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+}
+
+/* ─── Forms ─── */
+.admin-form,
+#admin-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-form input[type="text"],
+.admin-form input[type="url"],
+.admin-form input[type="email"],
+.admin-form input[type="password"],
+.admin-form textarea,
+#admin-login-form input {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 11px 14px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  outline: none;
+  transition: var(--transition);
+}
+
+.admin-form input:focus,
+.admin-form textarea:focus,
+#admin-login-form input:focus {
+  border-color: var(--border-hover);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.admin-form textarea { resize: vertical; min-height: 70px; }
+
+.admin-file-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-file-label input[type="file"] {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.admin-upload-progress {
+  font-size: 0.82rem;
+  color: var(--cyan);
+}
+
+.admin-form button[type="submit"] {
+  margin-top: 6px;
+}
+
+.admin-hint {
+  margin-top: 14px;
+  font-size: 0.8rem;
+  color: var(--text-faint);
+}
+
+/* ─── Admin Panel Header / Tabs ─── */
+.admin-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.admin-logout-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.admin-logout-btn:hover { border-color: var(--border-hover); color: var(--text); }
+
+.admin-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+}
+
+.admin-tab {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.admin-tab.active {
+  background: var(--bg-card-hover);
+  color: var(--text);
+}
+
+/* ─── Inline card edit/delete controls ─── */
+.admin-card-controls {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.admin-edit-btn,
+.admin-delete-btn {
+  font-size: 0.76rem;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.admin-edit-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+.admin-delete-btn:hover { border-color: #ef4444; color: #ef4444; }
+
+.admin-tag-delete {
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  margin-left: 6px;
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+
+.admin-tag-delete:hover { color: #ef4444; }
+
+/* Hide admin-only controls by default until JS confirms login */
+[data-admin-only] { display: none; }

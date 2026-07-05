@@ -51,6 +51,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js" defer></script>
   <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="admin.css" />
+
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <!-- Portfolio Admin Config (fill in your own keys) -->
+  <script src="config.js"></script>
 </head>
 <body>
 
@@ -193,61 +199,7 @@
     <p class="section-sub">Technologies I work with on a daily basis</p>
 
     <div class="skills-wrapper">
-      <div class="skill-group">
-        <div class="skill-group-header">
-          <span class="skill-group-icon">🎨</span>
-          <h3>Frontend</h3>
-        </div>
-        <div class="skill-tags">
-          <span class="skill-tag">HTML5</span>
-          <span class="skill-tag">CSS3</span>
-          <span class="skill-tag">JavaScript</span>
-          <span class="skill-tag">React</span>
-          <span class="skill-tag">GSAP</span>
-          <span class="skill-tag">Tailwind CSS</span>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <div class="skill-group-header">
-          <span class="skill-group-icon">⚙️</span>
-          <h3>Backend</h3>
-        </div>
-        <div class="skill-tags">
-          <span class="skill-tag">Node.js</span>
-          <span class="skill-tag">Python</span>
-          <span class="skill-tag">Express.js</span>
-          <span class="skill-tag">REST APIs</span>
-          <span class="skill-tag">Serverless</span>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <div class="skill-group-header">
-          <span class="skill-group-icon">🛠️</span>
-          <h3>Tools & Platforms</h3>
-        </div>
-        <div class="skill-tags">
-          <span class="skill-tag">Firebase</span>
-          <span class="skill-tag">Vercel</span>
-          <span class="skill-tag">Git & GitHub</span>
-          <span class="skill-tag">VS Code</span>
-          <span class="skill-tag">Figma</span>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <div class="skill-group-header">
-          <span class="skill-group-icon">🤖</span>
-          <h3>AI & Other</h3>
-        </div>
-        <div class="skill-tags">
-          <span class="skill-tag">OpenRouter API</span>
-          <span class="skill-tag">Prompt Engineering</span>
-          <span class="skill-tag">Particles.js</span>
-          <span class="skill-tag">SEO Basics</span>
-        </div>
-      </div>
+      <!-- Rendered dynamically by admin.js from Supabase -->
     </div>
   </section>
 
@@ -259,182 +211,6 @@
 
     <div class="project-container">
 
-      <article class="project-card">
-        <div class="project-img-wrap">
-          <img src="assets/project1.jpg" alt="Restaurant Menu AI" loading="lazy"
-            onerror="this.parentElement.classList.add('img-fallback')" />
-          <div class="project-img-placeholder"><span>🍽️</span></div>
-        </div>
-        <div class="project-info">
-          <div class="project-top">
-            <h3>Restaurant Menu AI</h3>
-            <div class="project-badge">AI</div>
-          </div>
-          <p>An AI-powered menu generator using OpenRouter API with serverless functions and Firebase integration, deployed on Vercel.</p>
-          <div class="project-tech">
-            <span>JavaScript</span><span>OpenRouter</span><span>Firebase</span><span>Vercel</span>
-          </div>
-          <div class="project-buttons">
-            <a href="https://restaurant-menu-ai.vercel.app/" target="_blank" class="btn-proj">🔗 Live Demo</a>
-            <a href="https://github.com/Shiva-sainiiii/Restaurant-Menu-Ai-" target="_blank" class="btn-proj btn-proj-ghost">⌥ GitHub</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="project-card">
-        <div class="project-img-wrap">
-          <img src="assets/project2.jpg" alt="Code Editor AI" loading="lazy"
-            onerror="this.parentElement.classList.add('img-fallback')" />
-          <div class="project-img-placeholder"><span>💻</span></div>
-        </div>
-        <div class="project-info">
-          <div class="project-top">
-            <h3>Code Editor AI</h3>
-            <div class="project-badge">AI</div>
-          </div>
-          <p>A browser-based code editor with AI assistance, supporting multiple languages with live preview and smart suggestions.</p>
-          <div class="project-tech">
-            <span>HTML</span><span>CSS</span><span>JavaScript</span><span>AI API</span>
-          </div>
-          <div class="project-buttons">
-            <a href="https://code-editor-ai-taupe.vercel.app/" target="_blank" class="btn-proj">🔗 Live Demo</a>
-            <a href="https://github.com/Shiva-sainiiii/Code-Editor-Ai" target="_blank" class="btn-proj btn-proj-ghost">⌥ GitHub</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="project-card">
-        <div class="project-img-wrap">
-          <img src="assets/project3.jpg" alt="Shanu AI Chatbot" loading="lazy"
-            onerror="this.parentElement.classList.add('img-fallback')" />
-          <div class="project-img-placeholder"><span>🤖</span></div>
-        </div>
-        <div class="project-info">
-          <div class="project-top">
-            <h3>Shanu AI Chatbot</h3>
-            <div class="project-badge">AI</div>
-          </div>
-          <p>A conversational AI chatbot with real-time responses and modern UI powered by OpenRouter models.</p>
-          <div class="project-tech">
-            <span>JavaScript</span><span>AI API</span><span>CSS</span>
-          </div>
-          <div class="project-buttons">
-            <a href="https://shanu-ai-iota.vercel.app/" target="_blank" class="btn-proj">🔗 Live Demo</a>
-            <a href="https://github.com/Shiva-sainiiii/Shanu-Ai-" target="_blank" class="btn-proj btn-proj-ghost">⌥ GitHub</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="project-card">
-        <div class="project-img-wrap">
-          <img src="assets/project4.jpg" alt="Portfolio Website" loading="lazy"
-            onerror="this.parentElement.classList.add('img-fallback')" />
-          <div class="project-img-placeholder"><span>🌐</span></div>
-        </div>
-        <div class="project-info">
-          <div class="project-top">
-            <h3>Portfolio Website</h3>
-            <div class="project-badge">Web</div>
-          </div>
-          <p>A modern personal portfolio with animations, AI chat integration, Firebase backend, and deployed on Vercel.</p>
-          <div class="project-tech">
-            <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Firebase</span>
-          </div>
-          <div class="project-buttons">
-            <a href="https://shivasainiportfolio.vercel.app/" target="_blank" class="btn-proj">🔗 Live Demo</a>
-            <a href="https://github.com/Shiva-sainiiii/Shiva-Saini-Portfolio-" target="_blank" class="btn-proj btn-proj-ghost">⌥ GitHub</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="project-card">
-        <div class="project-img-wrap">
-          <img src="assets/project5.jpg" alt="AI Mind Trap" loading="lazy"
-            onerror="this.parentElement.classList.add('img-fallback')" />
-          <div class="project-img-placeholder"><span>🧠</span></div>
-        </div>
-        <div class="project-info">
-          <div class="project-top">
-            <h3>AI Mind Trap</h3>
-            <div class="project-badge">Game</div>
-          </div>
-          <p>An interactive AI-based puzzle game that challenges user thinking with logic traps and smart responses.</p>
-          <div class="project-tech">
-            <span>JavaScript</span><span>Game Logic</span><span>AI</span>
-          </div>
-          <div class="project-buttons">
-            <a href="https://ai-mind-trap.vercel.app/" target="_blank" class="btn-proj">🔗 Live Demo</a>
-            <a href="https://github.com/Shiva-sainiiii/Ai-Mind-Trap" target="_blank" class="btn-proj btn-proj-ghost">⌥ GitHub</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="project-card">
-        <div class="project-img-wrap">
-          <img src="assets/project6.jpg" alt="AI Teaching Assistant" loading="lazy"
-            onerror="this.parentElement.classList.add('img-fallback')" />
-          <div class="project-img-placeholder"><span>📚</span></div>
-        </div>
-        <div class="project-info">
-          <div class="project-top">
-            <h3>AI Teaching Assistant</h3>
-            <div class="project-badge">AI</div>
-          </div>
-          <p>An AI-based learning assistant supporting PDF/image upload and question answering for students.</p>
-          <div class="project-tech">
-            <span>JavaScript</span><span>AI</span><span>File Upload</span>
-          </div>
-          <div class="project-buttons">
-            <a href="https://ai-teaching-assistants.vercel.app/" target="_blank" class="btn-proj">🔗 Live Demo</a>
-            <a href="https://github.com/Shiva-sainiiii/Ai-Teaching-Assistants-" target="_blank" class="btn-proj btn-proj-ghost">⌥ GitHub</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="project-card">
-        <div class="project-img-wrap">
-          <img src="assets/project7.jpg" alt="Weather Info" loading="lazy"
-            onerror="this.parentElement.classList.add('img-fallback')" />
-          <div class="project-img-placeholder"><span>🌦️</span></div>
-        </div>
-        <div class="project-info">
-          <div class="project-top">
-            <h3>Weather Info</h3>
-            <div class="project-badge">Web</div>
-          </div>
-          <p>A weather application showing real-time weather data using APIs with a clean UI.</p>
-          <div class="project-tech">
-            <span>JavaScript</span><span>API</span><span>CSS</span>
-          </div>
-          <div class="project-buttons">
-            <a href="https://shiva-sainiiii.github.io/Weather-Info/" target="_blank" class="btn-proj">🔗 Live Demo</a>
-            <a href="https://github.com/Shiva-sainiiii/Weather-Info" target="_blank" class="btn-proj btn-proj-ghost">⌥ GitHub</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="project-card">
-        <div class="project-img-wrap">
-          <img src="assets/project8.jpg" alt="Tic Tac Toe" loading="lazy"
-            onerror="this.parentElement.classList.add('img-fallback')" />
-          <div class="project-img-placeholder"><span>🎮</span></div>
-        </div>
-        <div class="project-info">
-          <div class="project-top">
-            <h3>Tic Tac Toe</h3>
-            <div class="project-badge">Game</div>
-          </div>
-          <p>A classic Tic Tac Toe game with interactive UI and smooth gameplay experience.</p>
-          <div class="project-tech">
-            <span>HTML</span><span>CSS</span><span>JavaScript</span>
-          </div>
-          <div class="project-buttons">
-            <a href="https://shiva-sainiiii.github.io/Tic-Tac-Toe/" target="_blank" class="btn-proj">🔗 Live Demo</a>
-            <a href="https://github.com/Shiva-sainiiii/Tic-Tac-Toe" target="_blank" class="btn-proj btn-proj-ghost">⌥ GitHub</a>
-          </div>
-        </div>
-      </article>
-
     </div>
   </section>
 
@@ -445,36 +221,6 @@
     <p class="section-sub">Courses and certifications I've completed</p>
 
     <div class="cert-grid">
-      <div class="certificate-card" onclick="openImg(this)" role="button" tabindex="0" aria-label="View certificate 1">
-        <img src="assets/certificate1.jpg" alt="Certificate 1" loading="lazy"
-          onerror="this.src=''; this.parentElement.classList.add('cert-fallback')" />
-        <div class="cert-label">Web Development Internship (OCTANET Pvt Ltd)</div>
-      </div>
-      <div class="certificate-card" onclick="openImg(this)" role="button" tabindex="0" aria-label="View certificate 2">
-        <img src="assets/certificate2.jpg" alt="Certificate 2" loading="lazy"
-          onerror="this.src=''; this.parentElement.classList.add('cert-fallback')" />
-        <div class="cert-label">AI For Beginners (MICROSOFT)</div>
-      </div>
-      <div class="certificate-card" onclick="openImg(this)" role="button" tabindex="0" aria-label="View certificate 3">
-        <img src="assets/certificate3.jpg" alt="Certificate 3" loading="lazy"
-          onerror="this.src=''; this.parentElement.classList.add('cert-fallback')" />
-        <div class="cert-label">Data Entry Operator (IT/ITes)</div>
-      </div>
-      <div class="certificate-card" onclick="openImg(this)" role="button" tabindex="0" aria-label="View certificate 4">
-        <img src="assets/certificate4.jpg" alt="Certificate 4" loading="lazy"
-          onerror="this.src=''; this.parentElement.classList.add('cert-fallback')" />
-        <div class="cert-label">ADCA (Sunshine Campus)</div>
-      </div>
-      <div class="certificate-card" onclick="openImg(this)" role="button" tabindex="0" aria-label="View certificate 5">
-        <img src="assets/certificate5.jpg" alt="Certificate 5" loading="lazy"
-          onerror="this.src=''; this.parentElement.classList.add('cert-fallback')" />
-        <div class="cert-label">CRM (IT/ITeS)</div>
-      </div>
-      <div class="certificate-card" onclick="openImg(this)" role="button" tabindex="0" aria-label="View certificate 6">
-        <img src="assets/certificate6.jpg" alt="Certificate 6" loading="lazy"
-          onerror="this.src=''; this.parentElement.classList.add('cert-fallback')" />
-        <div class="cert-label">Web Development Internship (CODSOFT)</div>
-      </div>
     </div>
   </section>
 
@@ -711,6 +457,8 @@
   <script type="module" src="firebase.js"></script>
   <!-- Main Script -->
   <script src="script.js"></script>
+  <!-- Portfolio Admin Panel -->
+  <script src="admin.js"></script>
 
 </body>
 </html>
