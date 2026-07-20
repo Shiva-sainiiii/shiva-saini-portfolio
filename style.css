@@ -1894,9 +1894,20 @@ nav#navbar.scrolled {
 
 .footer-location {
   font-size: 0.8rem !important;
+  margin-bottom: 6px;
+}
+
+.footer-location a {
   color: var(--text-faint);
   opacity: 0.75;
   letter-spacing: 0.3px;
+  text-decoration: none;
+  transition: color 0.2s, opacity 0.2s;
+}
+
+.footer-location a:hover {
+  color: var(--cyan);
+  opacity: 1;
 }
 
 .footer-sub {
