@@ -126,15 +126,46 @@
     </button>
   </nav>
 
+  <!-- Mobile Nav Backdrop -->
+  <div class="mobile-nav-backdrop" id="mobile-nav-backdrop"></div>
+
   <!-- Mobile Nav -->
   <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
-    <a href="#about"        onclick="closeMobileNav()">About</a>
-    <a href="#skills"       onclick="closeMobileNav()">Skills</a>
-    <a href="#projects"     onclick="closeMobileNav()">Projects</a>
-    <a href="#certificates" onclick="closeMobileNav()">Certificates</a>
-    <a href="#ai-chat"      onclick="closeMobileNav()">AI Chat</a>
-    <a href="#feedback"     onclick="closeMobileNav()">Feedback</a>
-    <a href="#contact"      onclick="closeMobileNav()">Contact</a>
+    <div class="mobile-nav-header">
+      <img src="assets/profile-thumb.jpg" alt="Shiva Saini" class="mobile-nav-avatar" />
+      <div>
+        <p class="mobile-nav-name">Shiva Saini</p>
+        <p class="mobile-nav-role">Full Stack Developer</p>
+      </div>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="#about" onclick="closeMobileNav()">
+        <span class="mobile-nav-icon">👤</span><span>About</span>
+      </a>
+      <a href="#skills" onclick="closeMobileNav()">
+        <span class="mobile-nav-icon">⚡</span><span>Skills</span>
+      </a>
+      <a href="#projects" onclick="closeMobileNav()">
+        <span class="mobile-nav-icon">🚀</span><span>Projects</span>
+      </a>
+      <a href="#certificates" onclick="closeMobileNav()">
+        <span class="mobile-nav-icon">🏆</span><span>Certificates</span>
+      </a>
+      <a href="#ai-chat" onclick="closeMobileNav()">
+        <span class="mobile-nav-icon">🤖</span><span>AI Chat</span>
+      </a>
+      <a href="#feedback" onclick="closeMobileNav()">
+        <span class="mobile-nav-icon">💬</span><span>Feedback</span>
+      </a>
+      <a href="#contact" onclick="closeMobileNav()">
+        <span class="mobile-nav-icon">📡</span><span>Contact</span>
+      </a>
+    </div>
+    <div class="mobile-nav-footer">
+      <a href="https://instagram.com/shiva_sainiiii" target="_blank" rel="noopener" aria-label="Instagram">📷</a>
+      <a href="https://www.linkedin.com/in/shiva-sainiiii" target="_blank" rel="noopener" aria-label="LinkedIn">💼</a>
+      <a href="https://github.com/Shiva-sainiiii" target="_blank" rel="noopener" aria-label="GitHub">🐙</a>
+    </div>
   </nav>
 
   <!-- ═══════════════════ HERO ═══════════════════ -->
