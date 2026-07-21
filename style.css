@@ -337,43 +337,160 @@ nav#navbar.scrolled {
 .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* ─── MOBILE NAV ─── */
-.mobile-nav {
+/* ─── MOBILE NAV BACKDROP ─── */
+.mobile-nav-backdrop {
   display: none;
   position: fixed;
-  top: 66px; left: 0; right: 0;
-  background: rgba(8, 8, 18, 0.98);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  z-index: 999;
-  padding: 14px 5% 18px;
-  border-bottom: 1px solid var(--border);
-  flex-direction: column;
-  gap: 2px;
-  transform: translateY(-8px);
+  inset: 0;
+  background: rgba(5, 5, 12, 0.7);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 998;
   opacity: 0;
-  transition: all 0.3s;
+  transition: opacity 0.35s ease;
 }
 
-.mobile-nav.open {
-  display: flex;
-  transform: translateY(0);
+.mobile-nav-backdrop.open {
+  display: block;
   opacity: 1;
 }
 
-.mobile-nav a {
-  color: var(--text-muted);
-  text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 500;
-  padding: 13px 16px;
-  border-radius: var(--radius-sm);
-  transition: all 0.2s;
+/* ─── MOBILE NAV — SLIDE-IN DRAWER ─── */
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(78vw, 320px);
+  background: linear-gradient(180deg, rgba(14, 12, 26, 0.98), rgba(8, 8, 18, 0.99));
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  z-index: 999;
+  border-left: 1px solid var(--border);
+  box-shadow: -12px 0 40px rgba(0, 0, 0, 0.5);
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 28px 0 20px;
+  overflow-y: auto;
 }
 
-.mobile-nav a:hover {
-  background: rgba(138, 43, 226, 0.18);
+.mobile-nav.open {
+  transform: translateX(0);
+}
+
+.mobile-nav-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 24px 22px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.mobile-nav-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.5);
+}
+
+.mobile-nav-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.98rem;
   color: var(--text);
+  margin: 0;
+}
+
+.mobile-nav-role {
+  font-size: 0.74rem;
+  color: var(--text-faint);
+  margin: 2px 0 0;
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  flex: 1;
+}
+
+.mobile-nav-links a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.94rem;
+  font-weight: 500;
+  padding: 13px 14px;
+  border-radius: var(--radius-sm);
+  transition: all 0.25s ease;
+  opacity: 0;
+  transform: translateX(16px);
+}
+
+.mobile-nav.open .mobile-nav-links a {
+  animation: mobileNavLinkIn 0.45s ease forwards;
+}
+
+.mobile-nav.open .mobile-nav-links a:nth-child(1) { animation-delay: 0.08s; }
+.mobile-nav.open .mobile-nav-links a:nth-child(2) { animation-delay: 0.13s; }
+.mobile-nav.open .mobile-nav-links a:nth-child(3) { animation-delay: 0.18s; }
+.mobile-nav.open .mobile-nav-links a:nth-child(4) { animation-delay: 0.23s; }
+.mobile-nav.open .mobile-nav-links a:nth-child(5) { animation-delay: 0.28s; }
+.mobile-nav.open .mobile-nav-links a:nth-child(6) { animation-delay: 0.33s; }
+.mobile-nav.open .mobile-nav-links a:nth-child(7) { animation-delay: 0.38s; }
+
+@keyframes mobileNavLinkIn {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.mobile-nav-links a:hover,
+.mobile-nav-links a:active {
+  background: rgba(138, 43, 226, 0.16);
+  color: var(--text);
+  transform: translateX(-4px);
+}
+
+.mobile-nav-icon {
+  font-size: 1.1rem;
+  width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.mobile-nav-footer {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  padding: 18px 24px 4px;
+  border-top: 1px solid var(--border);
+  margin-top: 8px;
+}
+
+.mobile-nav-footer a {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: all 0.25s ease;
+}
+
+.mobile-nav-footer a:hover {
+  background: rgba(138, 43, 226, 0.22);
+  border-color: rgba(138, 43, 226, 0.4);
+  transform: translateY(-2px);
 }
 
 /* ─── BUTTONS ─── */
