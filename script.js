@@ -686,6 +686,31 @@ function initFooterYear() {
   if (el) el.textContent = new Date().getFullYear();
 }
 
+/* ═══════════════ PROFILE PHOTO MODAL ═══════════════ */
+function initProfilePhotoModal() {
+  const trigger  = document.getElementById('nav-logo-btn');
+  const modal    = document.getElementById('photo-modal');
+  const backdrop = document.getElementById('photo-modal-backdrop');
+  const closeBtn = document.getElementById('photo-modal-close');
+  if (!trigger || !modal) return;
+
+  const open = () => {
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+  const close = () => {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  trigger.addEventListener('click', open);
+  backdrop.addEventListener('click', close);
+  closeBtn.addEventListener('click', close);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) close();
+  });
+}
+
 /* ═══════════════ IMAGE ERROR FALLBACKS ═══════════════ */
 function initImageFallbacks() {
   document.querySelectorAll('.project-img-wrap img').forEach(img => {
@@ -705,6 +730,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTyping();
    initScrambleText();
   initLightbox();
+  initProfilePhotoModal();
   initAiChat();
   initFooterYear();
   initImageFallbacks();
