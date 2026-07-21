@@ -83,22 +83,25 @@ function initNavbar() {
 
 /* ═══════════════ HAMBURGER MENU ═══════════════ */
 function initHamburger() {
-  const btn  = document.getElementById('hamburger');
-  const menu = document.getElementById('mobile-nav');
+  const btn      = document.getElementById('hamburger');
+  const menu     = document.getElementById('mobile-nav');
+  const backdrop = document.getElementById('mobile-nav-backdrop');
   if (!btn || !menu) return;
 
   btn.addEventListener('click', () => {
     const isOpen = menu.classList.toggle('open');
     btn.classList.toggle('open', isOpen);
     btn.setAttribute('aria-expanded', String(isOpen));
+    if (backdrop) backdrop.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
-  document.addEventListener('click', (e) => {
-    if (!btn.contains(e.target) && !menu.contains(e.target)) {
-      menu.classList.remove('open');
-      btn.classList.remove('open');
-      btn.setAttribute('aria-expanded', 'false');
-    }
+  if (backdrop) {
+    backdrop.addEventListener('click', () => window.closeMobileNav());
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu.classList.contains('open')) window.closeMobileNav();
   });
 }
 /* smooth scrolling */
@@ -125,10 +128,13 @@ function initSmoothScroll() {
 }
 /* existing code */
 window.closeMobileNav = function () {
-  const menu = document.getElementById('mobile-nav');
-  const btn  = document.getElementById('hamburger');
+  const menu     = document.getElementById('mobile-nav');
+  const btn      = document.getElementById('hamburger');
+  const backdrop = document.getElementById('mobile-nav-backdrop');
   if (menu) menu.classList.remove('open');
   if (btn)  { btn.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+  if (backdrop) backdrop.classList.remove('open');
+  document.body.style.overflow = '';
 };
 
 /* ═══════════════ TYPING EFFECT ═══════════════ */
