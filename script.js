@@ -181,6 +181,12 @@ function initScrambleText() {
   el.style.overflow = 'hidden';
   el.style.display = 'block';
 
+  // Immediately scramble so the plain name never flashes before the animation
+  el.textContent = finalText
+    .split('')
+    .map(char => (char === ' ' ? ' ' : chars[Math.floor(Math.random() * chars.length)]))
+    .join('');
+
   function scramble() {
     el.textContent = finalText
       .split('')
@@ -202,12 +208,12 @@ function initScrambleText() {
     }
   }
 
-  // 1.5s delay — page load settle ho jaaye pehle
+  // Short delay so the scramble is visible right as the hero appears
   setTimeout(() => {
     iteration = 0;
     cancelAnimationFrame(frame);
     scramble();
-  }, 1500);
+  }, 300);
 }
 
 /* ═══════════════ GSAP SCROLL ANIMATIONS ═══════════════ */
