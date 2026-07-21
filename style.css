@@ -180,6 +180,113 @@ nav#navbar.scrolled {
   letter-spacing: -1px;
 }
 
+.nav-logo-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 50%;
+  line-height: 0;
+  flex-shrink: 0;
+}
+
+.nav-logo-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  border: 2px solid transparent;
+  background: var(--gradient);
+  background-clip: padding-box;
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.5);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.nav-logo-btn:hover .nav-logo-img,
+.nav-logo-btn:focus-visible .nav-logo-img {
+  transform: scale(1.08);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.85);
+}
+
+/* ── Profile Photo Modal ── */
+.photo-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.photo-modal.open {
+  display: flex;
+}
+
+.photo-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 5, 12, 0.88);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.photo-modal-content {
+  position: relative;
+  max-width: min(90vw, 480px);
+  width: 100%;
+  animation: photoModalIn 0.25s ease;
+  text-align: center;
+}
+
+@keyframes photoModalIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.photo-modal-img {
+  width: 100%;
+  border-radius: 20px;
+  display: block;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--border);
+}
+
+.photo-modal-caption {
+  margin-top: 14px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.photo-modal-close {
+  position: absolute;
+  top: -44px;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: rgba(20, 20, 32, 0.9);
+  color: var(--text);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.photo-modal-close:hover {
+  background: rgba(139, 92, 246, 0.3);
+  transform: rotate(90deg);
+}
+
 .nav-links {
   display: flex;
   gap: 2px;
