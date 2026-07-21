@@ -83,9 +83,11 @@ function initNavbar() {
 
 /* ═══════════════ HAMBURGER MENU ═══════════════ */
 function initHamburger() {
-  const btn      = document.getElementById('hamburger');
-  const menu     = document.getElementById('mobile-nav');
-  const backdrop = document.getElementById('mobile-nav-backdrop');
+  const btn        = document.getElementById('hamburger');
+  const menu       = document.getElementById('mobile-nav');
+  const backdrop   = document.getElementById('mobile-nav-backdrop');
+  const navLogoBtn = document.getElementById('nav-logo-btn');
+  const innerClose = document.getElementById('mobile-nav-close');
   if (!btn || !menu) return;
 
   btn.addEventListener('click', () => {
@@ -93,11 +95,16 @@ function initHamburger() {
     btn.classList.toggle('open', isOpen);
     btn.setAttribute('aria-expanded', String(isOpen));
     if (backdrop) backdrop.classList.toggle('open', isOpen);
+    if (navLogoBtn) navLogoBtn.classList.toggle('nav-hidden', isOpen);
     document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
   if (backdrop) {
     backdrop.addEventListener('click', () => window.closeMobileNav());
+  }
+
+  if (innerClose) {
+    innerClose.addEventListener('click', () => window.closeMobileNav());
   }
 
   document.addEventListener('keydown', (e) => {
@@ -128,12 +135,14 @@ function initSmoothScroll() {
 }
 /* existing code */
 window.closeMobileNav = function () {
-  const menu     = document.getElementById('mobile-nav');
-  const btn      = document.getElementById('hamburger');
-  const backdrop = document.getElementById('mobile-nav-backdrop');
+  const menu       = document.getElementById('mobile-nav');
+  const btn        = document.getElementById('hamburger');
+  const backdrop   = document.getElementById('mobile-nav-backdrop');
+  const navLogoBtn = document.getElementById('nav-logo-btn');
   if (menu) menu.classList.remove('open');
   if (btn)  { btn.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
   if (backdrop) backdrop.classList.remove('open');
+  if (navLogoBtn) navLogoBtn.classList.remove('nav-hidden');
   document.body.style.overflow = '';
 };
 
