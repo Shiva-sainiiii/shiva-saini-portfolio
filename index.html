@@ -107,7 +107,9 @@
 
   <!-- ═══════════════════ NAVBAR ═══════════════════ -->
   <nav id="navbar" aria-label="Main navigation">
-    <a href="#hero" class="nav-logo" aria-label="Shiva Saini Home">SS</a>
+    <button class="nav-logo-btn" id="nav-logo-btn" aria-label="View profile photo">
+      <img src="assets/profile-thumb.jpg" alt="Shiva Saini" class="nav-logo-img" width="40" height="40" loading="eager" />
+    </button>
 
     <ul class="nav-links" role="list">
       <li><a href="#about">About</a></li>
@@ -498,6 +500,16 @@
     </div>
     <p class="footer-copy">© <span id="year"></span> Shiva Saini. All rights reserved.</p>
   </footer>
+
+  <!-- ═══════════════════ PROFILE PHOTO MODAL ═══════════════════ -->
+  <div class="photo-modal" id="photo-modal" role="dialog" aria-modal="true" aria-label="Profile photo">
+    <div class="photo-modal-backdrop" id="photo-modal-backdrop"></div>
+    <div class="photo-modal-content">
+      <button class="photo-modal-close" id="photo-modal-close" aria-label="Close">✕</button>
+      <img src="assets/profile-full.jpg" alt="Shiva Saini" class="photo-modal-img" />
+      <p class="photo-modal-caption">Shiva Saini</p>
+    </div>
+  </div>
 
   <!-- Firebase -->
   <script type="module" src="firebase.js"></script>
