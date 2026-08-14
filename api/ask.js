@@ -91,31 +91,51 @@ export default async function handler(req, res) {
           ? 'Please analyze this PDF and summarize its key contents.'
           : 'Please analyze this image and describe what you see in detail.');
 
-    userContent = [
-      { type: 'text', text: textPart },
-      {
-        type: 'image_url',
-        image_url: {
-          url: `data:${file.type};base64,${file.data}`
+    if (file.type === 'application/pdf') {
+      // OpenRouter requires the dedicated "file" content type for PDFs —
+      // sending a PDF as image_url (as before) silently fails or is
+      // rejected by the model.
+      userContent = [
+        { type: 'text', text: textPart },
+        {
+          type: 'file',
+          file: {
+            filename: file.name || 'document.pdf',
+            file_data: `data:application/pdf;base64,${file.data}`
+          }
         }
-      }
-    ];
+      ];
+    } else {
+      userContent = [
+        { type: 'text', text: textPart },
+        {
+          type: 'image_url',
+          image_url: {
+            url: `data:${file.type};base64,${file.data}`
+          }
+        }
+      ];
+    }
   } else {
     userContent = hasMessage ? message.trim() : 'Hello!';
   }
 
   // ── Model selection ──────────────────────────────────────
-  // These are confirmed free-tier models on OpenRouter (April 2025)
-  // Vision model: supports image + PDF base64
+  // Verified free-tier models on OpenRouter (as of Aug 2026):
+  // Vision model: google/gemma-4-31b-it:free — genuinely supports
+  //   text + image input (minimax/minimax-m2.5:free does NOT — it's
+  //   text-only, so vision requests were silently failing before).
   // Text model:   fast, reliable, free
   const PRIMARY_MODEL  = needsVision
-    ? 'minimax/minimax-m2.5:free'
+    ? 'google/gemma-4-31b-it:free'
     : 'nvidia/nemotron-3-super-120b-a12b:free';
 
-  const FALLBACK_MODEL = 'nvidia/nemotron-3-super-120b-a12b:free';
+  const FALLBACK_MODEL = needsVision
+    ? 'nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free'
+    : 'nvidia/nemotron-3-super-120b-a12b:free';
 
   // ── Call OpenRouter ──────────────────────────────────────
-  async function callOpenRouter(model, content) {
+  async function callOpenRouter(model, content, includesPdf = false) {
     const body = {
       model,
       max_tokens:  1200,
@@ -125,6 +145,12 @@ export default async function handler(req, res) {
         { role: 'user',   content }
       ]
     };
+
+    // Let OpenRouter parse the PDF (via its built-in OCR/parser plugin)
+    // instead of relying on the target model to natively read raw PDF bytes.
+    if (includesPdf) {
+      body.plugins = [{ id: 'file-parser', pdf: { engine: 'pdf-text' } }];
+    }
 
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
@@ -148,17 +174,27 @@ export default async function handler(req, res) {
     return reply || null;
   }
 
+  const isPdfRequest = needsVision && file.type === 'application/pdf';
+
   try {
     // Try primary model first
-    let reply = await callOpenRouter(PRIMARY_MODEL, userContent);
+    let reply = await callOpenRouter(PRIMARY_MODEL, userContent, isPdfRequest);
 
-    // If primary failed and it was a vision request, try fallback with text only
+    // If primary failed, try the fallback with the SAME content first
+    // (so a vision request still gets a vision-capable fallback instead
+    // of silently losing the image).
     if (!reply) {
       console.warn('[ask.js] Primary model failed, trying fallback...');
-      const fallbackContent = hasMessage
+      reply = await callOpenRouter(FALLBACK_MODEL, userContent, isPdfRequest);
+    }
+
+    // Last resort: degrade to text-only so the user still gets *something*
+    if (!reply && needsVision) {
+      console.warn('[ask.js] Vision fallback also failed, degrading to text-only...');
+      const textOnlyContent = hasMessage
         ? message.trim()
-        : 'Please describe what was in the uploaded file (file content unavailable in fallback mode).';
-      reply = await callOpenRouter(FALLBACK_MODEL, fallbackContent);
+        : 'The user uploaded a file, but it could not be analyzed right now. Let them know and ask them to try again shortly.';
+      reply = await callOpenRouter('nvidia/nemotron-3-super-120b-a12b:free', textOnlyContent);
     }
 
     if (!reply) {
