@@ -80,12 +80,21 @@
       toast("This account is not authorized.");
       return false;
     }
+    // Set session immediately instead of waiting for the async
+    // onAuthStateChange event, so isLoggedIn()/refreshAdminVisibility()
+    // are correct right after login (no race condition).
+    currentSession = data.session;
+    updateAdminUI();
+    refreshAdminVisibility();
     toast("Logged in ✓");
     return true;
   }
 
   async function logout() {
     await supabase.auth.signOut();
+    currentSession = null;
+    updateAdminUI();
+    refreshAdminVisibility();
     toast("Logged out");
     closeAdminPanel();
   }
@@ -297,6 +306,7 @@
   function closeAdminPanel() {
     const m = document.getElementById('admin-panel-modal');
     if (m) closeModal(m);
+    refreshAdminVisibility();
   }
 
   function renderTabContent(tab) {
