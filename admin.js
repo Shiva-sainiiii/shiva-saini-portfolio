@@ -43,6 +43,7 @@
     supabase.auth.onAuthStateChange((_event, session) => {
       currentSession = session;
       updateAdminUI();
+      refreshAdminVisibility();
     });
   }
 
@@ -317,8 +318,9 @@
         <input type="url" id="pf-live" placeholder="Live demo URL" value="${existing.live_url || ''}" />
         <input type="url" id="pf-github" placeholder="GitHub URL" value="${existing.github_url || ''}" />
         <label class="admin-file-label">
-          Project image <input type="file" id="pf-image" accept="image/*" />
+          Project image <input type="file" id="pf-image" accept="image/*" ${existing.id ? '' : 'required'} />
         </label>
+        ${existing.id && existing.image_url ? `<p class="admin-hint">Current image is set. Choose a new file only if you want to replace it.</p>` : ''}
         <div class="admin-upload-progress" id="pf-progress" style="display:none;"></div>
         <button type="submit" class="btn">${existing.id ? 'Update' : 'Add'} Project</button>
       </form>
