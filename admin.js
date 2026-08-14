@@ -148,10 +148,10 @@
     };
   }
 
-  function renderProjects(projects) {
-    const container = document.querySelector(".project-container");
-    if (!container) return;
-    container.innerHTML = projects.map(p => `
+  let allProjectsCache = [];
+
+  function projectCardHtml(p) {
+    return `
       <article class="project-card" data-id="${p.id}">
         <div class="project-img-wrap">
           <img src="${p.image_url || ''}" alt="${escapeHtml(p.title)}" loading="lazy"
@@ -177,8 +177,98 @@
           </div>
         </div>
       </article>
-    `).join('');
+    `;
+  }
+
+  function renderProjects(projects) {
+    allProjectsCache = projects;
+
+    // Main page: only the first 3 (featured) projects, same card style as before.
+    const container = document.querySelector(".project-container");
+    if (container) {
+      container.innerHTML = projects.slice(0, 3).map(projectCardHtml).join('');
+    }
+
+    renderAllProjectsGrid(projects);
     refreshAdminVisibility();
+  }
+
+  function renderAllProjectsGrid(projects) {
+    const grid = document.getElementById("all-projects-grid");
+    if (!grid) return;
+    grid.innerHTML = projects.map(p => `
+      <button class="app-icon-tile" data-id="${p.id}" onclick="PortfolioAdmin.openProjectDetail('${p.id}')" aria-label="${escapeHtml(p.title)}">
+        <span class="app-icon-img">
+          <img src="${p.image_url || ''}" alt="${escapeHtml(p.title)}" loading="lazy"
+            onerror="this.parentElement.classList.add('img-fallback')" />
+          <span class="app-icon-placeholder">💻</span>
+        </span>
+        <span class="app-icon-label">${escapeHtml(p.title)}</span>
+      </button>
+    `).join('');
+  }
+
+  function openAllProjects() {
+    const overlay = document.getElementById("all-projects-overlay");
+    if (!overlay) return;
+    overlay.classList.add("active");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeAllProjects() {
+    const overlay = document.getElementById("all-projects-overlay");
+    if (!overlay) return;
+    overlay.classList.remove("active");
+    document.body.style.overflow = "";
+  }
+
+  function openProjectDetail(id) {
+    const p = allProjectsCache.find(pr => String(pr.id) === String(id));
+    if (!p) return;
+    const card = document.getElementById("project-detail-card");
+    const overlay = document.getElementById("project-detail-overlay");
+    if (!card || !overlay) return;
+
+    card.innerHTML = `
+      <button class="project-detail-close" id="project-detail-close" aria-label="Close">✕</button>
+      <div class="project-img-wrap project-detail-img-wrap">
+        <img class="project-detail-img" src="${p.image_url || ''}" alt="${escapeHtml(p.title)}"
+          onerror="this.parentElement.classList.add('img-fallback')" />
+        <div class="project-img-placeholder"><span>💻</span></div>
+      </div>
+      <div class="project-detail-body">
+        <div class="project-top">
+          <h3>${escapeHtml(p.title)}</h3>
+          <div class="project-badge">${escapeHtml(p.badge || 'Web')}</div>
+        </div>
+        <p>${escapeHtml(p.description)}</p>
+        <div class="project-tech">
+          ${(p.tech_tags || []).map(t => `<span>${escapeHtml(t)}</span>`).join('')}
+        </div>
+        <div class="project-buttons">
+          ${p.live_url ? `<a href="${p.live_url}" target="_blank" class="btn-proj">🔗 Live Demo</a>` : ''}
+          ${p.github_url ? `<a href="${p.github_url}" target="_blank" class="btn-proj btn-proj-ghost">⌥ GitHub</a>` : ''}
+        </div>
+        <div class="admin-card-controls" data-admin-only>
+          <button class="admin-edit-btn" onclick="PortfolioAdmin.editProject('${p.id}')">✎ Edit</button>
+          <button class="admin-delete-btn" onclick="PortfolioAdmin.deleteItem('portfolio_projects','${p.id}','project')">🗑</button>
+        </div>
+      </div>
+    `;
+    // Re-wire the close button created above.
+    document.getElementById("project-detail-close").addEventListener("click", closeProjectDetail);
+
+    overlay.classList.add("active");
+    document.body.style.overflow = "hidden";
+    refreshAdminVisibility();
+  }
+
+  function closeProjectDetail() {
+    const overlay = document.getElementById("project-detail-overlay");
+    if (!overlay) return;
+    overlay.classList.remove("active");
+    document.body.style.overflow = document.getElementById("all-projects-overlay")?.classList.contains("active")
+      ? "hidden" : "";
   }
 
   function renderCertificates(certs) {
@@ -541,9 +631,41 @@
         openLoginModal();
       });
     }
+
+    const viewAllBtn = document.getElementById('view-all-projects-btn');
+    if (viewAllBtn) viewAllBtn.addEventListener('click', openAllProjects);
+
+    const allProjectsClose = document.getElementById('all-projects-close');
+    if (allProjectsClose) allProjectsClose.addEventListener('click', closeAllProjects);
+
+    const allProjectsOverlay = document.getElementById('all-projects-overlay');
+    if (allProjectsOverlay) {
+      allProjectsOverlay.addEventListener('click', (e) => {
+        if (e.target === allProjectsOverlay) closeAllProjects();
+      });
+    }
+
+    const detailOverlay = document.getElementById('project-detail-overlay');
+    if (detailOverlay) {
+      detailOverlay.addEventListener('click', (e) => {
+        if (e.target === detailOverlay) closeProjectDetail();
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (document.getElementById('project-detail-overlay')?.classList.contains('active')) {
+        closeProjectDetail();
+      } else if (document.getElementById('all-projects-overlay')?.classList.contains('active')) {
+        closeAllProjects();
+      }
+    });
   }
 
-  window.PortfolioAdmin = { editProject, editCertificate, deleteItem };
+  window.PortfolioAdmin = {
+    editProject, editCertificate, deleteItem,
+    openProjectDetail, closeProjectDetail,
+  };
 
   document.addEventListener('DOMContentLoaded', async () => {
     wireAdminEntryPoints();
