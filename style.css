@@ -1259,6 +1259,245 @@ nav#navbar.scrolled {
   box-shadow: 0 6px 20px rgba(0, 212, 255, 0.15);
 }
 
+/* ─── VIEW ALL PROJECTS BUTTON ─── */
+.view-all-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 36px;
+}
+
+.btn-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 30px;
+  border-radius: 30px;
+  background: transparent;
+  border: 1px solid rgba(138, 43, 226, 0.4);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-view-all:hover {
+  background: rgba(138, 43, 226, 0.12);
+  border-color: var(--purple-light);
+  box-shadow: 0 8px 24px rgba(138, 43, 226, 0.25);
+  transform: translateY(-2px);
+}
+
+.view-all-arrow {
+  transition: transform 0.25s ease;
+}
+
+.btn-view-all:hover .view-all-arrow {
+  transform: translateX(4px);
+}
+
+/* ─── ALL PROJECTS OVERLAY (app-icon grid) ─── */
+.all-projects-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(8, 6, 16, 0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: none;
+  flex-direction: column;
+  opacity: 0;
+  transition: opacity 0.28s ease;
+}
+
+.all-projects-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.all-projects-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 6% 16px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.all-projects-header h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.all-projects-close {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.all-projects-close:hover {
+  background: rgba(138, 43, 226, 0.2);
+  border-color: var(--purple-light);
+  transform: rotate(90deg);
+}
+
+.all-projects-grid {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px 6% 60px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.app-icon-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-body);
+}
+
+.app-icon-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 22%;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(135deg, rgba(138,43,226,0.25), rgba(0,212,255,0.12));
+  border: 1px solid var(--border);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.app-icon-tile:active .app-icon-img,
+.app-icon-tile:hover .app-icon-img {
+  transform: scale(1.06);
+  box-shadow: 0 10px 28px rgba(138, 43, 226, 0.35);
+}
+
+.app-icon-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
+}
+
+.app-icon-img .app-icon-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  z-index: 0;
+}
+
+.app-icon-img.img-fallback img { opacity: 0; }
+
+.app-icon-tile .app-icon-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.3;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* ─── PROJECT DETAIL OVERLAY ─── */
+.project-detail-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.project-detail-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.project-detail-card {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  max-height: 88vh;
+  overflow-y: auto;
+  background: var(--bg-card, #14101f);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+}
+
+.project-detail-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-detail-close:hover {
+  background: rgba(138, 43, 226, 0.6);
+}
+
+.project-detail-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  background: linear-gradient(135deg, rgba(138,43,226,0.2), rgba(0,212,255,0.1));
+}
+
+.project-detail-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
 /* ─── CERTIFICATES ─── */
 .cert-grid {
   display: grid;
@@ -2392,6 +2631,20 @@ nav#navbar.scrolled {
   }
 
   .chat-box { height: 250px; }
+
+  .all-projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding: 22px 5% 50px;
+  }
+
+  .all-projects-header {
+    padding: 18px 5% 14px;
+  }
+
+  .project-detail-card {
+    max-height: 92vh;
+  }
 }
 
 /* ─── RESPONSIVE: SMALL PHONES ─── */
@@ -2414,6 +2667,15 @@ nav#navbar.scrolled {
     word-break: break-all;
     padding-left: 52px; /* aligns under label, past the icon */
     text-overflow: clip;
+  }
+
+  .all-projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .app-icon-tile .app-icon-label {
+    font-size: 0.72rem;
   }
 }
 
