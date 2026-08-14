@@ -309,7 +309,32 @@
     <div class="project-container">
 
     </div>
+
+    <div class="view-all-wrap">
+      <button class="btn-view-all" id="view-all-projects-btn">
+        View All Projects <span class="view-all-arrow">→</span>
+      </button>
+    </div>
   </section>
+
+  <!-- ═══════════════════ ALL PROJECTS OVERLAY ═══════════════════ -->
+  <div class="all-projects-overlay" id="all-projects-overlay" role="dialog" aria-modal="true" aria-label="All projects">
+    <div class="all-projects-header">
+      <h2>All Projects</h2>
+      <button class="all-projects-close" id="all-projects-close" aria-label="Close">✕</button>
+    </div>
+    <div class="all-projects-grid" id="all-projects-grid">
+      <!-- Rendered dynamically by admin.js from Supabase -->
+    </div>
+  </div>
+
+  <!-- ═══════════════════ PROJECT DETAIL OVERLAY ═══════════════════ -->
+  <div class="project-detail-overlay" id="project-detail-overlay" role="dialog" aria-modal="true" aria-label="Project details">
+    <div class="project-detail-card" id="project-detail-card">
+      <button class="project-detail-close" id="project-detail-close" aria-label="Close">✕</button>
+      <!-- Rendered dynamically by admin.js -->
+    </div>
+  </div>
 
   <!-- ═══════════════════ CERTIFICATES ═══════════════════ -->
   <section class="section" id="certificates" aria-label="Certificates">
