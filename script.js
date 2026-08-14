@@ -117,7 +117,9 @@ function initSmoothScroll() {
 
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-      const target = document.querySelector(this.getAttribute('href'));
+      const href = this.getAttribute('href');
+      if (!href || href === '#') return; // skip empty-hash links (e.g. admin entry point)
+      const target = document.querySelector(href);
       if (!target) return;
       e.preventDefault();
 
@@ -290,7 +292,16 @@ function initLightbox() {
     if (e.key === 'Escape') window.closeLightbox();
   });
 
-  document.querySelectorAll('.certificate-card').forEach(card => {
+  bindCertificateKeyboardHandlers();
+}
+
+// Certificate cards are injected asynchronously by admin.js (after the
+// Supabase fetch resolves), which happens after this file's own
+// DOMContentLoaded handler already ran. Re-bind whenever fresh cards land,
+// guarding against double-binding with a data attribute.
+function bindCertificateKeyboardHandlers() {
+  document.querySelectorAll('.certificate-card:not([data-kb-bound])').forEach(card => {
+    card.setAttribute('data-kb-bound', '1');
     card.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.openImg(card); }
     });
@@ -734,13 +745,28 @@ function initProfilePhotoModal() {
 
 /* ═══════════════ IMAGE ERROR FALLBACKS ═══════════════ */
 function initImageFallbacks() {
-  document.querySelectorAll('.project-img-wrap img').forEach(img => {
+  document.querySelectorAll('.project-img-wrap img:not([data-fb-bound])').forEach(img => {
+    img.setAttribute('data-fb-bound', '1');
     img.addEventListener('error', () => img.parentElement.classList.add('img-fallback'));
   });
-  document.querySelectorAll('.certificate-card img').forEach(img => {
+  document.querySelectorAll('.certificate-card img:not([data-fb-bound])').forEach(img => {
+    img.setAttribute('data-fb-bound', '1');
     img.addEventListener('error', () => img.closest('.certificate-card').classList.add('cert-fallback'));
   });
 }
+
+/* ═══════════════ RE-RUN AFTER DYNAMIC CONTENT LOADS ═══════════════
+   admin.js fetches projects/certificates/skills from Supabase and injects
+   them into the DOM asynchronously (after our own DOMContentLoaded already
+   fired). Re-run the bindings/animations that depend on that content once
+   it actually lands, otherwise they silently no-op on an empty container. */
+document.addEventListener('portfolio:data-rendered', () => {
+  bindCertificateKeyboardHandlers();
+  initImageFallbacks();
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    initGSAP();
+  }
+});
 
 /* ═══════════════ BOOT ═══════════════ */
 document.addEventListener('DOMContentLoaded', () => {
