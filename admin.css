@@ -4,44 +4,38 @@
    Matches existing --purple / --cyan / glass design system.
    ============================================================ */
 
-/* ─── Floating Admin Button ─── */
-.admin-fab {
-  position: fixed;
-  bottom: max(20px, env(safe-area-inset-bottom));
-  right: 18px;
-  width: 46px;
-  height: 46px;
-  min-width: 46px;
-  min-height: 46px;
-  border-radius: 50%;
-  border: 1px solid var(--border);
-  background: rgba(20, 20, 35, 0.85);
-  backdrop-filter: var(--glass-blur);
-  color: var(--text-muted);
-  font-size: 1.3rem;
-  font-weight: 300;
-  line-height: 1;
-  cursor: pointer;
-  z-index: 9000;
+/* ─── Admin Entry Point (desktop navbar) ─── */
+.nav-admin-item {
+  display: flex;
+  align-items: center;
+}
+
+#nav-admin-link {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 0.95rem;
+  opacity: 0.55;
+  text-decoration: none;
   transition: var(--transition);
-  box-shadow: var(--shadow-card);
-  padding: 0;
-  box-sizing: border-box;
 }
 
-.admin-fab:hover {
-  border-color: var(--border-hover);
-  color: var(--text);
-  transform: translateY(-2px) scale(1.05);
+#nav-admin-link:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.06);
 }
 
-.admin-fab-active {
+#nav-admin-link.nav-admin-active {
+  opacity: 1;
   background: var(--gradient);
-  color: #fff;
-  border: none;
+}
+
+/* ─── Admin Entry Point (mobile nav) ─── */
+#mobile-nav-admin-link {
+  opacity: 0.7;
 }
 
 /* ─── Modal Overlay ─── */
