@@ -51,10 +51,21 @@
   }
 
   function updateAdminUI() {
-    const fab = document.getElementById("admin-fab");
-    if (!fab) return;
-    fab.classList.toggle("admin-fab-active", isLoggedIn());
-    fab.setAttribute("aria-label", isLoggedIn() ? "Open admin panel" : "Admin login");
+    const loggedIn = isLoggedIn();
+
+    const navLink = document.getElementById("nav-admin-link");
+    if (navLink) {
+      navLink.textContent = loggedIn ? "⚙️" : "🔒";
+      navLink.setAttribute("aria-label", loggedIn ? "Manage portfolio" : "Admin login");
+      navLink.title = loggedIn ? "Manage portfolio" : "Admin login";
+      navLink.classList.toggle("nav-admin-active", loggedIn);
+    }
+
+    const mobileLink = document.getElementById("mobile-nav-admin-link");
+    const mobileIcon = mobileLink ? mobileLink.querySelector(".mobile-nav-icon") : null;
+    const mobileLabel = document.getElementById("mobile-nav-admin-label");
+    if (mobileIcon) mobileIcon.textContent = loggedIn ? "⚙️" : "🔒";
+    if (mobileLabel) mobileLabel.textContent = loggedIn ? "Manage Portfolio" : "Admin Login";
   }
 
   async function login(email, password) {
@@ -222,6 +233,10 @@
     renderProjects(data.projects);
     renderCertificates(data.certificates);
     renderSkills(data.skills);
+    // Let script.js know dynamic content is in the DOM now, so it can
+    // (re)bind keyboard handlers, GSAP reveals, and image-fallback listeners
+    // that were set up too early (before Supabase data arrived).
+    document.dispatchEvent(new CustomEvent('portfolio:data-rendered'));
   }
 
   /* ============================================================
@@ -498,21 +513,28 @@
      INIT
      ============================================================ */
 
-  function createFab() {
-    if (document.getElementById('admin-fab')) return;
-    const fab = document.createElement('button');
-    fab.id = 'admin-fab';
-    fab.className = 'admin-fab';
-    fab.setAttribute('aria-label', 'Admin login');
-    fab.innerHTML = '+';
-    fab.onclick = openLoginModal;
-    document.body.appendChild(fab);
+  function wireAdminEntryPoints() {
+    const navLink = document.getElementById('nav-admin-link');
+    if (navLink) {
+      navLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        openLoginModal();
+      });
+    }
+    const mobileLink = document.getElementById('mobile-nav-admin-link');
+    if (mobileLink) {
+      mobileLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (typeof window.closeMobileNav === 'function') window.closeMobileNav();
+        openLoginModal();
+      });
+    }
   }
 
   window.PortfolioAdmin = { editProject, editCertificate, deleteItem };
 
   document.addEventListener('DOMContentLoaded', async () => {
-    createFab();
+    wireAdminEntryPoints();
     await initAuth();
     await refreshData();
   });
