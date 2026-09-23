@@ -7,42 +7,11 @@
 
 'use strict';
 
-/* ═══════════════ PARTICLES.JS CONFIG ═══════════════ */
-function initParticles() {
-  if (typeof particlesJS === 'undefined') return;
-
-  particlesJS('particles-js', {
-    particles: {
-      number: { value: 73, density: { enable: true, value_area: 900 } },
-      color: { value: ['#8a2be2', '#00d4ff', '#a855f7'] },
-      shape: { type: 'circle' },
-      opacity: {
-        value: .49,
-        random: true,
-        anim: { enable: true, speed: 0.6, opacity_min: 0.1, sync: false }
-      },
-      size: { value: 2.5, random: true, anim: { enable: false } },
-      line_linked: { enable: true, distance: 150, color: '#8a2be2', opacity: 0.12, width: 1 },
-      move: {
-        enable: true, speed: 1.5, direction: 'none',
-        random: true, straight: false, out_mode: 'out', bounce: false
-      }
-    },
-    interactivity: {
-      detect_on: 'canvas',
-      events: {
-        onhover: { enable: true, mode: 'grab' },
-        onclick: { enable: true, mode: 'push' },
-        resize: true
-      },
-      modes: {
-        grab: { distance: 160, line_linked: { opacity: 0.35 } },
-        push: { particles_nb: 3 }
-      }
-    },
-    retina_detect: true
-  });
-}
+/* ═══════════════ PARTICLES ═══════════════
+   The redesign uses a static grid background (see style.css)
+   instead of a particle field, so this is a no-op kept only
+   so any external call to initParticles() doesn't throw. */
+function initParticles() {}
 
 /* ═══════════════ SCROLL PROGRESS BAR ═══════════════ */
 function initScrollProgress() {
@@ -168,57 +137,25 @@ function initTyping() {
 }
 
 
-/* ═══════════════ SCRAMBLE TEXT EFFECT ═══════════════ */
+/* ═══════════════ NAME REVEAL ═══════════════
+   A single quiet reveal on load instead of a character-scramble
+   effect — the terminal prompt below already carries the "boot"
+   feeling, so the name itself just needs to settle in. */
 function initScrambleText() {
   const el = document.querySelector('.name');
   if (!el) return;
-
-  const finalText = el.textContent.trim();
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  let iteration = 0;
-  let frame;
-
-  // Mobile wrap fix
-  el.style.whiteSpace = 'nowrap';
-  el.style.overflow = 'hidden';
-  el.style.display = 'block';
-
-  // Immediately scramble so the plain name never flashes before the animation
-  el.textContent = finalText
-    .split('')
-    .map(char => (char === ' ' ? ' ' : chars[Math.floor(Math.random() * chars.length)]))
-    .join('');
-
-  function scramble() {
-    el.textContent = finalText
-      .split('')
-      .map((char, i) => {
-        if (char === ' ') return ' ';
-        if (i < Math.floor(iteration)) return finalText[i];
-        return chars[Math.floor(Math.random() * chars.length)];
-      })
-      .join('');
-
-    if (iteration < finalText.length) {
-      iteration += 0.18; // slower
-      frame = requestAnimationFrame(scramble);
-    } else {
-      el.textContent = finalText;
-      // restore after done
-      el.style.whiteSpace = '';
-      el.style.overflow = '';
-    }
-  }
-
-  // Short delay so the scramble is visible right as the hero appears
-  setTimeout(() => {
-    iteration = 0;
-    cancelAnimationFrame(frame);
-    scramble();
-  }, 300);
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(8px)';
+  requestAnimationFrame(() => {
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    el.style.opacity = '1';
+    el.style.transform = 'translateY(0)';
+  });
 }
 
-/* ═══════════════ GSAP SCROLL ANIMATIONS ═══════════════ */
+/* ═══════════════ GSAP SCROLL ANIMATIONS ═══════════════
+   One entrance per section, not one per element — one orchestrated
+   moment reads intentional; fade-up on every card reads templated. */
 function initGSAP() {
   if (typeof gsap === 'undefined') return;
   gsap.registerPlugin(ScrollTrigger);
@@ -228,41 +165,9 @@ function initGSAP() {
   document.querySelectorAll('.section').forEach(sec => {
     gsap.from(sec, {
       scrollTrigger: { trigger: sec, start: isMobile ? 'top 100%' : 'top 85%', once: true },
-      opacity: 0, y: 30, duration: 0.65, ease: 'power3.out',
+      opacity: 0, y: 22, duration: 0.6, ease: 'power2.out',
       clearProps: 'opacity,transform'
     });
-  });
-
-  if (!isMobile) {
-    gsap.from('.project-card', {
-      scrollTrigger: { trigger: '.project-container', start: 'top 82%', once: true, invalidateOnRefresh: true },
-      opacity: 0, y: 50, stagger: 0.12, duration: 0.7, ease: 'power3.out',
-      clearProps: 'opacity,transform'
-    });
-
-    gsap.from('.skill-group', {
-      scrollTrigger: { trigger: '.skills-wrapper', start: 'top 82%', once: true, invalidateOnRefresh: true },
-      opacity: 0, y: 36, stagger: 0.1, duration: 0.65, ease: 'power3.out',
-      clearProps: 'opacity,transform'
-    });
-  }
-
-  gsap.from('.highlight-card', {
-    scrollTrigger: { trigger: '.highlight-container', start: isMobile ? 'top 100%' : 'top 88%', once: true, invalidateOnRefresh: true },
-    opacity: 0, scale: 0.92, stagger: 0.1, duration: 0.55, ease: 'back.out(1.4)',
-    clearProps: 'opacity,transform'
-  });
-
-  gsap.from('.certificate-card', {
-    scrollTrigger: { trigger: '.cert-grid', start: isMobile ? 'top 100%' : 'top 80%', once: true, invalidateOnRefresh: true },
-    opacity: 0, y: 30, stagger: 0.1, duration: 0.6, ease: 'power3.out',
-    clearProps: 'opacity,transform'
-  });
-
-  gsap.from('.stat-item', {
-    scrollTrigger: { trigger: '.about-stats', start: isMobile ? 'top 100%' : 'top 82%', once: true, invalidateOnRefresh: true },
-    opacity: 0, x: 30, stagger: 0.12, duration: 0.6, ease: 'power3.out',
-    clearProps: 'opacity,transform'
   });
 
   setTimeout(() => ScrollTrigger.refresh(), 400);
