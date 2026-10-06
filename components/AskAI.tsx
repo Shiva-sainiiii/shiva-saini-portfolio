@@ -37,7 +37,7 @@ export default function AskAI() {
       <div ref={listRef} className="h-80 space-y-4 overflow-y-auto p-5 text-sm leading-relaxed">
         {!msgs.length && <p className="text-white/50">Hi! I&apos;m Shiva&apos;s AI assistant. Ask about his skills and projects, or any coding question.</p>}
         {msgs.map((m, i) => (
-          <p key={i} className={`whitespace-pre-wrap ${m.role === "user" ? "ml-auto max-w-[85%] rounded-2xl bg-white px-4 py-2 text-black" : "max-w-[90%] text-white/80"}`}>{m.content}</p>
+          <p key={i} className={`whitespace-pre-wrap ${m.role === "user" ? "ml-auto max-w-[85%] rounded-2xl bg-cyan-400 px-4 py-2 text-black" : "max-w-[90%] text-white/80"}`}>{m.content}</p>
         ))}
         {busy && <p className="text-white/40">Thinking…</p>}
       </div>
@@ -49,8 +49,8 @@ export default function AskAI() {
       </div>
       <form className="flex gap-3 p-5" onSubmit={(e) => { e.preventDefault(); send(input); }}>
         <input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Ask anything…" maxLength={500}
-          className="min-w-0 flex-1 rounded-full border border-white/15 bg-white/5 px-5 py-3 outline-none focus:border-white/50" />
-        <button disabled={busy} className="rounded-full bg-white px-6 py-3 text-sm font-medium text-black disabled:opacity-50">Send</button>
+          className="min-w-0 flex-1 rounded-full border border-white/15 bg-white/5 px-5 py-3 outline-none focus:border-cyan-400" />
+        <button disabled={busy} className="rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-black transition-colors hover:bg-cyan-300 disabled:opacity-50">Send</button>
       </form>
     </div>
   );

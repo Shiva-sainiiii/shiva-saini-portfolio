@@ -18,3 +18,8 @@ html, body { background: #000; color: #fff; -webkit-font-smoothing: antialiased;
 .typed::after { content: ""; display: inline-block; width: .55em; height: 1em; margin-left: 2px; vertical-align: -0.12em; background: currentColor; animation: blink 1s steps(1) infinite; }
 @keyframes blink { 50% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .typed::after { animation: none; } }
+
+/* Cyan accent (visiting card theme) */
+::selection { background: #22d3ee; color: #000; }
+.glow-text { text-shadow: 0 0 40px rgba(34, 211, 238, 0.55); }
+.glow-box { box-shadow: 0 0 24px rgba(34, 211, 238, 0.35), inset 0 0 12px rgba(34, 211, 238, 0.12); }

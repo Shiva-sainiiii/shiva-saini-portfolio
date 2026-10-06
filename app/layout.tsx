@@ -8,7 +8,7 @@ const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", displa
 // Purani site jaisa hi title/description — Google snippet aur ranking continuity ke liye
 const title = "Shiva Saini — Full Stack Web Developer | Portfolio & AI Chat";
 const description =
-  "Shiva Saini — Full Stack Web Developer Portfolio. Explore 10+ projects, certifications and skills in React, JavaScript, Next.js and AI integration. Available for opportunities.";
+  "Shiva Saini — freelance Full Stack Website Developer from Haryana, India. React, Next.js and AI-powered websites, Google Business setup. Free demo website.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -29,7 +29,7 @@ export const viewport: Viewport = { themeColor: "#000000" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={manrope.variable}>
+    <html lang="en-IN" className={manrope.variable}>
       <body className="font-sans">{children}</body>
     </html>
   );

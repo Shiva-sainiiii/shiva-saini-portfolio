@@ -4,7 +4,7 @@ import { addDoc, collection, limit, onSnapshot, orderBy, query, serverTimestamp 
 import { db } from "@/lib/firebase";
 
 type Review = { id: string; name: string; stars: number; message: string };
-const input = "w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 outline-none focus:border-white/50";
+const input = "w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 outline-none focus:border-cyan-400";
 
 const Stars = ({ n }: { n: number }) => (
   <span aria-label={`${n} out of 5`}>
@@ -50,12 +50,12 @@ export default function Feedback() {
           {[1, 2, 3, 4, 5].map((n) => (
             <button key={n} type="button" role="radio" aria-checked={stars === n} aria-label={`${n} stars`}
               onClick={() => setStars(n)} onMouseEnter={() => setHover(n)}
-              className={n <= (hover || stars) ? "text-white" : "text-white/20"}>★</button>
+              className={n <= (hover || stars) ? "text-cyan-400" : "text-white/20"}>★</button>
           ))}
         </div>
         <input className={input} placeholder="Your name" value={name} maxLength={60} onChange={(e) => setName(e.target.value)} />
         <textarea className={input} placeholder="Your feedback" rows={3} maxLength={500} required value={message} onChange={(e) => setMessage(e.target.value)} />
-        <button disabled={status === "sending"} className="rounded-full bg-white px-6 py-3 text-sm font-medium text-black disabled:opacity-50">
+        <button disabled={status === "sending"} className="rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-black transition-colors hover:bg-cyan-300 disabled:opacity-50">
           {status === "sending" ? "Sending…" : "Send feedback"}
         </button>
         {status === "done" && <p className="text-sm text-white/60">Thanks for the feedback.</p>}

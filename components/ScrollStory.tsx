@@ -41,6 +41,7 @@ const SCREEN_LINES = [
   "// coffee -> code -> magic",
   "design.meets(AI);",
   "npm run build:dreams",
+  "ideas -> websites -> growth",
   "scroll down. let's build.",
 ];
 
@@ -84,7 +85,7 @@ export default function ScrollStory() {
   const circleRefs = useRef<(HTMLDivElement | null)[]>([]);
   const overlayRef = useRef<HTMLDivElement>(null);
   const nameRef = useRef<HTMLHeadingElement>(null);
-  const tagRef = useRef<HTMLParagraphElement>(null);
+  const tagRef = useRef<HTMLDivElement>(null);
   const hintRef = useRef<HTMLDivElement>(null);
   const screenRef = useRef<HTMLDivElement>(null);
   const typedRef = useRef<HTMLParagraphElement>(null);
@@ -231,11 +232,15 @@ export default function ScrollStory() {
             ref={nameRef}
             className="text-[clamp(2.75rem,11vw,9rem)] font-extrabold leading-none tracking-tight opacity-0"
           >
-            {SITE.name}
+            {SITE.name.split(" ")[0]} <span className="glow-text text-cyan-400">{SITE.name.split(" ").slice(1).join(" ")}</span>
           </h1>
-          <p ref={tagRef} className="mt-8 max-w-3xl text-xs tracking-[0.25em] text-white/60 opacity-0 md:text-sm">
-            {SITE.tagline}
-          </p>
+          <div ref={tagRef} className="mt-8 flex max-w-3xl flex-col items-center opacity-0">
+            <p className="text-xs tracking-[0.25em] text-white/60 md:text-sm">{SITE.tagline}</p>
+            <p className="mt-4 text-xs tracking-[0.3em] text-cyan-300 md:text-sm">{SITE.motto}</p>
+            <a href={SITE.whatsappUrl} target="_blank" rel="noreferrer" className="glow-box group inline-flex items-center rounded-full border-2 border-cyan-400 px-7 py-3 text-xs font-bold tracking-widest transition-colors hover:bg-cyan-400 hover:text-black md:text-sm mt-8">
+              FREE&nbsp;<span className="text-cyan-300 transition-colors group-hover:text-black">DEMO WEBSITE</span>
+            </a>
+          </div>
         </div>
 
         <div ref={hintRef} className="absolute bottom-8 left-1/2 -translate-x-1/2 text-xs tracking-[0.3em] text-white/70">

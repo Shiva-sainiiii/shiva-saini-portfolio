@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
-import { EXPERIENCE, SITE } from "@/lib/data";
+import { EXPERIENCE, SERVICES, SITE } from "@/lib/data";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -20,6 +20,7 @@ Only state facts about Shiva from the info below. If something is not covered, s
 About: ${SITE.about}
 Role: ${SITE.role}. Location: ${SITE.location}. Available for opportunities.
 Experience: ${EXPERIENCE.map((e) => `${e.company} (${e.role}, ${e.period})`).join("; ")}
+Freelance services: ${SERVICES.map((s) => s.title).join(", ")}. A free demo website is offered. Phone/WhatsApp: ${SITE.phone}.
 Skills: ${skills}
 Projects:\n${projects}`;
 }
