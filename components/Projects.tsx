@@ -22,7 +22,7 @@ export default function Projects({ items }: { items: Project[] }) {
                   {p.tech && (
                     <ul className="mt-4 flex flex-wrap gap-2 text-xs text-white/70">
                       {p.tech.split(",").map((t) => (
-                        <li key={t} className="rounded-full border border-cyan-400/30 px-3 py-1">{t.trim()}</li>
+                        <li key={t} className="rounded-full border border-accent2/40 px-3 py-1">{t.trim()}</li>
                       ))}
                     </ul>
                   )}

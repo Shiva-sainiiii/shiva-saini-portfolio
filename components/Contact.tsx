@@ -23,12 +23,12 @@ export default function Contact({ links }: { links: LinkItem[] }) {
 
   return (
     <div>
-      <p className="mb-6 text-xl italic text-cyan-300 md:text-3xl">Let&apos;s build something great.</p>
+      <p className="mb-6 text-xl italic text-accent2 md:text-3xl">Let&apos;s build something great.</p>
       <a href={`mailto:${SITE.email}`} className="break-all text-2xl font-semibold underline-offset-8 hover:underline md:text-5xl">{SITE.email}</a>
       <p className="mt-4 text-white/40">{SITE.location}</p>
       <div className="mt-8 flex flex-wrap gap-3">
         <a href={SITE.whatsappUrl} target="_blank" rel="noreferrer" className="glow-box rounded-full border-2 border-cyan-400 px-6 py-3 text-sm font-bold tracking-wide transition-colors hover:bg-cyan-400 hover:text-black">WhatsApp {SITE.phone}</a>
-        <a href={`tel:${SITE.phoneRaw}`} className="rounded-full border border-white/20 px-6 py-3 text-sm font-medium transition-colors hover:border-cyan-400 hover:text-cyan-300">Call now</a>
+        <a href={`tel:${SITE.phoneRaw}`} className="rounded-full border border-white/20 px-6 py-3 text-sm font-medium transition-colors hover:border-accent2 hover:text-accent2">Call now</a>
       </div>
 
       <form onSubmit={submit} className="mt-12 space-y-4">

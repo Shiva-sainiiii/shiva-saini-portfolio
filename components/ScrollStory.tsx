@@ -232,7 +232,7 @@ export default function ScrollStory() {
             ref={nameRef}
             className="text-[clamp(2.75rem,11vw,9rem)] font-extrabold leading-none tracking-tight opacity-0"
           >
-            {SITE.name.split(" ")[0]} <span className="glow-text text-cyan-400">{SITE.name.split(" ").slice(1).join(" ")}</span>
+            {SITE.name.split(" ")[0]} <span className="inline-block bg-gradient-to-r from-cyan-400 to-accent2 bg-clip-text text-transparent drop-shadow-[0_0_28px_rgba(34,211,238,0.45)]">{SITE.name.split(" ").slice(1).join(" ")}</span>
           </h1>
           <div ref={tagRef} className="mt-8 flex max-w-3xl flex-col items-center opacity-0">
             <p className="text-xs tracking-[0.25em] text-white/60 md:text-sm">{SITE.tagline}</p>

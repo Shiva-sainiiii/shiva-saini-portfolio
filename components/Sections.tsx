@@ -47,9 +47,10 @@ export default function Sections({ initial }: { initial: Content }) {
           Ideas <span className="text-cyan-400">→</span> Websites <span className="text-cyan-400">→</span> Growth
         </p>
         <ul className="mt-12 grid gap-4 sm:grid-cols-2">
-          {SERVICES.map((s) => (
-            <li key={s.title} className="rounded-2xl border border-cyan-400/20 bg-cyan-400/[0.03] p-6 transition-colors hover:border-cyan-400/60 hover:bg-cyan-400/[0.07]">
-              <h3 className="text-xl font-semibold">{s.title}</h3>
+          {SERVICES.map((s, n) => (
+            <li key={s.title} className="rounded-2xl border border-cyan-400/20 bg-cyan-400/[0.03] p-6 transition-colors hover:border-accent2/60 hover:bg-accent2/[0.07]">
+              <span className="text-xs font-semibold tracking-widest text-accent2">0{n + 1}</span>
+              <h3 className="mt-3 text-xl font-semibold">{s.title}</h3>
               <p className="mt-2 text-white/50">{s.note}</p>
             </li>
           ))}
@@ -57,7 +58,7 @@ export default function Sections({ initial }: { initial: Content }) {
         <a href={SITE.whatsappUrl} target="_blank" rel="noreferrer" className="glow-box group inline-flex items-center rounded-full border-2 border-cyan-400 px-7 py-3 text-xs font-bold tracking-widest transition-colors hover:bg-cyan-400 hover:text-black md:text-sm mt-10">
           FREE&nbsp;<span className="text-cyan-300 transition-colors group-hover:text-black">DEMO WEBSITE</span>
         </a>
-        <h3 className="mt-16 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-400">Our team</h3>
+        <h3 className="mt-16 text-xs font-semibold uppercase tracking-[0.2em] text-accent2">Our team</h3>
         <ul className="mt-6 grid gap-6 sm:grid-cols-2">
           {TEAM.map((t) => (
             <li key={t.name}>
