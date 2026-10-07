@@ -49,6 +49,9 @@ export default function Sections({ initial }: { initial: Content }) {
   const { projects, skills, certificates, links } = useContent(initial);
   return (
     <div className="page-ground relative text-ink">
+      {/* B3: film grain (multi-colour). SABSE PEHLA child + z-index nahi => section content (cards, chips, images, text) iske upar paint hota hai,
+          grain sirf background ke saath blend hota hai. Isko neeche ya z-index ke saath mat le jana. */}
+      <div aria-hidden className="grain pointer-events-none absolute inset-0" />
       <Section id="about" title="About me" side="r">
         <p className="text-3xl font-light leading-snug text-white md:text-5xl">{SITE.bio}</p>
         <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink">{SITE.about}</p>
@@ -100,8 +103,6 @@ export default function Sections({ initial }: { initial: Content }) {
 
       <footer className="relative border-t border-line px-6 py-10 text-center text-sm text-mute/80">© {new Date().getFullYear()} {SITE.name}</footer>
 
-      {/* B3: film grain, sabse upar lekin lightbox (z-50) aur navbar (z-40) ke neeche */}
-      <div aria-hidden className="grain pointer-events-none absolute inset-0 z-20" />
     </div>
   );
 }

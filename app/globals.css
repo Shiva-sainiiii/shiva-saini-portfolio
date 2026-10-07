@@ -68,10 +68,15 @@ html { scrollbar-width: thin; scrollbar-color: rgb(var(--accent2)) #000; }
   mask-image: radial-gradient(ellipse 70% 55% at var(--gx, 86%) 40%, #000, transparent 75%);
 }
 
-/* Film grain ~3%: SVG noise tile, alpha SVG ke andar hi baked hai (opacity property nahi, taaki lambe page pe
-   bhaari GPU layer na bane). Zyada/kam chahiye to feColorMatrix ke last 2 numbers (.6 -.3) badlo:
-   ".5 -.25" = kam, ".8 -.4" = zyada. */
+/* Film grain ~3%, MULTI-COLOUR: cyan -> violet -> pink ka halka gradient wash, upar se speck noise.
+   Ye sirf background layer hai: Sections.tsx me sabse pehla child hai, isliye cards / chips / images ke NEECHE paint hota hai.
+   Alpha SVG ke andar baked hai (opacity/mask nahi, taaki lambe page pe bhaari GPU layer na bane); tile 240px, seamless.
+   Strength: feColorMatrix ke last 2 numbers (.75 -.35). Kam = ".6 -.3", zyada = ".9 -.42".
+   Colours: feFuncR/G/B tableValues (cyan #22d3ee -> violet #a78bfa -> pink #f472b6). */
 .grain {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 -.3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g' filterUnits='userSpaceOnUse' x='0' y='0' width='240' height='240' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.004' numOctaves='2' seed='3' stitchTiles='stitch' result='h'/%3E%3CfeColorMatrix in='h' type='matrix' values='6 0 0 0 -2.5 6 0 0 0 -2.5 6 0 0 0 -2.5 0 0 0 0 1' result='h2'/%3E%3CfeComponentTransfer in='h2' result='pal'%3E%3CfeFuncR type='table' tableValues='.13 .65 .96'/%3E%3CfeFuncG type='table' tableValues='.83 .55 .45'/%3E%3CfeFuncB type='table' tableValues='.93 .98 .71'/%3E%3C/feComponentTransfer%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch' result='s'/%3E%3CfeColorMatrix in='s' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .75 -.35' result='sa'/%3E%3CfeComposite in='pal' in2='sa' operator='in'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 240px 240px;
 }
+
+/* Chip (tech tags): accent2 tint ke saath OPAQUE, taaki neeche ka grain chip ke andar na dikhe */
+.chip { background: linear-gradient(rgb(var(--accent2) / 0.07), rgb(var(--accent2) / 0.07)), rgb(var(--surface)); }
