@@ -1,4 +1,5 @@
 import { SITE } from "@/lib/data";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 // Section ids Sections.tsx ke andar wale ids se match hone chahiye
 const NAV = [
@@ -34,6 +35,7 @@ export default function Navbar() {
           </ul>
 
           <div className="flex items-center gap-2">
+            <ThemeSwitcher />
             <a
               href={SITE.whatsappUrl}
               target="_blank"

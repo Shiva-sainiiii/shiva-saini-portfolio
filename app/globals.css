@@ -24,5 +24,7 @@ html, body { background: #000; color: #fff; -webkit-font-smoothing: antialiased;
 .glow-text { text-shadow: 0 0 40px rgba(34, 211, 238, 0.55); }
 .glow-box { box-shadow: 0 0 24px rgba(34, 211, 238, 0.35), inset 0 0 12px rgba(34, 211, 238, 0.12); }
 
-/* Scrollbar: violet thumb on black */
-html { scrollbar-width: thin; scrollbar-color: #a78bfa #000; }
+:root { --accent2: 167 139 250; } /* default violet — ThemeSwitcher isse badalta hai */
+
+/* Scrollbar: accent2 thumb on black */
+html { scrollbar-width: thin; scrollbar-color: rgb(var(--accent2)) #000; }
