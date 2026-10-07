@@ -24,7 +24,7 @@ export default function Navbar() {
 
         <div className="flex items-center gap-8">
           {/* Mobile pe links hide — wahan sirf Resume button dikhega */}
-          <ul className="hidden items-center gap-8 text-sm text-white/70 md:flex">
+          <ul className="hidden items-center gap-8 text-sm text-ink md:flex">
             {NAV.map((n) => (
               <li key={n.href}>
                 <a href={n.href} className="transition-colors hover:text-white focus-visible:text-white">

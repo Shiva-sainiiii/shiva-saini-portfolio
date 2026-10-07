@@ -12,6 +12,8 @@
   --surface-2: 19 22 29;    /* #13161d  card hover */
   --ink: 212 215 221;       /* #d4d7dd  body text */
   --mute: 154 160 166;      /* #9aa0a6  secondary text */
+  --ink-dim: 171 174 179;   /* #abaeb3  ink ka dim version, SOLID */
+  --faint: 74 78 84;        /* #4a4e54  decorative glyphs, SOLID */
   --line: rgb(255 255 255 / 0.08);
   --line-2: rgb(255 255 255 / 0.16);
   --glow: 0.12;             /* section glow strength (0.10–0.15) */
@@ -80,3 +82,11 @@ html { scrollbar-width: thin; scrollbar-color: rgb(var(--accent2)) #000; }
 
 /* Chip (tech tags): accent2 tint ke saath OPAQUE, taaki neeche ka grain chip ke andar na dikhe */
 .chip { background: linear-gradient(rgb(var(--accent2) / 0.07), rgb(var(--accent2) / 0.07)), rgb(var(--surface)); }
+
+/* TEXT PE GRAIN NAHI: grain background layer hai, par translucent text (text-white/60 jaisa) ke andar se neeche ka grain dikh jaata hai.
+   Isliye grain-wale area me text ke liye hamesha SOLID colour (mute / ink / inkdim / faint / dim-accent), alpha wali classes nahi.
+   dim-accent = accent2 ka 70% mix, theme ke saath badalta hai, par opaque. */
+.dim-accent {
+  color: rgb(var(--accent2));
+  color: color-mix(in srgb, rgb(var(--accent2)) 70%, rgb(var(--bg)));
+}

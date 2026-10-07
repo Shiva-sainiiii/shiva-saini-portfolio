@@ -7,10 +7,10 @@ export default function Projects({ items }: { items: Project[] }) {
       {items.map((p) => (
         <li key={p.id} tabIndex={0} className="group border-b border-line py-8 outline-none first:pt-0">
           <div className="flex items-baseline justify-between gap-4">
-            <h3 className="text-3xl font-semibold text-white/60 transition-colors group-hover:text-cyan-300 group-focus:text-cyan-300 md:text-5xl">
+            <h3 className="text-3xl font-semibold text-mute transition-colors group-hover:text-cyan-300 group-focus:text-cyan-300 md:text-5xl">
               {p.title}
             </h3>
-            <span className="hidden text-3xl text-mute/60 transition-transform duration-500 group-hover:rotate-45 group-focus:rotate-45 md:block">+</span>
+            <span className="hidden text-3xl text-faint transition-transform duration-500 group-hover:rotate-45 group-focus:rotate-45 md:block">+</span>
           </div>
           <div className="grid transition-[grid-template-rows] duration-500 md:grid-rows-[0fr] md:group-hover:grid-rows-[1fr] md:group-focus:grid-rows-[1fr]">
             <div className="overflow-hidden">

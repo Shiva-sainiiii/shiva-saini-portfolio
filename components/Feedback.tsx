@@ -8,7 +8,7 @@ const input = "w-full rounded-lg border border-line2 bg-surface px-4 py-3 text-w
 
 const Stars = ({ n }: { n: number }) => (
   <span aria-label={`${n} out of 5`} className="text-accent2">
-    {"★".repeat(n)}<span className="text-white/20">{"★".repeat(5 - n)}</span>
+    {"★".repeat(n)}<span className="text-faint">{"★".repeat(5 - n)}</span>
   </span>
 );
 
@@ -50,7 +50,7 @@ export default function Feedback() {
           {[1, 2, 3, 4, 5].map((n) => (
             <button key={n} type="button" role="radio" aria-checked={stars === n} aria-label={`${n} stars`}
               onClick={() => setStars(n)} onMouseEnter={() => setHover(n)}
-              className={n <= (hover || stars) ? "text-accent2" : "text-white/20"}>★</button>
+              className={n <= (hover || stars) ? "text-accent2" : "text-faint"}>★</button>
           ))}
         </div>
         <input className={input} placeholder="Your name" value={name} maxLength={60} onChange={(e) => setName(e.target.value)} />

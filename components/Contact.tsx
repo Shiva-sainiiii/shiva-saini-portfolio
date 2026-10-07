@@ -27,8 +27,8 @@ export default function Contact({ links }: { links: LinkItem[] }) {
       <a href={`mailto:${SITE.email}`} className="break-all text-2xl font-semibold text-white underline-offset-8 hover:text-cyan-300 hover:underline md:text-5xl">{SITE.email}</a>
       <p className="mt-4 text-mute">{SITE.location}</p>
       <div className="mt-8 flex flex-wrap gap-3">
-        <a href={SITE.whatsappUrl} target="_blank" rel="noreferrer" className="glow-box rounded-full border-2 border-cyan-400 px-6 py-3 text-sm font-bold tracking-wide transition-colors hover:bg-cyan-400 hover:text-black">WhatsApp {SITE.phone}</a>
-        <a href={`tel:${SITE.phoneRaw}`} className="rounded-full border border-line2 px-6 py-3 text-sm font-medium text-white transition-colors hover:border-cyan-400 hover:text-cyan-300">Call now</a>
+        <a href={SITE.whatsappUrl} target="_blank" rel="noreferrer" className="glow-box rounded-full border-2 border-cyan-400 bg-ground px-6 py-3 text-sm font-bold tracking-wide transition-colors hover:bg-cyan-400 hover:text-black">WhatsApp {SITE.phone}</a>
+        <a href={`tel:${SITE.phoneRaw}`} className="rounded-full border border-line2 bg-ground px-6 py-3 text-sm font-medium text-white transition-colors hover:border-cyan-400 hover:text-cyan-300">Call now</a>
       </div>
 
       <form onSubmit={submit} className="mt-12 space-y-4">
@@ -44,9 +44,9 @@ export default function Contact({ links }: { links: LinkItem[] }) {
         {status === "error" && <p className="text-sm text-red-400">Could not send. Please email me directly.</p>}
       </form>
 
-      <ul className="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-mute">
+      <ul className="mt-12 flex flex-wrap gap-3 text-sm">
         {links.map((l) => (
-          <li key={l.id}><a href={l.url} target="_blank" rel="noreferrer" className="transition-colors hover:text-cyan-300">{l.label}</a></li>
+          <li key={l.id}><a href={l.url} target="_blank" rel="noreferrer" className="inline-block rounded-full border border-line2 bg-surface px-4 py-2 text-ink transition-colors hover:border-cyan-400 hover:text-cyan-300">{l.label}</a></li>
         ))}
       </ul>
     </div>

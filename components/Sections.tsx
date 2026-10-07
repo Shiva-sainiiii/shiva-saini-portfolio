@@ -39,7 +39,7 @@ const Section = ({ id, title, wide, side = "r", children }: { id: string; title:
 
 const Row = ({ title, note }: { title: string; note: string }) => (
   <li className="group flex flex-col gap-2 border-b border-line py-8 first:pt-0 md:flex-row md:items-baseline md:justify-between">
-    <h3 className="text-3xl font-semibold text-white/90 transition-colors group-hover:text-accent2 md:text-5xl">{title}</h3>
+    <h3 className="text-3xl font-semibold text-white transition-colors group-hover:text-accent2 md:text-5xl">{title}</h3>
     <p className="max-w-xs text-mute transition-colors group-hover:text-ink">{note}</p>
   </li>
 );
@@ -71,7 +71,7 @@ export default function Sections({ initial }: { initial: Content }) {
             </li>
           ))}
         </ul>
-        <a href={SITE.whatsappUrl} target="_blank" rel="noreferrer" className="glow-box group inline-flex items-center rounded-full border-2 border-cyan-400 px-7 py-3 text-xs font-bold tracking-widest text-white transition-colors hover:bg-cyan-400 hover:text-black md:text-sm mt-10">
+        <a href={SITE.whatsappUrl} target="_blank" rel="noreferrer" className="glow-box group inline-flex items-center rounded-full border-2 border-cyan-400 bg-ground px-7 py-3 text-xs font-bold tracking-widest text-white transition-colors hover:bg-cyan-400 hover:text-black md:text-sm mt-10">
           FREE&nbsp;<span className="text-cyan-300 transition-colors group-hover:text-black">DEMO WEBSITE</span>
         </a>
         <h3 className="mt-16 text-xs font-semibold uppercase tracking-[0.2em] text-accent2">Our team</h3>
@@ -101,7 +101,7 @@ export default function Sections({ initial }: { initial: Content }) {
         <Contact links={[...links, { id: "resume", label: "Resume", url: SITE.resume }]} />
       </Section>
 
-      <footer className="relative border-t border-line px-6 py-10 text-center text-sm text-mute/80">© {new Date().getFullYear()} {SITE.name}</footer>
+      <footer className="relative border-t border-line px-6 py-10 text-center text-sm text-mute">© {new Date().getFullYear()} {SITE.name}</footer>
 
     </div>
   );

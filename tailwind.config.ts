@@ -12,6 +12,8 @@ const config: Config = {
         surface2: "rgb(var(--surface-2) / <alpha-value>)", // card hover
         ink: "rgb(var(--ink) / <alpha-value>)",            // body text
         mute: "rgb(var(--mute) / <alpha-value>)",          // secondary text
+        inkdim: "rgb(var(--ink-dim) / <alpha-value>)",     // dim text (SOLID — alpha nahi, taaki grain glyph ke andar na dikhe)
+        faint: "rgb(var(--faint) / <alpha-value>)",        // decorative glyphs (+, inactive stars) — SOLID
         line: "var(--line)",                                // border white/8
         line2: "var(--line-2)",                             // border (inputs / hover)
       },
