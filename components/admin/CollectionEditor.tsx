@@ -36,16 +36,20 @@ export default function CollectionEditor({ table, fields, readOnly = false }: { 
 
   const save = async () => {
     setBusy(true);
-    const { error } = editing ? await db.from(table).update(draft).eq("id", editing) : await db.from(table).insert({ ...draft, position: rows.length });
+    const res = editing
+      ? await db.from(table).update(draft).eq("id", editing).select("id")
+      : await db.from(table).insert({ ...draft, position: rows.length }).select("id");
     setBusy(false);
-    if (error) return setMsg(error.message);
+    if (res.error) return setMsg(res.error.message);
+    // RLS update/delete ko chupchaap 0 rows pe rok deta hai (error nahi deta) — isliye length check
+    if (!res.data?.length) return setMsg("Not saved: Supabase blocked this write. Admin email in is_admin() must match your login email.");
     setDraft({}); setEditing(null); setMsg("Saved ✓"); load();
   };
 
   const remove = async (id: string) => {
     if (!confirm("Delete this item?")) return;
-    const { error } = await db.from(table).delete().eq("id", id);
-    setMsg(error?.message ?? ""); load();
+    const { data, error } = await db.from(table).delete().eq("id", id).select("id");
+    setMsg(error?.message ?? (data?.length ? "" : "Delete blocked by Supabase. Admin email in is_admin() must match your login email.")); load();
   };
 
   // Swap karke poori list ko 0..n position dobara de dete hain (gaps se bachne ke liye)

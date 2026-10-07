@@ -56,7 +56,10 @@ export default function AdminPage() {
   return (
     <div className={shell}>
       <div className="mb-8 flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">Admin</h1>
+        <div>
+          <h1 className="text-2xl font-semibold">Admin</h1>
+          <p className="mt-1 text-xs text-white/40">Signed in as {session.user.email}</p>
+        </div>
         <button onClick={() => supabase!.auth.signOut()} className="text-sm text-white/50 hover:text-white">Sign out</button>
       </div>
       <div className="mb-6 flex flex-wrap gap-2">

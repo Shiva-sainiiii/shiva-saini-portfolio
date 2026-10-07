@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import Markdown from "./Markdown";
 
 type Msg = { role: "user" | "assistant"; content: string };
 const SUGGESTIONS = ["What are Shiva's skills?", "Tell me about his projects", "Is he available to hire?", "Explain async/await in JS"];
@@ -37,7 +38,11 @@ export default function AskAI() {
       <div ref={listRef} className="h-80 space-y-4 overflow-y-auto p-5 text-sm leading-relaxed">
         {!msgs.length && <p className="text-white/50">Hi! I&apos;m Shiva&apos;s AI assistant. Ask about his skills and projects, or any coding question.</p>}
         {msgs.map((m, i) => (
-          <p key={i} className={`whitespace-pre-wrap ${m.role === "user" ? "ml-auto max-w-[85%] rounded-2xl bg-cyan-400 px-4 py-2 text-black" : "max-w-[90%] text-white/80"}`}>{m.content}</p>
+          m.role === "user" ? (
+            <p key={i} className="ml-auto max-w-[85%] whitespace-pre-wrap rounded-2xl bg-cyan-400 px-4 py-2 text-black">{m.content}</p>
+          ) : (
+            <div key={i} className="max-w-[90%] text-white/80"><Markdown text={m.content} /></div>
+          )
         ))}
         {busy && <p className="text-white/40">Thinking…</p>}
       </div>
