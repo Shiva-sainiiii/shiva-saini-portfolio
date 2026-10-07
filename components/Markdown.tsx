@@ -13,7 +13,7 @@ function inline(text: string): ReactNode[] {
     if (m.index > last) out.push(text.slice(last, m.index));
     const t = m[0];
     const key = out.length;
-    if (m[1]) out.push(<code key={key} className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.85em] text-cyan-200">{t.slice(1, -1)}</code>);
+    if (m[1]) out.push(<code key={key} className="rounded border border-line bg-ground px-1.5 py-0.5 font-mono text-[0.85em] text-accent2">{t.slice(1, -1)}</code>);
     else if (m[2]) out.push(<strong key={key} className="font-semibold text-white">{inline(t.slice(2, -2))}</strong>);
     else if (m[3]) out.push(<em key={key}>{inline(t.slice(1, -1))}</em>);
     else {
@@ -44,7 +44,7 @@ export default function Markdown({ text }: { text: string }) {
       i++;
       while (i < lines.length && !isFence(lines[i])) code.push(lines[i++]);
       i++; // closing fence
-      blocks.push(<pre key={key} className="overflow-x-auto rounded-lg bg-white/5 p-3 font-mono text-xs leading-relaxed text-white/90"><code>{code.join("\n")}</code></pre>);
+      blocks.push(<pre key={key} className="overflow-x-auto rounded-lg border border-line bg-ground p-3 font-mono text-xs leading-relaxed text-white/90"><code>{code.join("\n")}</code></pre>);
     } else if (isHead(line)) {
       blocks.push(<p key={key} className="font-semibold text-white">{inline(line.replace(/^#{1,6}\s+/, ""))}</p>);
       i++;

@@ -34,27 +34,27 @@ export default function AskAI() {
   };
 
   return (
-    <div className="rounded-2xl border border-white/10">
+    <div className="rounded-2xl border border-line bg-surface">
       <div ref={listRef} className="h-80 space-y-4 overflow-y-auto p-5 text-sm leading-relaxed">
-        {!msgs.length && <p className="text-white/50">Hi! I&apos;m Shiva&apos;s AI assistant. Ask about his skills and projects, or any coding question.</p>}
+        {!msgs.length && <p className="text-mute">Hi! I&apos;m Shiva&apos;s AI assistant. Ask about his skills and projects, or any coding question.</p>}
         {msgs.map((m, i) => (
           m.role === "user" ? (
-            <p key={i} className="ml-auto max-w-[85%] whitespace-pre-wrap rounded-2xl bg-cyan-400 px-4 py-2 text-black">{m.content}</p>
+            <p key={i} className="ml-auto max-w-[85%] whitespace-pre-wrap rounded-2xl border border-accent2/30 bg-accent2/15 px-4 py-2 text-white">{m.content}</p>
           ) : (
-            <div key={i} className="max-w-[90%] text-white/80"><Markdown text={m.content} /></div>
+            <div key={i} className="max-w-[90%] text-ink"><Markdown text={m.content} /></div>
           )
         ))}
-        {busy && <p className="text-white/40">Thinking…</p>}
+        {busy && <p className="text-mute">Thinking…</p>}
       </div>
 
-      <div className="flex flex-wrap gap-2 border-t border-white/10 px-5 pt-4">
+      <div className="flex flex-wrap gap-2 border-t border-line px-5 pt-4">
         {SUGGESTIONS.map((s) => (
-          <button key={s} onClick={() => send(s)} className="rounded-full border border-white/15 px-3 py-1 text-xs text-white/60 transition-colors hover:text-white">{s}</button>
+          <button key={s} onClick={() => send(s)} className="rounded-full border border-line2 px-3 py-1 text-xs text-mute transition-colors hover:border-cyan-400/60 hover:text-cyan-300">{s}</button>
         ))}
       </div>
       <form className="flex gap-3 p-5" onSubmit={(e) => { e.preventDefault(); send(input); }}>
         <input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Ask anything…" maxLength={500}
-          className="min-w-0 flex-1 rounded-full border border-white/15 bg-white/5 px-5 py-3 outline-none focus:border-cyan-400" />
+          className="min-w-0 flex-1 rounded-full border border-line2 bg-ground px-5 py-3 text-white outline-none placeholder:text-mute/70 focus:border-cyan-400" />
         <button disabled={busy} className="rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-black transition-colors hover:bg-cyan-300 disabled:opacity-50">Send</button>
       </form>
     </div>
