@@ -14,6 +14,8 @@ const SCENE_MS = 1500;   // orb + terrain + bg fade-in
 const LOGO_DELAY = 350;  // scene ke baad S shuru
 const LOGO_MS = 3200;    // S ke assemble ka total time
 const RAMP = 0.22;       // har cell kitni der "scramble" rehta hai (0..1 of progress)
+// Upar se neeche: 0% transparent -> 32% poora dikhta hai (smooth, multi-stop). Zyada blend chahiye to 32% ko 45% kar do.
+const BLEND = "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.08) 6%, rgba(0,0,0,0.3) 14%, rgba(0,0,0,0.65) 23%, #000 34%)";
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
 const smooth = (t: number) => t * t * (3 - 2 * t);
 
@@ -177,7 +179,9 @@ export default function AsciiHero() {
 
   return (
     <section ref={wrapRef} aria-label={`${SITE.name} — ${SITE.role}`} className="relative h-[88svh] min-h-[520px] w-full overflow-hidden bg-black md:h-svh">
-      <canvas ref={cvRef} aria-hidden="true" className="absolute inset-0 h-full w-full" />
+      {/* Top blend: canvas ka upar ka hissa gradient mask se pure black me ghul jaata hai, taaki ScrollStory (clean black + naam)
+          aur ASCII ke beech koi hard edge na dikhe. Mask poori canvas (chars, orb, terrain, S) pe lagta hai. */}
+      <canvas ref={cvRef} aria-hidden="true" className="absolute inset-0 h-full w-full" style={{ WebkitMaskImage: BLEND, maskImage: BLEND }} />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between gap-4 px-6 pb-8 font-mono text-[10px] uppercase tracking-[0.2em] text-mute md:px-12 md:pb-12 md:text-sm">
         <span className="flex items-center gap-3"><span className="inline-block h-2.5 w-2.5 bg-accent2" />Full-stack developer</span>
         <span className="hidden sm:block">{SITE.motto}</span>
