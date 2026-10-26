@@ -1,4 +1,5 @@
 import { SITE } from "@/lib/data";
+import MobileMenu from "./MobileMenu";
 import ThemeSwitcher from "./ThemeSwitcher";
 
 // Section ids Sections.tsx ke andar wale ids se match hone chahiye
@@ -17,7 +18,7 @@ const NAV = [
 export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-40 bg-gradient-to-b from-black/75 via-black/30 to-transparent">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8 md:py-5">
+      <nav className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8 md:py-5">
         <a href="#" className="text-base font-semibold tracking-tight md:text-lg">
           Shiva <span className="text-accent2">Saini</span>
         </a>
@@ -52,6 +53,8 @@ export default function Navbar() {
             >
               Resume
             </a>
+            {/* Mobile pe nav links ka menu (md se upar hide) */}
+            <MobileMenu links={NAV} resume={SITE.resume} demo={SITE.whatsappUrl} />
           </div>
         </div>
       </nav>

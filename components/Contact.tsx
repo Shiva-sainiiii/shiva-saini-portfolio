@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { SITE } from "@/lib/data";
 import type { LinkItem } from "@/lib/content";
@@ -8,16 +8,21 @@ const input = "w-full rounded-lg border border-line2 bg-surface px-4 py-3 text-w
 
 export default function Contact({ links }: { links: LinkItem[] }) {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [hp, setHp] = useState(""); // honeypot: bots bharte hain, insaan nahi dekhta
+  const lastSent = useRef(0);
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setForm({ ...form, [k]: e.target.value });
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (hp) { setStatus("done"); return; } // bot: chupchap success dikha do, bheji kuch nahi
+    if (Date.now() - lastSent.current < 30_000) { setStatus("error"); return; } // 30s cooldown
     // Supabase na ho to mail app khul jaayegi
     if (!supabase) { window.location.href = `mailto:${SITE.email}?body=${encodeURIComponent(form.message)}`; return; }
     setStatus("sending");
-    const { error } = await supabase.from("messages").insert(form);
+    const { error } = await supabase.from("messages").insert({ name: form.name.trim(), email: form.email.trim(), message: form.message.trim() });
     if (error) return setStatus("error");
+    lastSent.current = Date.now();
     setForm({ name: "", email: "", message: "" }); setStatus("done");
   };
 
@@ -32,9 +37,10 @@ export default function Contact({ links }: { links: LinkItem[] }) {
       </div>
 
       <form onSubmit={submit} className="mt-12 space-y-4">
+        <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" value={hp} onChange={(e) => setHp(e.target.value)} className="absolute -left-[9999px] h-0 w-0 opacity-0" />
         <div className="grid gap-4 sm:grid-cols-2">
-          <input className={input} placeholder="Name" required value={form.name} onChange={set("name")} />
-          <input className={input} type="email" placeholder="Email" required value={form.email} onChange={set("email")} />
+          <input className={input} placeholder="Name" required maxLength={80} value={form.name} onChange={set("name")} />
+          <input className={input} type="email" placeholder="Email" required maxLength={120} value={form.email} onChange={set("email")} />
         </div>
         <textarea className={input} placeholder="Message" rows={4} required maxLength={2000} value={form.message} onChange={set("message")} />
         <button disabled={status === "sending"} className="rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-black transition-colors hover:bg-cyan-300 disabled:opacity-50">
