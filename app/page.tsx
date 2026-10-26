@@ -1,3 +1,4 @@
+import AsciiHero from "@/components/AsciiHero";
 import Navbar from "@/components/Navbar";
 import ScrollStory from "@/components/ScrollStory";
 import Sections from "@/components/Sections";
@@ -28,6 +29,7 @@ export default async function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navbar />
       <ScrollStory />
+      <AsciiHero />
       <Sections initial={content} />
     </main>
   );
