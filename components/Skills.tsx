@@ -10,7 +10,7 @@ export default function Skills({ items }: { items: Skill[] }) {
       {rows.map((row, r) => (
         <div key={r} className="marquee flex w-max gap-14 text-4xl font-light md:text-6xl" style={{ animationDirection: r ? "reverse" : "normal" }}>
           {Array.from({ length: 8 }).flatMap(() => row).map((s, i) => (
-            <span key={i} className={`whitespace-nowrap ${r ? "dim-accent" : "text-inkdim"}`}>{s.name}</span>
+            <span key={i} aria-hidden={i >= row.length || undefined} className={`whitespace-nowrap ${r ? "dim-accent" : "text-inkdim"}`}>{s.name}</span>
           ))}
         </div>
       ))}

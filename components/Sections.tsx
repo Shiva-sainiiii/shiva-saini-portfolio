@@ -4,6 +4,7 @@ import type { Content } from "@/lib/content";
 import { useContent } from "@/lib/useContent";
 import { EXPERIENCE, SERVICES, SITE, TEAM } from "@/lib/data";
 import AskAI from "./AskAI";
+import AsciiPortrait from "./AsciiPortrait";
 import Certificates from "./Certificates";
 import Contact from "./Contact";
 import Feedback from "./Feedback";
@@ -53,9 +54,14 @@ export default function Sections({ initial }: { initial: Content }) {
           grain sirf background ke saath blend hota hai. Isko neeche ya z-index ke saath mat le jana. */}
       <div aria-hidden className="grain pointer-events-none absolute inset-0" />
       <Section id="about" title="About me" side="r">
-        <p className="text-3xl font-light leading-snug text-white md:text-5xl">{SITE.bio}</p>
-        <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink">{SITE.about}</p>
-        <p className="mt-6 text-mute">{SITE.stats.join("  ·  ")}</p>
+        <div className="grid gap-12 lg:grid-cols-[1fr_300px] lg:items-start">
+          <div>
+            <p className="text-3xl font-light leading-snug text-white md:text-5xl">{SITE.bio}</p>
+            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink">{SITE.about}</p>
+            <p className="mt-6 text-mute">{SITE.stats.join("  ·  ")}</p>
+          </div>
+          <AsciiPortrait alt={`${SITE.name} portrait`} />
+        </div>
       </Section>
 
       <Section id="services" title="Services" side="l">

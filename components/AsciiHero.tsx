@@ -2,20 +2,11 @@
 
 import { useEffect, useRef } from "react";
 import { SITE } from "@/lib/data";
+import { CH, MONO, hs, mix, readAccent } from "@/lib/ascii";
 
 // Character-terrain showcase: logo letter characters se decode hota hai, beech me glow orb, dono side terrain.
 // Rang --accent2 se aate hain (ThemeSwitcher ke saath badalte hain). Cyan sirf actions ke liye hai, yahan use nahi hua.
 const LOGO = "S";
-const CH = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-const MONO = "ui-monospace,SFMono-Regular,Menlo,Consolas,monospace";
-
-function hs(a: number, b: number, c: number) {
-  let h = (a * 374761393 + b * 668265263 + c * 2147483647) | 0;
-  h = (h ^ (h >>> 13)) * 1274126177 | 0;
-  return (h ^ (h >>> 16)) >>> 0;
-}
-const mix = (c: number[], w: number, m: number) =>
-  `rgb(${c.map((v) => Math.round(v + (w - v) * m)).join(",")})`;
 
 export default function AsciiHero() {
   const wrapRef = useRef<HTMLElement>(null);
@@ -34,9 +25,7 @@ export default function AsciiHero() {
     let cFar = "", cMid = "", cNear = "", cBg = "", cOrb = "";
 
     const readTheme = () => {
-      const v = getComputedStyle(document.documentElement).getPropertyValue("--accent2").trim();
-      const p = v.split(/\s+/).map(Number);
-      if (p.length === 3 && p.every((n) => !isNaN(n))) acc = p;
+      acc = readAccent();
       cFar = mix(acc, 0, 0.1);
       cMid = mix(acc, 255, 0.35);
       cNear = mix(acc, 255, 0.8);
