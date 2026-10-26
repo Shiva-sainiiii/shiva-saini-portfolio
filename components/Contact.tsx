@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { SITE } from "@/lib/data";
 import type { LinkItem } from "@/lib/content";
+import { SendIcon, SocialIcon } from "./Icons";
 
 const input = "w-full rounded-lg border border-line2 bg-surface px-4 py-3 text-white outline-none placeholder:text-mute/70 focus:border-cyan-400";
 
@@ -43,8 +44,9 @@ export default function Contact({ links }: { links: LinkItem[] }) {
           <input className={input} type="email" placeholder="Email" required maxLength={120} value={form.email} onChange={set("email")} />
         </div>
         <textarea className={input} placeholder="Message" rows={4} required maxLength={2000} value={form.message} onChange={set("message")} />
-        <button disabled={status === "sending"} className="rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-black transition-colors hover:bg-cyan-300 disabled:opacity-50">
+        <button disabled={status === "sending"} className="group inline-flex items-center gap-2 rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-black transition-colors hover:bg-cyan-300 disabled:opacity-50">
           {status === "sending" ? "Sending…" : "Send message"}
+          <SendIcon className={`h-4 w-4 transition-transform duration-200 ${status === "sending" ? "translate-x-1 -translate-y-1 opacity-60" : "group-hover:translate-x-0.5 group-hover:-translate-y-0.5"}`} />
         </button>
         {status === "done" && <p className="text-sm text-ink">Message sent. I will get back to you soon.</p>}
         {status === "error" && <p className="text-sm text-red-400">Could not send. Please email me directly.</p>}
@@ -52,7 +54,7 @@ export default function Contact({ links }: { links: LinkItem[] }) {
 
       <ul className="mt-12 flex flex-wrap gap-3 text-sm">
         {links.map((l) => (
-          <li key={l.id}><a href={l.url} target="_blank" rel="noreferrer" className="inline-block rounded-full border border-line2 bg-surface px-4 py-2 text-ink transition-colors hover:border-cyan-400 hover:text-cyan-300">{l.label}</a></li>
+          <li key={l.id}><a href={l.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-line2 bg-surface px-4 py-2 text-ink transition-colors hover:border-cyan-400 hover:text-cyan-300"><SocialIcon label={l.label} url={l.url} className="h-4 w-4 shrink-0" />{l.label}</a></li>
         ))}
       </ul>
     </div>

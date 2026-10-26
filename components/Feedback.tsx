@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { addDoc, collection, limit, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import { SendIcon } from "./Icons";
 
 type Review = { id: string; name: string; stars: number; message: string };
 const input = "w-full rounded-lg border border-line2 bg-surface px-4 py-3 text-white outline-none placeholder:text-mute/70 focus:border-cyan-400";
@@ -55,8 +56,9 @@ export default function Feedback() {
         </div>
         <input className={input} placeholder="Your name" value={name} maxLength={60} onChange={(e) => setName(e.target.value)} />
         <textarea className={input} placeholder="Your feedback" rows={3} maxLength={500} required value={message} onChange={(e) => setMessage(e.target.value)} />
-        <button disabled={status === "sending"} className="rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-black transition-colors hover:bg-cyan-300 disabled:opacity-50">
+        <button disabled={status === "sending"} className="group inline-flex items-center gap-2 rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-black transition-colors hover:bg-cyan-300 disabled:opacity-50">
           {status === "sending" ? "Sending…" : "Send feedback"}
+          <SendIcon className={`h-4 w-4 transition-transform duration-200 ${status === "sending" ? "translate-x-1 -translate-y-1 opacity-60" : "group-hover:translate-x-0.5 group-hover:-translate-y-0.5"}`} />
         </button>
         {status === "done" && <p className="text-sm text-ink">Thanks for the feedback.</p>}
         {status === "error" && <p className="text-sm text-red-400">Could not send. Please try again.</p>}

@@ -14,16 +14,17 @@ const NAV = [
   { label: "Contact", href: "#contact" },
 ];
 
+// Logo z-20, right wala wrapper z-10: mobile menu panel (-z-10, wrapper ke andar) in dono ke NEECHE rehta hai.
 // Server component — fixed top bar. Gradient isliye ki desk image ke upar text hamesha readable rahe.
 export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-40 bg-gradient-to-b from-black/75 via-black/30 to-transparent">
       <nav className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8 md:py-5">
-        <a href="#" className="text-base font-semibold tracking-tight md:text-lg">
+        <a href="#" className="relative z-20 text-base font-semibold tracking-tight md:text-lg">
           Shiva <span className="text-accent2">Saini</span>
         </a>
 
-        <div className="flex items-center gap-8">
+        <div className="relative z-10 flex items-center gap-8">
           {/* Mobile pe links hide — wahan sirf Resume button dikhega */}
           <ul className="hidden items-center gap-8 text-sm text-ink md:flex">
             {NAV.map((n) => (
