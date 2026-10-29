@@ -6,7 +6,7 @@ import { readAccent } from "@/lib/ascii";
 // Floating 3D hat (GLB). Page scroll ke saath upar se neeche tak chalti hai: ek halka S-curve banake ghoomti hui.
 // Model file: public/assets/hat.glb. File nahi mili / load fail hua => component chupchap kuch render nahi karta.
 const HAT_URL = "/assets/hat.glb";
-// Agar hat ulta / tedha dikhe to yahan radians me fix karo (Math.PI = 180°)
+// cowboy_hat.glb already seedhi (Y-up) hai, isliye 0. Dusra model lagao aur ulta/tedha dikhe to yahan radians me fix karo (Math.PI = 180°)
 const HAT_FIX = { x: 0, y: 0, z: 0 };
 const TURNS = 2;       // poore page me hat kitni baar poora ghoomti hai
 const TOP_GAP = 84;    // navbar ke neeche se shuru (px)
