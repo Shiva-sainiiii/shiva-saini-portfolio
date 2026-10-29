@@ -44,9 +44,14 @@ export default function AsciiPortrait({ alt = "Shiva Saini" }: { alt?: string })
       cv.width = W * dpr; cv.height = W * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       cs = W < 240 ? 6 : 7; cw = cs * 0.6;
+      readColors();
+      sample();
+    };
+
+    // Theme accent se 5 shades. Pehle ye sirf load/resize pe chalta tha, isliye theme badalne pe rang nahi badalta tha.
+    const readColors = () => {
       const acc = readAccent();
       colors = [0.25, 0.4, 0.6, 0.8, 1].map((m) => mix(acc, 255, m * 0.85));
-      sample();
     };
 
     const draw = (now: number) => {
@@ -85,7 +90,10 @@ export default function AsciiPortrait({ alt = "Shiva Saini" }: { alt?: string })
     });
     const ro = new ResizeObserver(() => { size(); draw(performance.now()); });
     io.observe(box); ro.observe(box);
-    return () => { cancelAnimationFrame(raf); io.disconnect(); ro.disconnect(); };
+    // ThemeSwitcher <html style="--accent2: ..."> badalta hai => turant naye rang me dobara draw (reduced-motion me bhi)
+    const mo = new MutationObserver(() => { readColors(); draw(performance.now()); });
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ["style"] });
+    return () => { cancelAnimationFrame(raf); io.disconnect(); ro.disconnect(); mo.disconnect(); };
   }, []);
 
   const move = (e: React.PointerEvent<HTMLDivElement>) => {
