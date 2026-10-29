@@ -43,7 +43,7 @@ export default function Navbar() {
               href={SITE.whatsappUrl}
               target="_blank"
               rel="noreferrer"
-              className="rounded-full bg-cyan-400 px-4 py-2 text-sm font-semibold text-black shadow-[0_0_20px_rgba(34,211,238,0.45)] transition-colors hover:bg-cyan-300"
+              className="rounded-full bg-accent2 px-4 py-2 text-sm font-semibold text-black shadow-[0_0_18px_rgb(var(--accent2)/0.4)] transition hover:brightness-110 md:bg-cyan-400 md:shadow-[0_0_20px_rgba(34,211,238,0.45)] md:hover:bg-cyan-300 md:hover:brightness-100"
             >
               Free demo
             </a>

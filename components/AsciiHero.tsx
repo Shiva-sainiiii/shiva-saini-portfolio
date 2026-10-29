@@ -6,7 +6,11 @@ import { CH, MONO, hs, mix, readAccent } from "@/lib/ascii";
 
 // Character-terrain showcase: logo letter characters se decode hota hai, beech me glow orb, dono side terrain.
 // Rang --accent2 se aate hain (ThemeSwitcher ke saath badalte hain). Cyan sirf actions ke liye hai, yahan use nahi hua.
-const LOGO = "S";
+const LOGO = "S";                      // mobile: sirf "S" (chhoti screen pe poora naam padhne layak nahi banta)
+const LOGO_DESK = ["SHIVA", "SAINI"];  // desktop / laptop (>=768px): poora naam, do line me
+const DESK_MIN = 768;
+// Desktop pe orb (light source) kitna dim rahe: 1 = pehle jaisa, 0 = bilkul band. Zyada dim chahiye to isse kam karo.
+const ORB_DESKTOP = 0.3;
 
 // Intro timing (FIX C): hero jab ~35% screen pe aaye tab hi start. Pehle scene (orb, terrain, bg chars) soft fade-in hota hai,
 // phir "S" andar se bahar ki taraf assemble hota hai. Har cell ke liye alpha ramp hai, hard on/off nahi.
@@ -28,7 +32,7 @@ export default function AsciiHero() {
 
     let W = 0, H = 0, cs = 14, cw = 8, cols = 0, rows = 0, baseY = 0, oy = 0;
     let mask = new Uint8Array(0), rv = new Float32Array(0);
-    let ox = 0, tox = 0, px = -999, py = -999;
+    let ox = 0, tox = 0, px = -999, py = -999, orbK = 1, orbS = 1;
     let raf = 0, visible = false, started = false, tStart = 0, frameN = 0, ready = false, ratio = 0;
     let acc = [167, 139, 250];
     let cFar = "", cMid = "", cNear = "", cBg = "", cOrb = "";
@@ -50,17 +54,39 @@ export default function AsciiHero() {
       cs = W < 600 ? 11 : 14; cw = cs * 0.62;
       cols = Math.ceil(W / cw); rows = Math.ceil(H / cs);
       baseY = H * 0.7; oy = baseY + H * 0.02; ox = tox = W / 2;
+      const desk = W >= DESK_MIN;
+      orbK = desk ? ORB_DESKTOP : 1;      // orb ki intensity
+      orbS = desk ? 0.8 : 1;              // orb ka size
       const m = document.createElement("canvas");
       m.width = W; m.height = H;
       const mc = m.getContext("2d", { willReadFrequently: true })!;
-      const ls = Math.min(H * 0.42, W * 0.7);
-      mc.fillStyle = "#fff"; mc.textAlign = "center"; mc.textBaseline = "middle";
-      mc.font = `900 ${ls}px "Arial Black",Arial,Helvetica,sans-serif`;
-      mc.fillText(LOGO, W / 2, H * 0.34);
+      mc.fillStyle = "#fff"; mc.textAlign = "center"; mc.textBaseline = "alphabetic";
+      const FONT = (px: number) => `900 ${px}px "Arial Black",Arial,Helvetica,sans-serif`;
+      let lcx = W / 2, lcy: number, lr: number;
+      if (desk) {
+        // Poora naam, do line me, screen ke visual centre pe (navbar ke neeche aur terrain ke upar)
+        mc.font = FONT(100);
+        const wide = Math.max(...LOGO_DESK.map((t) => mc.measureText(t).width)) / 100;
+        const asc = mc.measureText("H").actualBoundingBoxAscent / 100 || 0.716;
+        const fs = Math.min(H * 0.24, (W * 0.52) / wide);
+        mc.font = FONT(fs);
+        const capH = asc * fs, gap = fs * 0.16;
+        const blockH = LOGO_DESK.length * capH + (LOGO_DESK.length - 1) * gap;
+        lcy = H * 0.47;
+        const top = lcy - blockH / 2;
+        LOGO_DESK.forEach((t, n) => mc.fillText(t, W / 2, top + capH * (n + 1) + gap * n));
+        lr = Math.max(1, Math.hypot((wide * fs) / 2, blockH / 2));
+      } else {
+        const ls = Math.min(H * 0.42, W * 0.7);
+        mc.font = FONT(ls);
+        lcy = H * 0.34;
+        const capH = (mc.measureText("S").actualBoundingBoxAscent || ls * 0.72);
+        mc.fillText(LOGO, W / 2, lcy + capH / 2);
+        lr = Math.max(1, ls * 0.6);
+      }
       const d = mc.getImageData(0, 0, W, H).data;
       mask = new Uint8Array(cols * rows);
       rv = new Float32Array(cols * rows);
-      const lcx = W / 2, lcy = H * 0.34, lr = Math.max(1, ls * 0.6);
       for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) {
         const x = Math.min(W - 1, Math.floor(i * cw + cw / 2));
         const y = Math.min(H - 1, Math.floor(j * cs + cs / 2));
@@ -88,10 +114,10 @@ export default function AsciiHero() {
       const p = RM ? 1 : started ? smooth(clamp01((el - LOGO_DELAY) / LOGO_MS)) : 0; // S assemble progress
       ox += (tox - ox) * 0.06;
       ctx.globalAlpha = 1; ctx.fillStyle = "#000"; ctx.fillRect(0, 0, W, H);
-      const R = Math.min(W, H) * 0.28;
+      const R = Math.min(W, H) * 0.28 * orbS;
       const g = ctx.createRadialGradient(ox, oy, 0, ox, oy, R);
-      g.addColorStop(0, `rgba(${mix(acc, 255, 0.55).slice(4, -1)},.95)`);
-      g.addColorStop(0.18, `rgba(${cOrb},.55)`);
+      g.addColorStop(0, `rgba(${mix(acc, 255, 0.55).slice(4, -1)},${0.95 * orbK})`);
+      g.addColorStop(0.18, `rgba(${cOrb},${0.55 * orbK})`);
       g.addColorStop(1, "rgba(0,0,0,0)");
       ctx.globalAlpha = sc; // orb dheere se jagta hai
       ctx.fillStyle = g; ctx.fillRect(ox - R, oy - R, R * 2, R * 2);
@@ -183,7 +209,7 @@ export default function AsciiHero() {
   }, []);
 
   return (
-    <section ref={wrapRef} aria-label={`${SITE.name} — ${SITE.role}`} className="relative h-[88svh] min-h-[520px] w-full overflow-hidden bg-black md:h-svh">
+    <section ref={wrapRef} aria-label={`${SITE.name} — ${SITE.role}`} className="relative h-svh min-h-[560px] w-full overflow-hidden bg-black">
       <canvas ref={cvRef} aria-hidden="true" className="absolute inset-0 h-full w-full" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between gap-4 px-6 pb-8 font-mono text-[10px] uppercase tracking-[0.2em] text-mute md:px-12 md:pb-12 md:text-sm">
         <span className="flex items-center gap-3"><span className="inline-block h-2.5 w-2.5 bg-accent2" />{SITE.tagline}</span>

@@ -58,7 +58,7 @@ export default function MobileMenu({ links, resume, demo }: { links: NavLink[]; 
             ))}
           </ul>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a href={demo} target="_blank" rel="noreferrer" onClick={close} className="rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-black">Free demo website</a>
+            <a href={demo} target="_blank" rel="noreferrer" onClick={close} className="rounded-full bg-accent2 px-6 py-3 text-sm font-semibold text-black">Free demo website</a>
             <a href={resume} target="_blank" rel="noreferrer" onClick={close} className="rounded-full border border-line2 px-6 py-3 text-sm font-medium text-white">Resume</a>
           </div>
           <button type="button" onClick={close} className="mt-10 inline-flex items-center gap-2 text-sm text-mute transition-colors active:text-white">
