@@ -115,10 +115,8 @@ export default function Sections({ initial }: { initial: Content }) {
 
       <footer className="relative border-t border-line px-6 py-10 text-center text-sm text-mute">
         © {new Date().getFullYear()} {SITE.name}
-        {/* CC-BY-4.0: hat model ka credit dena zaroori hai */}
-        <p className="mt-2 text-xs">
-          3D hat: <a href="https://sketchfab.com/3d-models/cowboy-hat-13943f326b8041c0a26ee19f41cabdb6" target="_blank" rel="noreferrer" className="underline hover:text-white">“Cowboy Hat”</a> by Pieter Ferreira, <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer" className="underline hover:text-white">CC BY 4.0</a>
-        </p>
+      
+      
       </footer>
 
     </div>
