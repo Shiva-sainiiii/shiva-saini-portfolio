@@ -51,7 +51,7 @@ export default function Showcase() {
           </li>
         ))}
         <li className="group flex items-center rounded-2xl border border-dashed border-line2 p-6 transition-colors hover:border-accent2/60">
-          <a href={MORE_DEMOS} target="_blank" rel="noreferrer" className="text-lg font-medium text-white transition-colors hover:text-accent2"><Fx>More demo websites</Fx> <span className="inline-block text-accent2 transition-transform duration-200 group-hover:translate-x-1">→</span></a>
+          <a href={MORE_DEMOS} target="_blank" rel="noreferrer" className="text-lg font-medium text-white transition-colors hover:text-accent2"><Fx>More demo websites</Fx> <span className="inline-block text-accent3 transition-transform duration-200 group-hover:translate-x-1">→</span></a>
         </li>
       </ul>
     </div>

@@ -11,7 +11,7 @@ export default function Projects({ items }: { items: Project[] }) {
             <h3 className="text-3xl font-semibold text-mute transition-colors group-hover:text-accent2 group-focus:text-accent2 md:text-5xl">
               <Fx>{p.title}</Fx>
             </h3>
-            <span className="hidden text-3xl text-faint transition-transform duration-500 group-hover:rotate-45 group-focus:rotate-45 md:block">+</span>
+            <span className="hidden text-3xl text-faint transition-all duration-500 group-hover:rotate-45 group-hover:text-accent3 group-focus:rotate-45 group-focus:text-accent3 md:block">+</span>
           </div>
           <div className="grid transition-[grid-template-rows] duration-500 md:grid-rows-[0fr] md:group-hover:grid-rows-[1fr] md:group-focus:grid-rows-[1fr]">
             <div className="overflow-hidden">

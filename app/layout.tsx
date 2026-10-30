@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { themeColor: "#000000" };
 
 const themeScript =
-  '(function(){try{var m={violet:"167 139 250",pink:"244 114 182",amber:"251 191 36",lime:"163 230 53"};'
+  '(function(){try{var m={violet:"167 139 250",pink:"244 114 182",amber:"251 191 36",coral:"255 107 74"};'
   + 'var s=localStorage.getItem("accent-theme");if(s&&m[s])document.documentElement.style.setProperty("--accent2",m[s])}catch(e){}})();';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

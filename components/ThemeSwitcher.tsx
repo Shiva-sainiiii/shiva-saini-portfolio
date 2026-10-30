@@ -7,7 +7,7 @@ const THEMES = [
   { id: "violet", name: "Violet", rgb: "167 139 250" },
   { id: "pink", name: "Pink", rgb: "244 114 182" },
   { id: "amber", name: "Amber", rgb: "251 191 36" },
-  { id: "lime", name: "Lime", rgb: "163 230 53" },
+  { id: "coral", name: "Coral", rgb: "255 107 74" }, // lime hata diya: teesra colour volt (accent3) usse clash karta
 ];
 const KEY = "accent-theme";
 const EVT = "accent-theme-change"; // dono switcher (desktop popover + mobile menu) sync rahein

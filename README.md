@@ -27,6 +27,8 @@ shiva-saini-portfolio/
 │   ├── MobileMenu.tsx          # Mobile dropdown menu (links + theme colours + CTAs)
 │   ├── ThemeSwitcher.tsx       # Accent colour picker (popover / inline variants)
 │   ├── Fx.tsx                  # ASCII-style hover text scramble (use on short labels)
+│   ├── FloatingPlane.tsx       # 3D paper airplane (three.js) that flies down the page on scroll
+│   ├── PlaneLoader.tsx         # Client-only dynamic import wrapper for FloatingPlane
 │   ├── AsciiLoader.tsx         # First-visit ASCII "S" loader
 │   ├── AsciiHero.tsx           # Canvas ASCII hero: SHIVA SAINI + terrain wave + orb
 │   ├── AsciiPortrait.tsx       # ASCII portrait (About)
@@ -57,6 +59,8 @@ shiva-saini-portfolio/
 │
 ├── public/
 │   ├── assets/                 # Profile, project and certificate images, resume PDF
+│   ├── models/
+│   │   └── paper-airplane.glb  # 3D model (CC BY 4.0, vesicalsnail / Sketchfab)
 │   └── google*.html            # Search Console verification files
 │
 ├── supabase/
@@ -77,7 +81,10 @@ shiva-saini-portfolio/
 
 - **One theme colour**: `--accent2` (default violet). Buttons, links, hover, glow, selection and ASCII all follow it. Change via the theme picker (navbar on desktop, hamburger menu on mobile). Options live in `components/ThemeSwitcher.tsx` and the head script in `app/layout.tsx`.
 - Page colours (`--bg`, `--surface`, `--ink`, `--mute` ...) are variables in `app/globals.css`; Tailwind names: `bg-ground`, `bg-surface`, `text-ink`, `text-mute`, `text-accent2`.
+- **Third colour**: `--accent3` volt `#D8FF3A` (fixed, not theme-switched). Tiny pops only (arrows, hero dot, hover glow, plane rim light), max ~10%.
 - Hero background stays pure `#000`.
+- **3D plane**: `components/FloatingPlane.tsx` (size, sway, scroll smoothing constants at the top). Disabled for reduced-motion users.
+- **SHIVA SAINI hover**: cursor-near characters scramble, glow volt and get pushed away (`HOVER_R`, `HOVER_PUSH` in `AsciiHero.tsx`).
 - **Hover**: ASCII scramble via `<Fx>` (wrap short labels), plus accent border/lift on cards.
 
 ## Editing content

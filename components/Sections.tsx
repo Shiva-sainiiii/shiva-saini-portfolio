@@ -70,7 +70,7 @@ export default function Sections({ initial }: { initial: Content }) {
 
       <Section id="services" title="Services" side="l">
         <p className="text-3xl font-light leading-snug text-white md:text-5xl">
-          Ideas <span className="text-accent2">→</span> Websites <span className="text-accent2">→</span> Growth
+          Ideas <span className="text-accent3">→</span> Websites <span className="text-accent3">→</span> Growth
         </p>
         <ul className="mt-12 grid gap-4 sm:grid-cols-2">
           {SERVICES.map((s, n) => (
@@ -119,6 +119,9 @@ export default function Sections({ initial }: { initial: Content }) {
         <span>© {new Date().getFullYear()} {SITE.name}</span>
         <span aria-hidden className="mx-3 text-faint">·</span>
         {/* Admin panel ka login: /admin (Supabase auth). Google ko disallow + noindex already hai */}
+        <p className="mt-4 text-xs text-faint">
+          Paper airplane 3D model by <a href="https://sketchfab.com/3d-models/paper-airplane-0967ab4a9c654a569a13ea1f8d9dca0c" target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-accent2">vesicalsnail</a> · CC BY 4.0
+        </p>
         <Link href="/admin" className="inline-flex items-center gap-1 text-mute underline-offset-4 transition-colors hover:text-accent2 hover:underline focus-visible:text-accent2">
           <Fx>Admin login</Fx>
         </Link>

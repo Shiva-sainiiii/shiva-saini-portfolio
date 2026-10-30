@@ -18,6 +18,11 @@ const SCENE_MS = 1500;   // orb + terrain + bg fade-in
 const LOGO_DELAY = 350;  // scene ke baad S shuru
 const LOGO_MS = 3200;    // S ke assemble ka total time
 const RAMP = 0.22;       // har cell kitni der "scramble" rehta hai (0..1 of progress)
+// Hover (SHIVA SAINI pe cursor): paas ke characters scramble hote hain, volt colour me chamakte hain aur cursor se thoda door bhaagte hain,
+// cursor hatne par wapas settle. Strength/radius yahan badlo.
+const VOLT = "rgb(216,255,58)";   // accent3 (globals.css --accent3 jaisa)
+const HOVER_R = 130;               // px (mobile pe chhota)
+const HOVER_PUSH = 10;             // px — characters kitna door bhaagein
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
 const smooth = (t: number) => t * t * (3 - 2 * t);
 
@@ -33,6 +38,7 @@ export default function AsciiHero() {
     let W = 0, H = 0, cs = 14, cw = 8, cols = 0, rows = 0, baseY = 0, oy = 0;
     let mask = new Uint8Array(0), rv = new Float32Array(0);
     let ox = 0, tox = 0, px = -999, py = -999, orbK = 1, orbS = 1;
+    let sx = -999, sy = -999, hv = 0; // smoothed cursor + hover strength (0..1)
     let raf = 0, visible = false, started = false, tStart = 0, frameN = 0, ready = false, ratio = 0;
     let acc = [167, 139, 250];
     let cFar = "", cMid = "", cNear = "", cBg = "", cOrb = "";
@@ -113,6 +119,9 @@ export default function AsciiHero() {
       const sc = RM ? 1 : started ? smooth(clamp01(el / SCENE_MS)) : 0;           // scene fade-in
       const p = RM ? 1 : started ? smooth(clamp01((el - LOGO_DELAY) / LOGO_MS)) : 0; // S assemble progress
       ox += (tox - ox) * 0.06;
+      if (px > -900) { if (hv < 0.02) { sx = px; sy = py; } sx += (px - sx) * 0.25; sy += (py - sy) * 0.25; hv += (1 - hv) * 0.15; }
+      else hv *= 0.9;
+      const HR = W < 600 ? HOVER_R * 0.7 : HOVER_R;
       ctx.globalAlpha = 1; ctx.fillStyle = "#000"; ctx.fillRect(0, 0, W, H);
       const R = Math.min(W, H) * 0.28 * orbS;
       const g = ctx.createRadialGradient(ox, oy, 0, ox, oy, R);
@@ -132,9 +141,24 @@ export default function AsciiHero() {
           // a: 0 -> 1 ramp. 0 = chhupa, 0..1 = accent colour me scramble + fade-in, 1 = settled white
           const a = clamp01((p * (1 + RAMP) - rv[j * cols + i]) / RAMP);
           if (a <= 0) continue;
-          if (a >= 1) { ctx.fillStyle = "#fff"; ctx.globalAlpha = 0.8 + 0.2 * Math.sin(T * 2 + j * 0.35 + i * 0.2); }
+          let hx = 0, hy = 0;
+          if (a >= 1) {
+            ctx.fillStyle = "#fff"; ctx.globalAlpha = 0.8 + 0.2 * Math.sin(T * 2 + j * 0.35 + i * 0.2);
+            if (hv > 0.02) {
+              const dd = Math.hypot(x - sx, y - sy);
+              if (dd < HR) {
+                const hot = (1 - dd / HR) * hv;
+                if (hot > 0.08) {
+                  k = Math.floor(T * 16) + i;                      // scramble
+                  ctx.fillStyle = hot > 0.45 ? VOLT : cNear; ctx.globalAlpha = 1;
+                  hx = ((x - sx) / (dd || 1)) * hot * HOVER_PUSH;  // cursor se door dhakka
+                  hy = ((y - sy) / (dd || 1)) * hot * HOVER_PUSH;
+                }
+              }
+            }
+          }
           else { ctx.fillStyle = cNear; ctx.globalAlpha = 0.15 + 0.75 * a; k = Math.floor(T * 14) + i; }
-          ctx.fillText(CH[hs(i, j, k) % 36], x, y); continue;
+          ctx.fillText(CH[hs(i, j, k) % 36], x + hx, y + hy); continue;
         }
         if (sc <= 0) continue;
         if (h % 100 >= 14) continue;
@@ -212,7 +236,7 @@ export default function AsciiHero() {
     <section ref={wrapRef} aria-label={`${SITE.name} — ${SITE.role}`} className="relative h-svh min-h-[560px] w-full overflow-hidden bg-black">
       <canvas ref={cvRef} aria-hidden="true" className="absolute inset-0 h-full w-full" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between gap-4 px-6 pb-8 font-mono text-[10px] uppercase tracking-[0.2em] text-mute md:px-12 md:pb-12 md:text-sm">
-        <span className="flex items-center gap-3"><span className="inline-block h-2.5 w-2.5 bg-accent2" />{SITE.tagline}</span>
+        <span className="flex items-center gap-3"><span className="inline-block h-2.5 w-2.5 bg-accent3" />{SITE.tagline}</span>
         <span className="hidden sm:block">{SITE.motto}</span>
       </div>
     </section>

@@ -7,6 +7,7 @@ const config: Config = {
     extend: {
       colors: {
         accent2: "rgb(var(--accent2) / <alpha-value>)",
+        accent3: "rgb(var(--accent3) / <alpha-value>)",   // volt, fixed pop colour
         ground: "rgb(var(--bg) / <alpha-value>)",          // page base (hero ke baad)
         surface: "rgb(var(--surface) / <alpha-value>)",    // cards / panels
         surface2: "rgb(var(--surface-2) / <alpha-value>)", // card hover
