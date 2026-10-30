@@ -5,9 +5,11 @@ import { useContent } from "@/lib/useContent";
 import { EXPERIENCE, SERVICES, SITE, TEAM, TESTIMONIALS } from "@/lib/data";
 import AskAI from "./AskAI";
 import AsciiPortrait from "./AsciiPortrait";
+import Link from "next/link";
 import Certificates from "./Certificates";
 import Contact from "./Contact";
 import Feedback from "./Feedback";
+import Fx from "./Fx";
 import Projects from "./Projects";
 import Showcase from "./Showcase";
 import Skills from "./Skills";
@@ -24,7 +26,7 @@ const Section = ({ id, title, wide, side = "r", children }: { id: string; title:
     <div aria-hidden className="section-glow pointer-events-none absolute inset-0" />
     <div aria-hidden className="section-dots pointer-events-none absolute inset-0" />
     <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 px-6">
-      <div className="mx-auto h-px max-w-6xl bg-gradient-to-r from-cyan-400/50 via-accent2/40 to-transparent" />
+      <div className="mx-auto h-px max-w-6xl bg-gradient-to-r from-accent2/60 via-accent2/30 to-transparent" />
     </div>
     {wide ? (
       <div className="relative py-28 md:py-40">
@@ -42,7 +44,7 @@ const Section = ({ id, title, wide, side = "r", children }: { id: string; title:
 
 const Row = ({ title, note }: { title: string; note: string }) => (
   <li className="group flex flex-col gap-2 border-b border-line py-8 first:pt-0 md:flex-row md:items-baseline md:justify-between">
-    <h3 className="text-3xl font-semibold text-white transition-colors group-hover:text-accent2 md:text-5xl">{title}</h3>
+    <h3 className="text-3xl font-semibold text-white transition-colors group-hover:text-accent2 md:text-5xl"><Fx>{title}</Fx></h3>
     <p className="max-w-xs text-mute transition-colors group-hover:text-ink">{note}</p>
   </li>
 );
@@ -72,23 +74,23 @@ export default function Sections({ initial }: { initial: Content }) {
         </p>
         <ul className="mt-12 grid gap-4 sm:grid-cols-2">
           {SERVICES.map((s, n) => (
-            <li key={s.title} className="rounded-2xl border border-line bg-surface p-6 transition-colors hover:border-accent2/50 hover:bg-surface2">
+            <li key={s.title} className="rounded-2xl border border-line bg-surface p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent2/50 hover:bg-surface2">
               <span className="text-xs font-semibold tracking-widest text-accent2">0{n + 1}</span>
-              <h3 className="mt-3 text-xl font-semibold text-white">{s.title}</h3>
+              <h3 className="mt-3 text-xl font-semibold text-white"><Fx>{s.title}</Fx></h3>
               <p className="mt-2 text-mute">{s.note}</p>
             </li>
           ))}
         </ul>
-        <a href={SITE.whatsappUrl} target="_blank" rel="noreferrer" className="glow-box group inline-flex items-center rounded-full border-2 border-cyan-400 bg-ground px-7 py-3 text-xs font-bold tracking-widest text-white transition-colors hover:bg-cyan-400 hover:text-black md:text-sm mt-10">
-          FREE&nbsp;<span className="text-cyan-300 transition-colors group-hover:text-black">DEMO WEBSITE</span>
+        <a href={SITE.whatsappUrl} target="_blank" rel="noreferrer" className="glow-box group inline-flex items-center rounded-full border-2 border-accent2 bg-ground px-7 py-3 text-xs font-bold tracking-widest text-white transition-colors hover:bg-accent2 hover:text-black md:text-sm mt-10">
+          <Fx tone="text-black">FREE</Fx>&nbsp;<span className="text-accent2 transition-colors group-hover:text-black"><Fx tone="text-black">DEMO WEBSITE</Fx></span>
         </a>
         <h3 className="mt-16 text-xs font-semibold uppercase tracking-[0.2em] text-accent2">Our team</h3>
         <ul className="mt-6 grid gap-6 sm:grid-cols-2">
           {TEAM.map((t) => (
             <li key={t.name}>
-              <p className="text-xl font-semibold text-white">{t.name}</p>
+              <p className="text-xl font-semibold text-white transition-colors hover:text-accent2">{t.name}</p>
               <p className="text-mute">{t.role} · {t.city}</p>
-              {t.phone && <a href={`tel:${t.phone.replace(/\s/g, "")}`} className="mt-1 inline-block text-cyan-300 hover:underline">{t.phone}</a>}
+              {t.phone && <a href={`tel:${t.phone.replace(/\s/g, "")}`} className="mt-1 inline-block text-accent2 hover:underline">{t.phone}</a>}
             </li>
           ))}
         </ul>
@@ -114,9 +116,12 @@ export default function Sections({ initial }: { initial: Content }) {
       </Section>
 
       <footer className="relative border-t border-line px-6 py-10 text-center text-sm text-mute">
-        © {new Date().getFullYear()} {SITE.name}
-      
-      
+        <span>© {new Date().getFullYear()} {SITE.name}</span>
+        <span aria-hidden className="mx-3 text-faint">·</span>
+        {/* Admin panel ka login: /admin (Supabase auth). Google ko disallow + noindex already hai */}
+        <Link href="/admin" className="inline-flex items-center gap-1 text-mute underline-offset-4 transition-colors hover:text-accent2 hover:underline focus-visible:text-accent2">
+          <Fx>Admin login</Fx>
+        </Link>
       </footer>
 
     </div>

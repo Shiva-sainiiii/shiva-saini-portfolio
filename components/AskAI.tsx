@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import Markdown from "./Markdown";
 import { SendIcon } from "./Icons";
+import Fx from "./Fx";
 
 type Msg = { role: "user" | "assistant"; content: string };
 const SUGGESTIONS = ["What are Shiva's skills?", "Tell me about his projects", "Is he available to hire?", "Explain async/await in JS"];
@@ -100,14 +101,14 @@ export default function AskAI() {
 
       <div className="flex flex-wrap gap-2 border-t border-line px-5 pt-4">
         {SUGGESTIONS.map((s) => (
-          <button key={s} onClick={() => send(s)} disabled={busy} className="rounded-full border border-line2 px-3 py-1 text-xs text-mute transition-colors hover:border-cyan-400/60 hover:text-cyan-300 disabled:opacity-50">{s}</button>
+          <button key={s} onClick={() => send(s)} disabled={busy} className="rounded-full border border-line2 px-3 py-1 text-xs text-mute transition-colors hover:border-accent2/60 hover:text-accent2 disabled:opacity-50"><Fx>{s}</Fx></button>
         ))}
       </div>
       <form className="flex gap-3 p-5" onSubmit={(e) => { e.preventDefault(); send(input); }}>
         <input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Ask anything…" maxLength={500}
-          className="min-w-0 flex-1 rounded-full border border-line2 bg-ground px-5 py-3 text-white outline-none placeholder:text-mute/70 focus:border-cyan-400" />
-        <button disabled={busy} aria-label="Send message" className="group inline-flex items-center gap-2 rounded-full bg-cyan-400 px-5 py-3 text-sm font-semibold text-black transition-colors hover:bg-cyan-300 disabled:opacity-50">
-          <span className="hidden sm:inline">Send</span>
+          className="min-w-0 flex-1 rounded-full border border-line2 bg-ground px-5 py-3 text-white outline-none placeholder:text-mute/70 focus:border-accent2" />
+        <button disabled={busy} aria-label="Send message" className="group inline-flex items-center gap-2 rounded-full bg-accent2 px-5 py-3 text-sm font-semibold text-black transition hover:brightness-110 disabled:opacity-50">
+          <span className="hidden sm:inline"><Fx tone="text-black">Send</Fx></span>
           <SendIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </button>
       </form>

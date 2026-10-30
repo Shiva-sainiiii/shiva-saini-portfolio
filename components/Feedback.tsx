@@ -2,10 +2,11 @@
 import { useEffect, useState } from "react";
 import { addDoc, collection, limit, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import Fx from "./Fx";
 import { SendIcon } from "./Icons";
 
 type Review = { id: string; name: string; stars: number; message: string };
-const input = "w-full rounded-lg border border-line2 bg-surface px-4 py-3 text-white outline-none placeholder:text-mute/70 focus:border-cyan-400";
+const input = "w-full rounded-lg border border-line2 bg-surface px-4 py-3 text-white outline-none placeholder:text-mute/70 focus:border-accent2";
 
 const Stars = ({ n }: { n: number }) => (
   <span aria-label={`${n} out of 5`} className="text-accent2">
@@ -56,8 +57,8 @@ export default function Feedback() {
         </div>
         <input className={input} placeholder="Your name" value={name} maxLength={60} onChange={(e) => setName(e.target.value)} />
         <textarea className={input} placeholder="Your feedback" rows={3} maxLength={500} required value={message} onChange={(e) => setMessage(e.target.value)} />
-        <button disabled={status === "sending"} className="group inline-flex items-center gap-2 rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-black transition-colors hover:bg-cyan-300 disabled:opacity-50">
-          {status === "sending" ? "Sending…" : "Send feedback"}
+        <button disabled={status === "sending"} className="group inline-flex items-center gap-2 rounded-full bg-accent2 px-6 py-3 text-sm font-semibold text-black transition hover:brightness-110 disabled:opacity-50">
+          <Fx tone="text-black">{status === "sending" ? "Sending…" : "Send feedback"}</Fx>
           <SendIcon className={`h-4 w-4 transition-transform duration-200 ${status === "sending" ? "translate-x-1 -translate-y-1 opacity-60" : "group-hover:translate-x-0.5 group-hover:-translate-y-0.5"}`} />
         </button>
         {status === "done" && <p className="text-sm text-ink">Thanks for the feedback.</p>}
@@ -66,7 +67,7 @@ export default function Feedback() {
 
       <ul className="mt-12 space-y-4">
         {reviews.map((r) => (
-          <li key={r.id} className="rounded-2xl border border-line bg-surface p-5">
+          <li key={r.id} className="rounded-2xl border border-line bg-surface p-5 transition-colors hover:border-accent2/40 hover:bg-surface2">
             <Stars n={r.stars} />
             <p className="mt-2 text-ink">{r.message}</p>
             <p className="mt-1 text-sm text-mute">{r.name}</p>

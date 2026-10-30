@@ -5,7 +5,7 @@ import { SITE } from "@/lib/data";
 import { CH, MONO, hs, mix, readAccent } from "@/lib/ascii";
 
 // Character-terrain showcase: logo letter characters se decode hota hai, beech me glow orb, dono side terrain.
-// Rang --accent2 se aate hain (ThemeSwitcher ke saath badalte hain). Cyan sirf actions ke liye hai, yahan use nahi hua.
+// Rang --accent2 se aate hain (ThemeSwitcher ke saath badalte hain).
 const LOGO = "S";                      // mobile: sirf "S" (chhoti screen pe poora naam padhne layak nahi banta)
 const LOGO_DESK = ["SHIVA", "SAINI"];  // desktop / laptop (>=768px): poora naam, do line me
 const DESK_MIN = 768;
@@ -72,7 +72,7 @@ export default function AsciiHero() {
         mc.font = FONT(fs);
         const capH = asc * fs, gap = fs * 0.16;
         const blockH = LOGO_DESK.length * capH + (LOGO_DESK.length - 1) * gap;
-        lcy = H * 0.47;
+        lcy = H * 0.41; // pehle 0.47 tha: naam ab wave/terrain se thoda upar baithta hai
         const top = lcy - blockH / 2;
         LOGO_DESK.forEach((t, n) => mc.fillText(t, W / 2, top + capH * (n + 1) + gap * n));
         lr = Math.max(1, Math.hypot((wide * fs) / 2, blockH / 2));

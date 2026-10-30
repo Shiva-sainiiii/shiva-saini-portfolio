@@ -1,4 +1,5 @@
 import type { Project } from "@/lib/content";
+import Fx from "./Fx";
 
 // Desktop: row hover/focus pe khulti hai (image + details). Mobile: hamesha khuli.
 export default function Projects({ items }: { items: Project[] }) {
@@ -7,8 +8,8 @@ export default function Projects({ items }: { items: Project[] }) {
       {items.map((p) => (
         <li key={p.id} tabIndex={0} className="group border-b border-line py-8 outline-none first:pt-0">
           <div className="flex items-baseline justify-between gap-4">
-            <h3 className="text-3xl font-semibold text-mute transition-colors group-hover:text-cyan-300 group-focus:text-cyan-300 md:text-5xl">
-              {p.title}
+            <h3 className="text-3xl font-semibold text-mute transition-colors group-hover:text-accent2 group-focus:text-accent2 md:text-5xl">
+              <Fx>{p.title}</Fx>
             </h3>
             <span className="hidden text-3xl text-faint transition-transform duration-500 group-hover:rotate-45 group-focus:rotate-45 md:block">+</span>
           </div>
@@ -27,8 +28,8 @@ export default function Projects({ items }: { items: Project[] }) {
                     </ul>
                   )}
                   <div className="mt-5 flex gap-6 text-sm">
-                    {p.live_url && <a href={p.live_url} target="_blank" rel="noreferrer" className="font-medium text-cyan-400 underline-offset-4 hover:underline">Live</a>}
-                    {p.code_url && <a href={p.code_url} target="_blank" rel="noreferrer" className="text-mute underline-offset-4 hover:text-cyan-300 hover:underline">Code</a>}
+                    {p.live_url && <a href={p.live_url} target="_blank" rel="noreferrer" className="font-medium text-accent2 underline-offset-4 hover:underline"><Fx>Live</Fx></a>}
+                    {p.code_url && <a href={p.code_url} target="_blank" rel="noreferrer" className="text-mute underline-offset-4 hover:text-accent2 hover:underline"><Fx>Code</Fx></a>}
                   </div>
                 </div>
               </div>

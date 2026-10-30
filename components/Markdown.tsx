@@ -18,7 +18,7 @@ function inline(text: string): ReactNode[] {
     else if (m[3]) out.push(<em key={key}>{inline(t.slice(1, -1))}</em>);
     else {
       const link = t.match(/^\[([^\]]+)\]\((.+)\)$/)!;
-      out.push(<a key={key} href={link[2]} target="_blank" rel="noreferrer" className="text-cyan-300 underline underline-offset-4">{link[1]}</a>);
+      out.push(<a key={key} href={link[2]} target="_blank" rel="noreferrer" className="text-accent2 underline underline-offset-4">{link[1]}</a>);
     }
     last = m.index + t.length;
   }
