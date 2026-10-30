@@ -19,18 +19,21 @@ export default function CollectionEditor({ table, fields, readOnly = false }: { 
   const load = useCallback(async () => {
     const q = db.from(table).select("*");
     const { data, error } = readOnly ? await q.order("created_at", { ascending: false }) : await q.order("position").order("created_at");
-    setMsg(error?.message ?? "");
+    if (error) setMsg(error.message); // success/blocked msgs ko mitao mat
     setRows((data ?? []) as Row[]);
   }, [db, table, readOnly]);
 
   useEffect(() => { setDraft({}); setEditing(null); load(); }, [load]);
 
   const upload = async (key: string, file: File) => {
+    if (!file.type.startsWith("image/") || file.size > 5 * 1024 * 1024) return setMsg("Sirf image, max 5MB.");
     setBusy(true);
-    const path = `${table}/${Date.now()}-${file.name.replace(/[^\w.-]/g, "_")}`;
-    const { error } = await db.storage.from("portfolio").upload(path, file);
-    if (error) setMsg(error.message);
-    else setDraft((d) => ({ ...d, [key]: db.storage.from("portfolio").getPublicUrl(path).data.publicUrl }));
+    try {
+      const path = `${table}/${Date.now()}-${file.name.replace(/[^\w.-]/g, "_")}`;
+      const { error } = await db.storage.from("portfolio").upload(path, file);
+      if (error) setMsg(error.message);
+      else setDraft((d) => ({ ...d, [key]: db.storage.from("portfolio").getPublicUrl(path).data.publicUrl }));
+    } catch { setMsg("Upload failed (network). Dobara try karo."); }
     setBusy(false);
   };
 

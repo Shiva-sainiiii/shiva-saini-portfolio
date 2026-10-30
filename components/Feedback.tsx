@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { addDoc, collection, limit, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import Fx from "./Fx";
@@ -22,21 +22,28 @@ export default function Feedback() {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
+  const lastSent = useRef(0);
 
   useEffect(() => {
     if (!db) return;
     const q = query(collection(db, "feedback"), orderBy("createdAt", "desc"), limit(12));
-    return onSnapshot(q, (snap) => setReviews(snap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<Review, "id">) }))));
+    return onSnapshot(
+      q,
+      (snap) => setReviews(snap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<Review, "id">) }))),
+      () => { /* permission/network error: reviews khaali rahenge, page nahi tootega */ },
+    );
   }, []);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!db || !message.trim()) return;
+    if (Date.now() - lastSent.current < 30_000) { setStatus("error"); return; } // 30s cooldown (spam)
     setStatus("sending");
     try {
       await addDoc(collection(db, "feedback"), {
         name: name.trim().slice(0, 60) || "Anonymous", stars, message: message.trim().slice(0, 500), createdAt: serverTimestamp(),
       });
+      lastSent.current = Date.now();
       setName(""); setMessage(""); setStatus("done");
     } catch { setStatus("error"); }
   };
@@ -55,14 +62,14 @@ export default function Feedback() {
               className={n <= (hover || stars) ? "text-accent2" : "text-faint"}>★</button>
           ))}
         </div>
-        <input className={input} placeholder="Your name" value={name} maxLength={60} onChange={(e) => setName(e.target.value)} />
-        <textarea className={input} placeholder="Your feedback" rows={3} maxLength={500} required value={message} onChange={(e) => setMessage(e.target.value)} />
+        <input className={input} aria-label="Your name" placeholder="Your name" value={name} maxLength={60} onChange={(e) => setName(e.target.value)} />
+        <textarea className={input} aria-label="Your feedback" placeholder="Your feedback" rows={3} maxLength={500} required value={message} onChange={(e) => setMessage(e.target.value)} />
         <button disabled={status === "sending"} className="group inline-flex items-center gap-2 rounded-full bg-accent2 px-6 py-3 text-sm font-semibold text-black transition hover:brightness-110 disabled:opacity-50">
           <Fx tone="text-black">{status === "sending" ? "Sending…" : "Send feedback"}</Fx>
           <SendIcon className={`h-4 w-4 transition-transform duration-200 ${status === "sending" ? "translate-x-1 -translate-y-1 opacity-60" : "group-hover:translate-x-0.5 group-hover:-translate-y-0.5"}`} />
         </button>
-        {status === "done" && <p className="text-sm text-ink">Thanks for the feedback.</p>}
-        {status === "error" && <p className="text-sm text-red-400">Could not send. Please try again.</p>}
+        {status === "done" && <p role="status" className="text-sm text-ink">Thanks for the feedback.</p>}
+        {status === "error" && <p role="alert" className="text-sm text-red-400">Could not send. Please try again.</p>}
       </form>
 
       <ul className="mt-12 space-y-4">

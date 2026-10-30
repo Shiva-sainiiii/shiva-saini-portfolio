@@ -6,7 +6,7 @@ export default function Projects({ items }: { items: Project[] }) {
   return (
     <ul>
       {items.map((p) => (
-        <li key={p.id} tabIndex={0} className="group border-b border-line py-8 outline-none first:pt-0">
+        <li key={p.id} tabIndex={0} className="group border-b border-line py-8 outline-none first:pt-0 focus-visible:ring-1 focus-visible:ring-accent2/60">
           <div className="flex items-baseline justify-between gap-4">
             <h3 className="text-3xl font-semibold text-mute transition-colors group-hover:text-accent2 group-focus:text-accent2 md:text-5xl">
               <Fx>{p.title}</Fx>

@@ -22,8 +22,10 @@ export default function Contact({ links }: { links: LinkItem[] }) {
     // Supabase na ho to mail app khul jaayegi
     if (!supabase) { window.location.href = `mailto:${SITE.email}?body=${encodeURIComponent(form.message)}`; return; }
     setStatus("sending");
-    const { error } = await supabase.from("messages").insert({ name: form.name.trim(), email: form.email.trim(), message: form.message.trim() });
-    if (error) return setStatus("error");
+    try {
+      const { error } = await supabase.from("messages").insert({ name: form.name.trim(), email: form.email.trim(), message: form.message.trim() });
+      if (error) return setStatus("error");
+    } catch { return setStatus("error"); }
     lastSent.current = Date.now();
     setForm({ name: "", email: "", message: "" }); setStatus("done");
   };
@@ -39,18 +41,18 @@ export default function Contact({ links }: { links: LinkItem[] }) {
       </div>
 
       <form onSubmit={submit} className="mt-12 space-y-4">
-        <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" value={hp} onChange={(e) => setHp(e.target.value)} className="absolute -left-[9999px] h-0 w-0 opacity-0" />
+        <input type="text" name="hp_field" tabIndex={-1} autoComplete="new-password" aria-hidden="true" value={hp} onChange={(e) => setHp(e.target.value)} className="absolute -left-[9999px] h-0 w-0 opacity-0" />
         <div className="grid gap-4 sm:grid-cols-2">
-          <input className={input} placeholder="Name" required maxLength={80} value={form.name} onChange={set("name")} />
-          <input className={input} type="email" placeholder="Email" required maxLength={120} value={form.email} onChange={set("email")} />
+          <input className={input} aria-label="Name" placeholder="Name" required maxLength={80} value={form.name} onChange={set("name")} />
+          <input className={input} type="email" aria-label="Email" placeholder="Email" required maxLength={120} value={form.email} onChange={set("email")} />
         </div>
-        <textarea className={input} placeholder="Message" rows={4} required maxLength={2000} value={form.message} onChange={set("message")} />
+        <textarea className={input} aria-label="Message" placeholder="Message" rows={4} required maxLength={2000} value={form.message} onChange={set("message")} />
         <button disabled={status === "sending"} className="group inline-flex items-center gap-2 rounded-full bg-accent2 px-6 py-3 text-sm font-semibold text-black transition hover:brightness-110 disabled:opacity-50">
           <Fx tone="text-black">{status === "sending" ? "Sending…" : "Send message"}</Fx>
           <SendIcon className={`h-4 w-4 transition-transform duration-200 ${status === "sending" ? "translate-x-1 -translate-y-1 opacity-60" : "group-hover:translate-x-0.5 group-hover:-translate-y-0.5"}`} />
         </button>
-        {status === "done" && <p className="text-sm text-ink">Message sent. I will get back to you soon.</p>}
-        {status === "error" && <p className="text-sm text-red-400">Could not send. Please email me directly.</p>}
+        {status === "done" && <p role="status" className="text-sm text-ink">Message sent. I will get back to you soon.</p>}
+        {status === "error" && <p role="alert" className="text-sm text-red-400">Could not send. Please email me directly.</p>}
       </form>
 
       <ul className="mt-12 flex flex-wrap gap-3 text-sm">

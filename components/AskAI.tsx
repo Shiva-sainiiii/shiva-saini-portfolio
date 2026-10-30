@@ -85,7 +85,7 @@ export default function AskAI() {
 
   return (
     <div className="rounded-2xl border border-line bg-surface">
-      <div ref={listRef} className="h-80 space-y-4 overflow-y-auto p-5 text-sm leading-relaxed">
+      <div ref={listRef} aria-live="polite" className="h-80 space-y-4 overflow-y-auto p-5 text-sm leading-relaxed">
         {!msgs.length && <p className="text-mute">Hi! I&apos;m Shiva&apos;s AI assistant. Ask about his skills and projects, or any coding question.</p>}
         {msgs.map((m, i) => (
           m.role === "user" ? (
@@ -105,7 +105,7 @@ export default function AskAI() {
         ))}
       </div>
       <form className="flex gap-3 p-5" onSubmit={(e) => { e.preventDefault(); send(input); }}>
-        <input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Ask anything…" maxLength={500}
+        <input value={input} onChange={(e) => setInput(e.target.value)} aria-label="Ask a question" placeholder="Ask anything…" maxLength={500}
           className="min-w-0 flex-1 rounded-full border border-line2 bg-ground px-5 py-3 text-white outline-none placeholder:text-mute/70 focus:border-accent2" />
         <button disabled={busy} aria-label="Send message" className="group inline-flex items-center gap-2 rounded-full bg-accent2 px-5 py-3 text-sm font-semibold text-black transition hover:brightness-110 disabled:opacity-50">
           <span className="hidden sm:inline"><Fx tone="text-black">Send</Fx></span>

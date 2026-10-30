@@ -71,8 +71,12 @@ export default function FloatingPlane() {
     heading.visible = false;
 
     let disposed = false, raf = 0, last = 0, size = SIZE_DESK;
-    const resize = () => {
+    let vw = innerWidth, vh = innerHeight; // jis size pe canvas buffer bana hai (URL bar se badalta innerHeight ignore)
+    const resize = (force = false) => {
       const w = innerWidth, h = innerHeight;
+      // Mobile pe URL bar hide/show => sirf height thodi badalti hai: realloc skip (jank + front canvas clear hone se bachao)
+      if (!force && mobile() && w === vw && Math.abs(h - vh) < 150) return;
+      vw = w; vh = h;
       renderer.setSize(w, h, false);
       front.width = renderer.domElement.width; front.height = renderer.domElement.height;
       cam.aspect = w / h; cam.updateProjectionMatrix();
@@ -93,8 +97,8 @@ export default function FloatingPlane() {
       holder.rotation.y = -Math.PI / 2;                    // nose -Z -> +X
       bank.add(holder);
       heading.visible = true;
-      resize();
-    });
+      resize(true);
+    }, undefined, () => { /* GLB load fail: chupchap skip, site normal chalegi */ });
 
     // ---- scroll state
     let sp = 0, prevSp = 0, dir = 1, ang = 0, roll = 0, frame = 0;
@@ -140,14 +144,15 @@ export default function FloatingPlane() {
       const rr = (x: number, y: number, w: number, h: number, r: number) =>
         `M${x + r} ${y}H${x + w - r}A${r} ${r} 0 0 1 ${x + w} ${y + r}V${y + h - r}A${r} ${r} 0 0 1 ${x + w - r} ${y + h}H${x + r}A${r} ${r} 0 0 1 ${x} ${y + h - r}V${y + r}A${r} ${r} 0 0 1 ${x + r} ${y}Z`;
       let clip = "", hit = false;
-      const cx = (px / hw * 0.5 + 0.5) * innerWidth, cy = (0.5 - py / hh * 0.5) * innerHeight;
-      const rad = (size * 0.8 / (2 * hh)) * innerHeight;
+      const cx = (px / hw * 0.5 + 0.5) * vw, cy = (0.5 - py / hh * 0.5) * vh;   // buffer space
+      const rad = (size * 0.8 / (2 * hh)) * vh;
+      const sy = innerHeight / vh, cyc = cy * sy, radc = rad * sy;               // CSS space (hit test ke liye)
       document.querySelectorAll("[data-card]").forEach((el, i) => {
         if (i % 2) return;                                  // odd cards: plane peeche se
         const r = el.getBoundingClientRect();
         if (r.width < 2 || r.bottom < 0 || r.top > innerHeight) return;
         clip += rr(r.left - 2, r.top - 2, r.width + 4, r.height + 4, 18); // 2px bahar: card ki border plane ke upar na dikhe
-        if (cx + rad > r.left && cx - rad < r.right && cy + rad > r.top && cy - rad < r.bottom) hit = true;
+        if (cx + radc > r.left && cx - radc < r.right && cyc + radc > r.top && cyc - radc < r.bottom) hit = true;
       });
       const clipCss = clip ? `path('${clip}')` : "inset(0 0 100% 0)";
       if (clipCss !== lastClip) { front.style.clipPath = clipCss; lastClip = clipCss; }
@@ -164,9 +169,16 @@ export default function FloatingPlane() {
     };
 
     const onVis = () => { cancelAnimationFrame(raf); if (!document.hidden && !disposed) { last = performance.now(); raf = requestAnimationFrame(tick); } };
-    resize();
-    addEventListener("resize", resize);
+    resize(true);
+    const onResize = () => resize();
+    addEventListener("resize", onResize);
     document.addEventListener("visibilitychange", onVis);
+    // WebGL context mobile pe kabhi bhi ja sakta hai: loop roko, wapas aaye to chalu
+    const gl0 = renderer.domElement;
+    const onLost = (e: Event) => { e.preventDefault(); cancelAnimationFrame(raf); raf = 0; };
+    const onRestored = () => { if (!disposed && !document.hidden) { last = performance.now(); raf = requestAnimationFrame(tick); } };
+    gl0.addEventListener("webglcontextlost", onLost);
+    gl0.addEventListener("webglcontextrestored", onRestored);
 
     // Intro: loader/hero ke baad soft fade-in (hero ke ASCII intro se takraye nahi)
     const el = renderer.domElement;
@@ -182,7 +194,8 @@ export default function FloatingPlane() {
     return () => {
       disposed = true;
       cancelAnimationFrame(raf); window.clearTimeout(t1);
-      removeEventListener("resize", resize); removeEventListener("ascii-loader-exit", onExit);
+      removeEventListener("resize", onResize); removeEventListener("ascii-loader-exit", onExit);
+      gl0.removeEventListener("webglcontextlost", onLost); gl0.removeEventListener("webglcontextrestored", onRestored);
       document.removeEventListener("visibilitychange", onVis);
       scene.traverse((o) => {
         const mesh = o as THREE.Mesh;
@@ -190,7 +203,7 @@ export default function FloatingPlane() {
         const mat = mesh.material as THREE.Material | THREE.Material[] | undefined;
         (Array.isArray(mat) ? mat : mat ? [mat] : []).forEach((mm) => { (mm as THREE.MeshStandardMaterial).map?.dispose(); mm.dispose(); });
       });
-      renderer.dispose(); renderer.domElement.remove();
+      renderer.dispose(); renderer.forceContextLoss(); renderer.domElement.remove();
     };
   }, []);
 

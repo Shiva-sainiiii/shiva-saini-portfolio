@@ -49,6 +49,7 @@ export default function Fx({ children, tone = "text-accent2" }: { children: stri
       host.removeEventListener("pointerenter", enter);
       host.removeEventListener("focusin", focus);
       cancelAnimationFrame(raf);
+      setOut(null);
     };
   }, [children]);
 

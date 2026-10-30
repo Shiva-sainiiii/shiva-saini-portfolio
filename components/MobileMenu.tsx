@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CloseIcon, MenuIcon } from "./Icons";
 import ThemeSwitcher from "./ThemeSwitcher";
 
@@ -12,9 +12,11 @@ type NavLink = { label: string; href: string };
 // Panel `-z-10` hai (Navbar me ye wrapper apna stacking context banata hai), isliye hamburger button panel ke upar rehta hai.
 export default function MobileMenu({ links, resume, demo }: { links: NavLink[]; resume: string; demo: string }) {
   const [open, setOpen] = useState(false);
+  const panel = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!open) return;
+    panel.current?.querySelector<HTMLElement>("a")?.focus(); // menu khulte hi focus andar
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
@@ -51,6 +53,7 @@ export default function MobileMenu({ links, resume, demo }: { links: NavLink[]; 
         <div className="fixed inset-0 -z-10 bg-black/70 backdrop-blur-sm" onClick={close}>
           <div
             id="mobile-menu"
+            ref={panel}
             role="dialog"
             aria-modal="true"
             aria-label="Site menu"

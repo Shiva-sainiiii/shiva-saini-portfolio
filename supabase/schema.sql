@@ -1,7 +1,7 @@
 -- Supabase SQL Editor me poora paste karke Run karo.
 -- Admin = sirf ye email (apna email yahan rakho).
 create or replace function is_admin() returns boolean language sql stable as
-$$ select coalesce(auth.jwt() ->> 'email', '') = 'shivasaini.5666@gmail.com' $$;
+$$ select coalesce(auth.jwt() ->> 'email', '') = 'dugguji571@gmail.com' $$;
 
 create table projects (id uuid primary key default gen_random_uuid(), title text not null, description text, tech text, image text, live_url text, code_url text, position int default 0, created_at timestamptz default now());
 create table skills (id uuid primary key default gen_random_uuid(), name text not null, position int default 0, created_at timestamptz default now());

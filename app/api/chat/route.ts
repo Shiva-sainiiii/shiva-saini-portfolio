@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 import { EXPERIENCE, SERVICES, SITE } from "@/lib/data";
 
+export const dynamic = "force-dynamic"; // Supabase prompt data cache na ho
+export const maxDuration = 30;
+
 type Msg = { role: "user" | "assistant"; content: string };
 
 // ---- Abuse guard: IP-wise rate limit (in-memory). Vercel pe har instance ka apna counter hota hai, isliye ye
@@ -53,6 +56,7 @@ async function gemini(sys: string, msgs: Msg[]) {
       contents: msgs.map((m) => ({ role: m.role === "user" ? "user" : "model", parts: [{ text: m.content }] })),
       generationConfig: { maxOutputTokens: MAX_OUT },
     }),
+    signal: AbortSignal.timeout(20_000),
   });
   const j = await r.json();
   if (!r.ok) throw new Error(j.error?.message || `Gemini error ${r.status}`);
@@ -68,6 +72,7 @@ async function openrouter(sys: string, msgs: Msg[]) {
       messages: [{ role: "system", content: sys }, ...msgs],
       max_tokens: MAX_OUT,
     }),
+    signal: AbortSignal.timeout(20_000),
   });
   const j = await r.json();
   if (!r.ok) throw new Error(j.error?.message || `OpenRouter error ${r.status}`);
@@ -77,15 +82,23 @@ async function openrouter(sys: string, msgs: Msg[]) {
 export async function POST(req: Request) {
   try {
     const ip = (req.headers.get("x-forwarded-for") ?? "").split(",")[0].trim() || req.headers.get("x-real-ip") || "unknown";
-    if (limited(ip)) return NextResponse.json({ error: "Too many questions in a short time. Please wait a minute and try again." }, { status: 429 });
-    const { messages } = (await req.json()) as { messages: Msg[] };
+    const body = (await req.json().catch(() => null)) as { messages?: Msg[] } | null;
+    const messages = body?.messages;
     if (!Array.isArray(messages) || !messages.length) return NextResponse.json({ error: "No message" }, { status: 400 });
-    const clean: Msg[] = messages.slice(-10).map((m) => ({ role: m.role === "assistant" ? "assistant" : "user", content: String(m.content).slice(0, 2000) }));
+    if (limited(ip)) return NextResponse.json({ error: "Too many questions in a short time. Please wait a minute and try again." }, { status: 429 });
+    const clean: Msg[] = messages.slice(-10).map((m) => ({ role: m?.role === "assistant" ? "assistant" : "user", content: String(m?.content ?? "").slice(0, 2000) }));
     const sys = await systemPrompt();
 
     let reply: string;
-    if (process.env.GEMINI_API_KEY) reply = await gemini(sys, clean);
-    else if (process.env.OPENROUTER_API_KEY) reply = await openrouter(sys, clean);
+    if (process.env.GEMINI_API_KEY) {
+      try { reply = await gemini(sys, clean); }
+      catch (e) {
+        // Gemini fail/quota => OpenRouter fallback (agar key ho)
+        if (!process.env.OPENROUTER_API_KEY) throw e;
+        console.error("chat: gemini failed, trying openrouter:", e);
+        reply = await openrouter(sys, clean);
+      }
+    } else if (process.env.OPENROUTER_API_KEY) reply = await openrouter(sys, clean);
     else {
       console.error("chat: no GEMINI_API_KEY / OPENROUTER_API_KEY set");
       return NextResponse.json({ error: DEBUG ? "AI not configured: set GEMINI_API_KEY (or OPENROUTER_API_KEY) in Vercel env vars and redeploy." : "The AI assistant is unavailable right now. Please email me directly." }, { status: 500 });
