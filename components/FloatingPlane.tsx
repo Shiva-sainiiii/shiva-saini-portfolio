@@ -20,10 +20,18 @@ const BASE_ROLL = 1.05;                  // rad: plane ka flat face camera ki ta
 const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 
 // Path: t (0..1 page progress) -> screen position in -1..1 (x), -1..1 (y)
-const path = (t: number) => ({
-  x: Math.sin(t * Math.PI * 5 + 0.5) * SWAY,
-  y: 0.55 - t * 1.15 + Math.sin(t * 38) * 0.02,
-});
+// START (hero): desktop pe plane SHIVA SAINI ke letters se door, right edge pe (white text + white paper blend na ho).
+// Mobile pe S aur wave ke BEECH me, center. Phir scroll ke saath S-curve me neeche udta hai.
+const smooth = (a: number, b: number, t: number) => { const k = clamp((t - a) / (b - a)); return k * k * (3 - 2 * k); };
+const path = (t: number, mob: boolean) => {
+  const sx = mob ? 0 : 0.84, sy = mob ? -0.12 : 0.12;          // start x, y (-1..1)
+  const sway = Math.sin(t * Math.PI * 5 + 0.5) * SWAY;
+  const k = smooth(0.03, 0.17, t);                              // hero se nikalte hi normal S-curve
+  return {
+    x: sx + (sway - sx) * k,
+    y: sy - t * (sy + 0.6) + Math.sin(t * 38) * 0.02,
+  };
+};
 
 export default function FloatingPlane() {
   const mount = useRef<HTMLDivElement>(null);
@@ -107,7 +115,8 @@ export default function FloatingPlane() {
       if (Math.abs(v) > 1e-5) dir = v > 0 ? 1 : -1;     // upar scroll karo to plane ulta (peeche) udta hai
       const speed = clamp(Math.abs(v) / dt / 0.4);        // 0 = ruka hua, 1 = tez scroll
 
-      const p0 = path(sp), p1 = path(clamp(sp + 0.004 * dir));
+      const mob = mobile();
+      const p0 = path(sp, mob), p1 = path(clamp(sp + 0.004 * dir), mob);
       const bobY = Math.sin(T * 1.6) * 0.035, bobX = Math.sin(T * 1.1) * 0.015;
       const px = (p0.x + bobX) * hw, py = (p0.y + bobY) * hh;
       heading.position.set(px, py, 0);
@@ -137,7 +146,7 @@ export default function FloatingPlane() {
         if (i % 2) return;                                  // odd cards: plane peeche se
         const r = el.getBoundingClientRect();
         if (r.width < 2 || r.bottom < 0 || r.top > innerHeight) return;
-        clip += rr(r.left, r.top, r.width, r.height, 16);
+        clip += rr(r.left - 2, r.top - 2, r.width + 4, r.height + 4, 18); // 2px bahar: card ki border plane ke upar na dikhe
         if (cx + rad > r.left && cx - rad < r.right && cy + rad > r.top && cy - rad < r.bottom) hit = true;
       });
       const clipCss = clip ? `path('${clip}')` : "inset(0 0 100% 0)";
