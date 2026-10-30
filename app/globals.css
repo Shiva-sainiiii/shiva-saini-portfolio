@@ -22,7 +22,9 @@
 }
 
 /* Pure black background, koi flash nahi jab overscroll ho */
-html, body { background: #000; color: #fff; -webkit-font-smoothing: antialiased; }
+/* NOTE: background sirf <html> pe (body pe nahi). Body pe hota to 3D plane (z -1) ke UPAR paint hota aur plane chhup jaata. */
+html { background: #000; }
+body { color: #fff; -webkit-font-smoothing: antialiased; }
 
 /* Reduced-motion walon ke liye extra smoothing band */
 @media (prefers-reduced-motion: reduce) { * { transition-duration: 0s !important; } }

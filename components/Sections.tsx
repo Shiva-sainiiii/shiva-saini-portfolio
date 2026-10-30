@@ -23,9 +23,9 @@ type Side = "l" | "r";
 // Decoration pehle DOM me hai, content `relative` hai aur baad me, isliye content upar paint hota hai.
 const Section = ({ id, title, wide, side = "r", children }: { id: string; title: string; wide?: boolean; side?: Side; children: React.ReactNode }) => (
   <section id={id} className={`relative ${side === "l" ? "side-l" : "side-r"}`}>
-    <div aria-hidden className="section-glow pointer-events-none absolute inset-0" />
-    <div aria-hidden className="section-dots pointer-events-none absolute inset-0" />
-    <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 px-6">
+    <div aria-hidden className="section-glow pointer-events-none absolute inset-0 -z-[2]" />
+    <div aria-hidden className="section-dots pointer-events-none absolute inset-0 -z-[2]" />
+    <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 -z-[2] px-6">
       <div className="mx-auto h-px max-w-6xl bg-gradient-to-r from-accent2/60 via-accent2/30 to-transparent" />
     </div>
     {wide ? (
@@ -53,10 +53,13 @@ export default function Sections({ initial }: { initial: Content }) {
   // Ek hi fetch, saare sections ko data milta hai
   const { projects, skills, certificates, links } = useContent(initial);
   return (
-    <div className="page-ground relative text-ink">
+    <div className="relative text-ink">
+      {/* DEPTH LAYERS (peeche se aage): page-ground (-z-3) < grain/glow/dots (-z-2) < 3D plane (-z-1, FloatingPlane) < cards/text/hero (normal).
+          Isliye plane cards aur SHIVA SAINI ke PEECHE udta hai. Is div ko z-index/isolate mat dena, warna plane chhup jaayega. */}
+      <div aria-hidden className="page-ground pointer-events-none absolute inset-0 -z-[3]" />
       {/* B3: film grain (multi-colour). SABSE PEHLA child + z-index nahi => section content (cards, chips, images, text) iske upar paint hota hai,
           grain sirf background ke saath blend hota hai. Isko neeche ya z-index ke saath mat le jana. */}
-      <div aria-hidden className="grain pointer-events-none absolute inset-0" />
+      <div aria-hidden className="grain pointer-events-none absolute inset-0 -z-[2]" />
       <Section id="about" title="About me" side="r">
         <div className="grid gap-12 lg:grid-cols-[1fr_300px] lg:items-start">
           <div>

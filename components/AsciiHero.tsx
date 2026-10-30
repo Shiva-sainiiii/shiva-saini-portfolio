@@ -122,7 +122,7 @@ export default function AsciiHero() {
       if (px > -900) { if (hv < 0.02) { sx = px; sy = py; } sx += (px - sx) * 0.25; sy += (py - sy) * 0.25; hv += (1 - hv) * 0.15; }
       else hv *= 0.9;
       const HR = W < 600 ? HOVER_R * 0.7 : HOVER_R;
-      ctx.globalAlpha = 1; ctx.fillStyle = "#000"; ctx.fillRect(0, 0, W, H);
+      ctx.globalAlpha = 1; ctx.clearRect(0, 0, W, H); // transparent: peeche <html> ka pure #000 hai, aur 3D plane iske peeche udta hai
       const R = Math.min(W, H) * 0.28 * orbS;
       const g = ctx.createRadialGradient(ox, oy, 0, ox, oy, R);
       g.addColorStop(0, `rgba(${mix(acc, 255, 0.55).slice(4, -1)},${0.95 * orbK})`);
@@ -233,7 +233,7 @@ export default function AsciiHero() {
   }, []);
 
   return (
-    <section ref={wrapRef} aria-label={`${SITE.name} — ${SITE.role}`} className="relative h-svh min-h-[560px] w-full overflow-hidden bg-black">
+    <section ref={wrapRef} aria-label={`${SITE.name} — ${SITE.role}`} className="relative h-svh min-h-[560px] w-full overflow-hidden">
       <canvas ref={cvRef} aria-hidden="true" className="absolute inset-0 h-full w-full" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between gap-4 px-6 pb-8 font-mono text-[10px] uppercase tracking-[0.2em] text-mute md:px-12 md:pb-12 md:text-sm">
         <span className="flex items-center gap-3"><span className="inline-block h-2.5 w-2.5 bg-accent3" />{SITE.tagline}</span>

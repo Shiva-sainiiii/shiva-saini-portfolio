@@ -6,11 +6,11 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { readAccent } from "@/lib/ascii";
 
 // Floating 3D paper airplane: page scroll ke saath S-curve me neeche udta hai, footer tak. Scroll ruke to halka bob karta hai.
-// Model: public/models/paper-airplane.glb (71 KB, CC BY 4.0 — credit footer me hai). Fixed overlay, pointer-events none, navbar ke neeche (z-30).
+// Model: public/models/paper-airplane.glb (71 KB, CC BY 4.0 — credit footer me hai). Fixed layer z -1: cards, text aur SHIVA SAINI ke PEECHE (depth feel). pointer-events none.
 // Rang: key light white, fill light = theme accent2 (theme ke saath badalta), rim light = volt accent3.
 // Tweak yahan: SIZE (plane ka size), SWAY (left-right kitna), SMOOTH (scroll follow speed), BASE_ROLL (kitna jhuka hua dikhe).
 const MODEL = "/models/paper-airplane.glb";
-const SIZE_DESK = 0.95, SIZE_MOB = 0.7;  // world units (plane ki lambai)
+const SIZE_DESK = 1.2, SIZE_MOB = 0.9;   // world units (plane ki lambai)
 const SWAY = 0.62;                       // screen half-width ka fraction
 const SMOOTH = 4;                        // zyada = scroll ko jaldi follow
 const BASE_ROLL = 1.05;                  // rad: plane ka flat face camera ki taraf kitna ghume
@@ -150,5 +150,5 @@ export default function FloatingPlane() {
     };
   }, []);
 
-  return <div ref={mount} aria-hidden="true" className="pointer-events-none fixed inset-0 z-30" />;
+  return <div ref={mount} aria-hidden="true" className="pointer-events-none fixed inset-0 -z-[1]" />;
 }
