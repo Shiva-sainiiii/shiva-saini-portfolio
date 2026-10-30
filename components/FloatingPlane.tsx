@@ -7,6 +7,9 @@ import { readAccent } from "@/lib/ascii";
 
 // Floating 3D paper airplane: page scroll ke saath S-curve me neeche udta hai, footer tak. Scroll ruke to halka bob karta hai.
 // Model: public/models/paper-airplane.glb (71 KB, CC BY 4.0 — credit footer me hai). Fixed layer z -1: cards, text aur SHIVA SAINI ke PEECHE (depth feel). pointer-events none.
+// 3 LAYERS (depth): [1] -z-1 = cards ke PEECHE (WebGL canvas), [2] cards, [3] z-30 = cards ke AAGE (2D canvas, neeche dekho).
+// Jin cards pe data-card hai unme se ek-chhod-ke-ek (even index) ke upar plane AAGE se udta hai (shadow ke saath); baaki ke peeche se.
+// Technique: plane ek hi baar render hota hai; front canvas me uski copy sirf "front cards" ke rectangles ke andar clip-path se dikhti hai.
 // Rang: key light white, fill light = theme accent2 (theme ke saath badalta), rim light = volt accent3.
 // Tweak yahan: SIZE (plane ka size), SWAY (left-right kitna), SMOOTH (scroll follow speed), BASE_ROLL (kitna jhuka hua dikhe).
 const MODEL = "/models/paper-airplane.glb";
@@ -24,10 +27,14 @@ const path = (t: number) => ({
 
 export default function FloatingPlane() {
   const mount = useRef<HTMLDivElement>(null);
+  const frontRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const host = mount.current!;
+    const front = frontRef.current!;
+    const fctx = front.getContext("2d")!;
+    let drewFront = false, lastClip = "";
     let renderer: THREE.WebGLRenderer;
     try {
       renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "low-power" });
@@ -59,6 +66,7 @@ export default function FloatingPlane() {
     const resize = () => {
       const w = innerWidth, h = innerHeight;
       renderer.setSize(w, h, false);
+      front.width = renderer.domElement.width; front.height = renderer.domElement.height;
       cam.aspect = w / h; cam.updateProjectionMatrix();
       hw = hh * cam.aspect;
       size = mobile() ? SIZE_MOB : SIZE_DESK;
@@ -117,6 +125,33 @@ export default function FloatingPlane() {
       bank.rotation.y = Math.sin(T * 0.9) * 0.06;
 
       renderer.render(scene, cam);
+
+      // ---- FRONT layer: even-index [data-card] ke rectangles me plane ki copy + shadow
+      const gl = renderer.domElement, pr = renderer.getPixelRatio();
+      const rr = (x: number, y: number, w: number, h: number, r: number) =>
+        `M${x + r} ${y}H${x + w - r}A${r} ${r} 0 0 1 ${x + w} ${y + r}V${y + h - r}A${r} ${r} 0 0 1 ${x + w - r} ${y + h}H${x + r}A${r} ${r} 0 0 1 ${x} ${y + h - r}V${y + r}A${r} ${r} 0 0 1 ${x + r} ${y}Z`;
+      let clip = "", hit = false;
+      const cx = (px / hw * 0.5 + 0.5) * innerWidth, cy = (0.5 - py / hh * 0.5) * innerHeight;
+      const rad = (size * 0.8 / (2 * hh)) * innerHeight;
+      document.querySelectorAll("[data-card]").forEach((el, i) => {
+        if (i % 2) return;                                  // odd cards: plane peeche se
+        const r = el.getBoundingClientRect();
+        if (r.width < 2 || r.bottom < 0 || r.top > innerHeight) return;
+        clip += rr(r.left, r.top, r.width, r.height, 16);
+        if (cx + rad > r.left && cx - rad < r.right && cy + rad > r.top && cy - rad < r.bottom) hit = true;
+      });
+      const clipCss = clip ? `path('${clip}')` : "inset(0 0 100% 0)";
+      if (clipCss !== lastClip) { front.style.clipPath = clipCss; lastClip = clipCss; }
+      if (drewFront) { fctx.clearRect(0, 0, front.width, front.height); drewFront = false; }
+      if (hit && heading.visible) {
+        const x0 = Math.max(0, Math.floor((cx - rad) * pr)), y0 = Math.max(0, Math.floor((cy - rad) * pr));
+        const w0 = Math.min(front.width - x0, Math.ceil(rad * 2 * pr)), h0 = Math.min(front.height - y0, Math.ceil(rad * 2 * pr));
+        if (w0 > 0 && h0 > 0) {
+          fctx.shadowColor = "rgba(0,0,0,0.55)"; fctx.shadowBlur = 22 * pr; fctx.shadowOffsetY = 20 * pr; // card pe plane ki parchhai = depth
+          fctx.drawImage(gl, x0, y0, w0, h0, x0, y0, w0, h0);
+          drewFront = true;
+        }
+      }
     };
 
     const onVis = () => { cancelAnimationFrame(raf); if (!document.hidden && !disposed) { last = performance.now(); raf = requestAnimationFrame(tick); } };
@@ -150,5 +185,10 @@ export default function FloatingPlane() {
     };
   }, []);
 
-  return <div ref={mount} aria-hidden="true" className="pointer-events-none fixed inset-0 -z-[1]" />;
+  return (
+    <>
+      <div ref={mount} aria-hidden="true" className="pointer-events-none fixed inset-0 -z-[1]" />
+      <canvas ref={frontRef} aria-hidden="true" className="pointer-events-none fixed inset-0 z-30 h-full w-full" />
+    </>
+  );
 }

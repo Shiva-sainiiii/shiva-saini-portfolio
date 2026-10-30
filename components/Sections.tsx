@@ -77,7 +77,7 @@ export default function Sections({ initial }: { initial: Content }) {
         </p>
         <ul className="mt-12 grid gap-4 sm:grid-cols-2">
           {SERVICES.map((s, n) => (
-            <li key={s.title} className="rounded-2xl border border-line bg-surface p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent2/50 hover:bg-surface2">
+            <li key={s.title} data-card className="rounded-2xl border border-line bg-surface p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent2/50 hover:bg-surface2">
               <span className="text-xs font-semibold tracking-widest text-accent2">0{n + 1}</span>
               <h3 className="mt-3 text-xl font-semibold text-white"><Fx>{s.title}</Fx></h3>
               <p className="mt-2 text-mute">{s.note}</p>

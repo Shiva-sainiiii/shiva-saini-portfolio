@@ -67,7 +67,7 @@ export default function Feedback() {
 
       <ul className="mt-12 space-y-4">
         {reviews.map((r) => (
-          <li key={r.id} className="rounded-2xl border border-line bg-surface p-5 transition-colors hover:border-accent2/40 hover:bg-surface2">
+          <li key={r.id} data-card className="rounded-2xl border border-line bg-surface p-5 transition-colors hover:border-accent2/40 hover:bg-surface2">
             <Stars n={r.stars} />
             <p className="mt-2 text-ink">{r.message}</p>
             <p className="mt-1 text-sm text-mute">{r.name}</p>

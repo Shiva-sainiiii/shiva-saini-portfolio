@@ -11,6 +11,7 @@ function NicheCard({ n }: { n: (typeof NICHES)[number] }) {
   const href = n.demo ?? waLink(`Hi Shiva, I run a ${n.name.toLowerCase()} business. I'd like a free demo website.`);
   return (
     <article
+      data-card
       onPointerEnter={(e) => e.pointerType === "mouse" && setOn(true)}
       onPointerLeave={(e) => e.pointerType === "mouse" && setOn(false)}
       onClick={() => setOn((v) => !v)}
@@ -44,7 +45,7 @@ export default function Showcase() {
       <h3 className="mt-16 text-xs font-semibold uppercase tracking-[0.2em] text-accent2">Delivered client work</h3>
       <ul className="mt-6 grid gap-4 sm:grid-cols-2">
         {CLIENT_WORK.map((c) => (
-          <li key={c.href} className="rounded-2xl border border-line bg-surface p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent2/50 hover:bg-surface2">
+          <li key={c.href} data-card className="rounded-2xl border border-line bg-surface p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent2/50 hover:bg-surface2">
             <p className="text-xl font-semibold text-white"><Fx>{c.name}</Fx></p>
             <p className="mt-1 text-sm text-mute">{c.city} · {c.note}</p>
             <a href={c.href} target="_blank" rel="noreferrer" className="mt-4 inline-block text-sm font-medium text-accent2 underline-offset-4 hover:underline"><Fx>Visit live site →</Fx></a>
