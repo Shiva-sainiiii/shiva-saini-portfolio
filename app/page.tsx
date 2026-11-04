@@ -1,7 +1,6 @@
-import AsciiHero from "@/components/AsciiHero";
 import AsciiLoader from "@/components/AsciiLoader";
+import LaptopIntro from "@/components/LaptopIntro";
 import Navbar from "@/components/Navbar";
-import PlaneLoader from "@/components/PlaneLoader";
 import Sections from "@/components/Sections";
 import { defaults, fetchContent } from "@/lib/content";
 import { SERVICES, SITE } from "@/lib/data";
@@ -50,8 +49,7 @@ export default async function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceLd) }} />
       <AsciiLoader />
       <Navbar />
-      <PlaneLoader />
-      <AsciiHero />
+      <LaptopIntro />
       <Sections initial={content} />
     </main>
   );

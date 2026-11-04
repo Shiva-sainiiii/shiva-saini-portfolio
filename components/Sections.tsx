@@ -54,8 +54,8 @@ export default function Sections({ initial }: { initial: Content }) {
   const { projects, skills, certificates, links } = useContent(initial);
   return (
     <div className="relative text-ink">
-      {/* DEPTH LAYERS (peeche se aage): page-ground (-z-3) < grain/glow/dots (-z-2) < 3D plane (-z-1, FloatingPlane) < cards/text/hero (normal).
-          Isliye plane cards aur SHIVA SAINI ke PEECHE udta hai. Is div ko z-index/isolate mat dena, warna plane chhup jaayega. */}
+      {/* DEPTH LAYERS (peeche se aage): page-ground (-z-3) < grain/glow/dots (-z-2) < cards/text/hero (normal).
+          Is div ko z-index/isolate mat dena, warna ye layers cards ke upar aa sakti hain. */}
       <div aria-hidden className="page-ground pointer-events-none absolute inset-0 -z-[3]" />
       {/* B3: film grain (multi-colour). SABSE PEHLA child + z-index nahi => section content (cards, chips, images, text) iske upar paint hota hai,
           grain sirf background ke saath blend hota hai. Isko neeche ya z-index ke saath mat le jana. */}
@@ -77,7 +77,7 @@ export default function Sections({ initial }: { initial: Content }) {
         </p>
         <ul className="mt-12 grid gap-4 sm:grid-cols-2">
           {SERVICES.map((s, n) => (
-            <li key={s.title} data-card className="rounded-2xl border border-line bg-surface p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent2/50 hover:bg-surface2">
+            <li key={s.title} className="rounded-2xl border border-line bg-surface p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent2/50 hover:bg-surface2">
               <span className="text-xs font-semibold tracking-widest text-accent2">0{n + 1}</span>
               <h3 className="mt-3 text-xl font-semibold text-white"><Fx>{s.title}</Fx></h3>
               <p className="mt-2 text-mute">{s.note}</p>
@@ -123,7 +123,7 @@ export default function Sections({ initial }: { initial: Content }) {
         <span aria-hidden className="mx-3 text-faint">·</span>
         {/* Admin panel ka login: /admin (Supabase auth). Google ko disallow + noindex already hai */}
         <p className="mt-4 text-xs text-faint">
-          Paper airplane 3D model by <a href="https://sketchfab.com/3d-models/paper-airplane-0967ab4a9c654a569a13ea1f8d9dca0c" target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-accent2">vesicalsnail</a> · CC BY 4.0
+          Laptop 3D model &ldquo;Laptop (FREE)&rdquo; by <a href="https://sketchfab.com/3d-models/laptop-free-a651092825974fc5a405129d4f50a7d2" target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-accent2">Brandon Westlake</a> · Sketchfab
         </p>
         <Link href="/admin" className="inline-flex items-center gap-1 text-mute underline-offset-4 transition-colors hover:text-accent2 hover:underline focus-visible:text-accent2">
           <Fx>Admin login</Fx>

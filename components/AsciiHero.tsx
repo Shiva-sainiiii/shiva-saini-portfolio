@@ -26,7 +26,9 @@ const HOVER_PUSH = 10;             // px — characters kitna door bhaagein
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
 const smooth = (t: number) => t * t * (3 - 2 * t);
 
-export default function AsciiHero() {
+// gated: LaptopIntro ke andar hero laptop screen ke "andar" hai. Tab tak ye ruka rehta hai (na animation, na draw loop) jab tak
+// LaptopIntro "hero-visible" event (detail: true/false) na bheje. Akela use karo (gated=false) to pehle jaisa hi chalega.
+export default function AsciiHero({ gated = false }: { gated?: boolean }) {
   const wrapRef = useRef<HTMLElement>(null);
   const cvRef = useRef<HTMLCanvasElement>(null);
 
@@ -40,6 +42,7 @@ export default function AsciiHero() {
     let ox = 0, tox = 0, px = -999, py = -999, orbK = 1, orbS = 1;
     let sx = -999, sy = -999, hv = 0; // smoothed cursor + hover strength (0..1)
     let raf = 0, visible = false, started = false, tStart = 0, frameN = 0, ready = false, ratio = 0;
+    let shown = !gated; // gated hero tab tak ruka rehta hai jab tak "hero-visible" event na aaye
     let acc = [167, 139, 250];
     let cFar = "", cMid = "", cNear = "", cBg = "", cOrb = "";
 
@@ -122,7 +125,7 @@ export default function AsciiHero() {
       if (px > -900) { if (hv < 0.02) { sx = px; sy = py; } sx += (px - sx) * 0.25; sy += (py - sy) * 0.25; hv += (1 - hv) * 0.15; }
       else hv *= 0.9;
       const HR = W < 600 ? HOVER_R * 0.7 : HOVER_R;
-      ctx.globalAlpha = 1; ctx.clearRect(0, 0, W, H); // transparent: peeche <html> ka pure #000 hai, aur 3D plane iske peeche udta hai
+      ctx.globalAlpha = 1; ctx.clearRect(0, 0, W, H); // transparent: peeche <html> / LaptopIntro ka pure #000 hai
       const R = Math.min(W, H) * 0.28 * orbS;
       const g = ctx.createRadialGradient(ox, oy, 0, ox, oy, R);
       g.addColorStop(0, `rgba(${mix(acc, 255, 0.55).slice(4, -1)},${0.95 * orbK})`);
@@ -192,7 +195,7 @@ export default function AsciiHero() {
     };
 
     const loop = (now: number) => {
-      if (!visible) { raf = 0; return; }
+      if (!visible || !shown) { raf = 0; return; }
       draw(now);
       raf = requestAnimationFrame(loop);
     };
@@ -200,15 +203,20 @@ export default function AsciiHero() {
     // FIX: intro tab start hota hai jab hero ~35% dikh raha ho (pehle first pixel pe start ho jaata tha, isliye jab tak
     // user tak scroll karke pahunchta, S ban chuka hota tha aur "ekdum" dikhta tha).
     // Loader ke exit ke baad hi S assemble hota hai (loader dobara na dikhe to turant). 4.5s fallback.
-    const tryStart = () => { if (ready && visible && !started && ratio >= 0.35) { started = true; tStart = performance.now(); } };
-    const onExit = () => { ready = true; tryStart(); if (visible && !raf) raf = requestAnimationFrame(loop); };
+    const tryStart = () => { if (ready && visible && shown && !started && ratio >= 0.35) { started = true; tStart = performance.now(); } };
+    const onExit = () => { ready = true; tryStart(); if (visible && shown && !raf) raf = requestAnimationFrame(loop); };
+    const onShown = (e: Event) => {
+      shown = (e as CustomEvent<boolean>).detail !== false;
+      if (shown) { tryStart(); if (visible && !raf) raf = requestAnimationFrame(loop); }
+    };
+    window.addEventListener("hero-visible", onShown);
     try { ready = sessionStorage.getItem("ascii-loader-done") === "1"; } catch { ready = true; }
     window.addEventListener("ascii-loader-exit", onExit);
     const fb = window.setTimeout(onExit, 4500);
     const io = new IntersectionObserver(([en]) => {
       visible = en.isIntersecting; ratio = en.intersectionRatio;
       tryStart();
-      if (visible && !raf) raf = requestAnimationFrame(loop);
+      if (visible && shown && !raf) raf = requestAnimationFrame(loop);
       if (visible && RM) { started = true; draw(performance.now()); }
     }, { threshold: [0, 0.35] });
 
@@ -225,7 +233,7 @@ export default function AsciiHero() {
     wrap.addEventListener("pointermove", move);
     wrap.addEventListener("pointerleave", leave);
     return () => {
-      window.removeEventListener("ascii-loader-exit", onExit); clearTimeout(fb);
+      window.removeEventListener("ascii-loader-exit", onExit); window.removeEventListener("hero-visible", onShown); clearTimeout(fb);
       cancelAnimationFrame(raf); io.disconnect(); ro.disconnect();
       wrap.removeEventListener("pointermove", move);
       wrap.removeEventListener("pointerleave", leave);

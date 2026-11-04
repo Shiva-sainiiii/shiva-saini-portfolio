@@ -22,7 +22,7 @@
 }
 
 /* Pure black background, koi flash nahi jab overscroll ho */
-/* NOTE: background sirf <html> pe (body pe nahi). Body pe hota to 3D plane (z -1) ke UPAR paint hota aur plane chhup jaata. */
+/* NOTE: background sirf <html> pe (body pe nahi). Body pe hota to negative-z background layers (grain/glow) uske peeche chhup jaate. */
 html { background: #000; }
 body { color: #fff; -webkit-font-smoothing: antialiased; }
 
