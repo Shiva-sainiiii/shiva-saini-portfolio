@@ -28,7 +28,7 @@ export default function AsciiShape({ shape, palette, active, className }: Props)
     const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
     let W = 0, H = 0, cs = 10, cw = 6.2, cols = 0, rows = 0;
     let zb = new Float32Array(0), lum = new Float32Array(0);
-    let raf = 0, visible = false, ang = 0.6, speed = 0.25, mix = 0, last = 0, acc = [167, 139, 250];
+    let raf = 0, visible = false, ang = 0.6, speed = 0.25, mix = 0, last = 0, acc = [216, 255, 58];
 
     const setup = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);

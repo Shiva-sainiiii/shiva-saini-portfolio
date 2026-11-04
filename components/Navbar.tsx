@@ -22,7 +22,7 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-40 bg-gradient-to-b from-black/75 via-black/30 to-transparent">
       <nav className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8 md:py-5">
-        <a href="#" className="relative z-20 text-base font-semibold tracking-tight transition-colors hover:text-white md:text-lg">
+        <a href="#" className="relative z-20 font-display text-xl tracking-tight transition-colors hover:text-white md:text-2xl">
           <Fx>Shiva</Fx> <span className="text-accent2"><Fx>Saini</Fx></span>
         </a>
 
@@ -45,7 +45,7 @@ export default function Navbar() {
               href={SITE.whatsappUrl}
               target="_blank"
               rel="noreferrer"
-              className="rounded-full bg-accent2 px-4 py-2 text-sm font-semibold text-black shadow-[0_0_18px_rgb(var(--accent2)/0.4)] transition hover:brightness-110 hover:shadow-[0_0_26px_rgb(var(--accent2)/0.6)]"
+              className="rounded-full bg-accent2 px-4 py-2 text-sm font-semibold text-black transition hover:brightness-110"
             >
               <Fx tone="text-black">Free demo</Fx>
             </a>

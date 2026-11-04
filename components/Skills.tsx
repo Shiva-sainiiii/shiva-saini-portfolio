@@ -1,19 +1,12 @@
 import type { Skill } from "@/lib/content";
 
-// Do rows, ulti direction me chalti marquee. Edges pe fade mask.
-// Row 1 = ink, row 2 = accent2 (decoration, theme ke saath badalta hai).
+// Simple static list (pehle do marquee rows thi). Kam motion, zyada readable.
 export default function Skills({ items }: { items: Skill[] }) {
-  const half = Math.ceil(items.length / 2);
-  const rows = [items.slice(0, half), items.slice(half)].filter((r) => r.length);
   return (
-    <div className="space-y-6 overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]">
-      {rows.map((row, r) => (
-        <div key={r} className="marquee flex w-max gap-14 text-4xl font-light md:text-6xl" style={{ animationDirection: r ? "reverse" : "normal" }}>
-          {Array.from({ length: 8 }).flatMap(() => row).map((s, i) => (
-            <span key={i} aria-hidden={i >= row.length || undefined} className={`whitespace-nowrap transition-colors duration-200 hover:text-white ${r ? "dim-accent" : "text-inkdim"}`}>{s.name}</span>
-          ))}
-        </div>
+    <ul className="flex flex-wrap gap-x-8 gap-y-2 font-display text-4xl text-ink md:text-6xl">
+      {items.map((s) => (
+        <li key={s.id} className="transition-colors hover:text-accent2">{s.name}</li>
       ))}
-    </div>
+    </ul>
   );
 }

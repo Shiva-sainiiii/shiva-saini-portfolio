@@ -4,10 +4,10 @@ import { useEffect, useRef, useState } from "react";
 // Poora site ab ek hi theme colour (--accent2) follow karta hai: buttons, links, hover, glow, ASCII sab.
 // Naya option chahiye? Bas yahan ek line add karo (aur app/layout.tsx ke head script wale map me bhi, taaki refresh pe flash na ho).
 const THEMES = [
-  { id: "violet", name: "Violet", rgb: "167 139 250" },
-  { id: "pink", name: "Pink", rgb: "244 114 182" },
-  { id: "amber", name: "Amber", rgb: "251 191 36" },
-  { id: "coral", name: "Coral", rgb: "255 107 74" }, // lime hata diya: teesra colour volt (accent3) usse clash karta
+  { id: "lime", name: "Lime", rgb: "216 255 58" },        // default (demo sites ka rang)
+  { id: "lavender", name: "Lavender", rgb: "183 155 219" }, // clinic demo
+  { id: "coral", name: "Coral", rgb: "255 107 74" },
+  { id: "sky", name: "Sky", rgb: "125 160 255" },          // gym demo ka blue
 ];
 const KEY = "accent-theme";
 const EVT = "accent-theme-change"; // dono switcher (desktop popover + mobile menu) sync rahein
@@ -15,7 +15,7 @@ const EVT = "accent-theme-change"; // dono switcher (desktop popover + mobile me
 // variant "popover": desktop navbar ka button + dropdown. variant "inline": mobile menu ke andar seedhi swatch row.
 export default function ThemeSwitcher({ variant = "popover" }: { variant?: "popover" | "inline" }) {
   const [open, setOpen] = useState(false);
-  const [theme, setTheme] = useState("violet");
+  const [theme, setTheme] = useState("lime");
   const box = useRef<HTMLDivElement>(null);
 
   // Saved choice padho (colour pehle hi head script laga chuka hota hai, yahan sirf selected tick ke liye)

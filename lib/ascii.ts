@@ -13,9 +13,9 @@ export function hs(a: number, b: number, c: number): number {
 export const mix = (c: number[], w: number, m: number) =>
   `rgb(${c.map((v) => Math.round(v + (w - v) * m)).join(",")})`;
 
-// Theme ka --accent2 (ThemeSwitcher isse root pe set karta hai). Default violet.
+// Theme ka --accent2 (ThemeSwitcher isse root pe set karta hai). Default lime.
 export function readAccent(): number[] {
   const v = getComputedStyle(document.documentElement).getPropertyValue("--accent2").trim();
   const p = v.split(/\s+/).map(Number);
-  return p.length === 3 && p.every((n) => !isNaN(n)) ? p : [167, 139, 250];
+  return p.length === 3 && p.every((n) => !isNaN(n)) ? p : [216, 255, 58];
 }

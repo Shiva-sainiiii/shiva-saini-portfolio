@@ -43,7 +43,7 @@ export default function AsciiHero({ gated = false }: { gated?: boolean }) {
     let sx = -999, sy = -999, hv = 0; // smoothed cursor + hover strength (0..1)
     let raf = 0, visible = false, started = false, tStart = 0, frameN = 0, ready = false, ratio = 0;
     let shown = !gated; // gated hero tab tak ruka rehta hai jab tak "hero-visible" event na aaye
-    let acc = [167, 139, 250];
+    let acc = [216, 255, 58];
     let cFar = "", cMid = "", cNear = "", cBg = "", cOrb = "";
 
     const readTheme = () => {
@@ -77,11 +77,11 @@ export default function AsciiHero({ gated = false }: { gated?: boolean }) {
         mc.font = FONT(100);
         const wide = Math.max(...LOGO_DESK.map((t) => mc.measureText(t).width)) / 100;
         const asc = mc.measureText("H").actualBoundingBoxAscent / 100 || 0.716;
-        const fs = Math.min(H * 0.24, (W * 0.52) / wide);
+        const fs = Math.min(H * 0.31, (W * 0.56) / wide); // pehle 0.24 / 0.52: bada logo = S ke strokes me zyada characters, curve saaf dikhti hai
         mc.font = FONT(fs);
         const capH = asc * fs, gap = fs * 0.16;
         const blockH = LOGO_DESK.length * capH + (LOGO_DESK.length - 1) * gap;
-        lcy = H * 0.41; // pehle 0.47 tha: naam ab wave/terrain se thoda upar baithta hai
+        lcy = H * 0.42; // naam wave/terrain se upar, navbar ke neeche
         const top = lcy - blockH / 2;
         LOGO_DESK.forEach((t, n) => mc.fillText(t, W / 2, top + capH * (n + 1) + gap * n));
         lr = Math.max(1, Math.hypot((wide * fs) / 2, blockH / 2));
@@ -100,7 +100,14 @@ export default function AsciiHero({ gated = false }: { gated?: boolean }) {
         const x = Math.min(W - 1, Math.floor(i * cw + cw / 2));
         const y = Math.min(H - 1, Math.floor(j * cs + cs / 2));
         const idx = j * cols + i;
-        mask[idx] = d[(y * W + x) * 4 + 3] > 128 ? 1 : 0;
+        // Cell ke 4x4 points ka coverage (pehle sirf ek center point tha, isse S/curves tut jaate the). 35%+ coverage => character.
+        let cov = 0;
+        for (let sy = 0; sy < 4; sy++) for (let sx = 0; sx < 4; sx++) {
+          const px = Math.min(W - 1, Math.floor(i * cw + ((sx + 0.5) / 4) * cw));
+          const py = Math.min(H - 1, Math.floor(j * cs + ((sy + 0.5) / 4) * cs));
+          if (d[(py * W + px) * 4 + 3] > 128) cov++;
+        }
+        mask[idx] = cov >= 6 ? 1 : 0;
         // Reveal order: 60% random + 40% logo ke centre se doori => andar se bahar assemble hota hai, par dotted/organic
         const rnd = (hs(i, j, 3) % 1000) / 1000;
         const rad = clamp01(Math.hypot(x - lcx, y - lcy) / lr);

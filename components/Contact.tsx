@@ -32,11 +32,11 @@ export default function Contact({ links }: { links: LinkItem[] }) {
 
   return (
     <div>
-      <p className="mb-6 text-xl italic text-accent2 md:text-3xl">Let&apos;s build something great.</p>
+      <p className="mb-4 text-mute">Best way to reach me:</p>
       <a href={`mailto:${SITE.email}`} className="break-all text-2xl font-semibold text-white underline-offset-8 hover:text-accent2 hover:underline md:text-5xl">{SITE.email}</a>
       <p className="mt-4 text-mute">{SITE.location}</p>
       <div className="mt-8 flex flex-wrap gap-3">
-        <a href={SITE.whatsappUrl} target="_blank" rel="noreferrer" className="glow-box rounded-full border-2 border-accent2 bg-ground px-6 py-3 text-sm font-bold tracking-wide transition-colors hover:bg-accent2 hover:text-black"><Fx tone="text-black">{`WhatsApp ${SITE.phone}`}</Fx></a>
+        <a href={SITE.whatsappUrl} target="_blank" rel="noreferrer" className="rounded-full bg-accent2 px-6 py-3 text-sm font-bold tracking-wide text-black transition hover:brightness-110"><Fx tone="text-black">{`WhatsApp ${SITE.phone}`}</Fx></a>
         <a href={`tel:${SITE.phoneRaw}`} className="rounded-full border border-line2 bg-ground px-6 py-3 text-sm font-medium text-white transition-colors hover:border-accent2 hover:text-accent2"><Fx>Call now</Fx></a>
       </div>
 

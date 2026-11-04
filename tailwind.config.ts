@@ -18,7 +18,10 @@ const config: Config = {
         line: "var(--line)",                                // border white/8
         line2: "var(--line-2)",                             // border (inputs / hover)
       },
-      fontFamily: { sans: ["var(--font-manrope)", "system-ui", "sans-serif"] },
+      fontFamily: {
+        sans: ["var(--font-manrope)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "Georgia", "serif"], // high-contrast serif (headings), demo sites jaisa editorial look
+      },
     },
   },
   plugins: [],

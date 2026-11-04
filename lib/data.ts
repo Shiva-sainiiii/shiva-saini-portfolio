@@ -8,16 +8,16 @@ export const SITE = {
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://shivasainiportfolio.vercel.app",
   tagline: "CREATIVE • AI INTEGRATED • FULL STACK WEB DEVELOPER",
   role: "Full Stack Web Developer | Creative Developer | AI Integrated",
-  bio: "I build immersive web experiences where design meets AI.",
+  bio: "I build websites for local businesses in Haryana, the kind that still run on word of mouth.",
   about:
-    "I'm a self-driven full stack developer from Kharkhoda (Sonipat), Haryana. I build fast, responsive, AI-powered websites for businesses in Haryana and across India, and I like turning complex problems into clean, scalable solutions.",
+    "I'm a self-driven full stack developer from Kharkhoda, a small town in Sonipat. I make fast websites for businesses like clinics, gyms and cafés, and add booking or an AI assistant only where it actually helps. One of my live client sites is Dr. Sapna's dental clinic in Rohtak, with an admin panel and a chatbot.",
   stats: ["10+ projects", "5+ certifications", "3 web development internships"],
   location: "Kharkhoda (Sonipat), Haryana, India",
   email: "shivasaini.5666@gmail.com",
   phone: "+91 88130 08167",
   phoneRaw: "+918813008167",
   whatsappUrl: `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent("Hi Shiva, I'd like a free demo website for my business.")}`,
-  motto: "IDEAS → WEBSITES → GROWTH",
+  motto: "WEBSITES FOR LOCAL BUSINESSES",
   resume: "https://shivasainiportfolio.vercel.app/assets/Shiva_Saini_Resume.pdf",
   links: [
     { label: "GitHub", href: "https://github.com/Shiva-sainiiii" },
@@ -71,7 +71,8 @@ export const NICHES: { id: string; name: string; shape: "tooth" | "diamond" | "d
 ];
 
 // Real delivered client work
-export const CLIENT_WORK = [
+// result: optional. Jab asli number / outcome pata ho tab bharo (jaise "Bookings now come in on WhatsApp"). Khali ho to dikhega nahi.
+export const CLIENT_WORK: { name: string; city: string; note: string; href: string; result?: string }[] = [
   { name: "Dr. Sapna's Advanced Dental Care", city: "Rohtak", note: "Full clinic website with admin panel and AI chatbot.", href: "https://drsapnadentalrohtak.vercel.app/" },
 ];
 export const MORE_DEMOS = "https://egsite.vercel.app";
