@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Bodoni_Moda, Manrope } from "next/font/google";
+import { Bricolage_Grotesque, Instrument_Serif } from "next/font/google";
 import { SITE } from "@/lib/data";
 import "./globals.css";
 
-const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap" });
-// Headings ke liye high-contrast Didone serif (tumhare clinic demo jaisa)
-const display = Bodoni_Moda({ subsets: ["latin"], style: ["normal", "italic"], variable: "--font-display", display: "swap" });
+// Headlines + body: Bricolage Grotesque (variable, 800 weight headlines). Italic accent words: Instrument Serif.
+const sans = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
+const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--font-serif", display: "swap" });
 
 // Purani site jaisa hi title/description — Google snippet aur ranking continuity ke liye
 const title = "Shiva Saini — Full Stack Web Developer | Portfolio & AI Chat";
@@ -27,18 +27,11 @@ export const metadata: Metadata = {
   verification: { google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION },
 };
 
-export const viewport: Viewport = { themeColor: "#000000" };
-
-const themeScript =
-  '(function(){try{var m={lime:"216 255 58",lavender:"183 155 219",coral:"255 107 74",sky:"125 160 255"};'
-  + 'var s=localStorage.getItem("accent-theme");if(s&&m[s])document.documentElement.style.setProperty("--accent2",m[s])}catch(e){}})();';
+export const viewport: Viewport = { themeColor: "#0A0A0A" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-IN" className={`${manrope.variable} ${display.variable}`} suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-      </head>
+    <html lang="en-IN" className={`${sans.variable} ${serif.variable}`} suppressHydrationWarning>
       <body className="font-sans">{children}</body>
     </html>
   );

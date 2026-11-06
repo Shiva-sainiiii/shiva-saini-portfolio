@@ -1,59 +1,41 @@
-"use client";
-
-import { useState } from "react";
-import AsciiShape from "./AsciiShape";
 import { CLIENT_WORK, MORE_DEMOS, NICHES, waLink } from "@/lib/data";
 
-// Niche demos: hover (desktop) ya tap (mobile) pe 3D ASCII shape tez ghoomta hai aur us niche ka palette dikhta hai. Boxed card nahi, sirf rule + text.
-function NicheCard({ n }: { n: (typeof NICHES)[number] }) {
-  const [on, setOn] = useState(false);
-  const href = n.demo ?? waLink(`Hi Shiva, I run a ${n.name.toLowerCase()} business. I'd like a free demo website.`);
-  return (
-    <article
-      onPointerEnter={(e) => e.pointerType === "mouse" && setOn(true)}
-      onPointerLeave={(e) => e.pointerType === "mouse" && setOn(false)}
-      onClick={() => setOn((v) => !v)}
-      className="border-t border-line pt-5"
-    >
-      <div className="h-44 w-full"><AsciiShape shape={n.shape} palette={n.palette} active={on} /></div>
-      <div className="mt-4 flex items-center justify-between gap-3">
-        <h3 className="font-display text-3xl text-white">{n.name}</h3>
-        <span className="flex gap-1.5" aria-hidden>
-          {n.palette.map((c) => <span key={c} className="h-3.5 w-3.5 rounded-full border border-white/20" style={{ background: c }} />)}
-        </span>
-      </div>
-      <p className="mt-2 text-sm text-mute">{n.pitch}</p>
-      <a href={href} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="mt-4 inline-block text-sm font-medium text-accent2 underline-offset-4 hover:underline">
-        {n.demo ? "View live demo ↗" : "Ask for a free demo ↗"}
-      </a>
-    </article>
-  );
-}
-
+// WORK section: pehle asli client (Dr. Sapna) bada, phir niche demos rows me. Cards nahi, sirf rules + bada text.
 export default function Showcase() {
   return (
     <div>
-      <p className="max-w-xl text-lg text-ink">Every trade gets its own look. Hover a shape to see its palette, open a live demo, or ask for one made for your business.</p>
-      <ul className="mt-12 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-        {NICHES.map((n) => <li key={n.id}><NicheCard n={n} /></li>)}
+      <ul>
+        {CLIENT_WORK.map((c) => (
+          <li key={c.href} data-cursor="VISIT" className="group border-t border-line pb-14 pt-8 md:pb-20">
+            <p className="text-sm font-medium text-accent2">Live client site · {c.city}</p>
+            <a href={c.href} target="_blank" rel="noreferrer" className="mt-4 block font-display text-[11vw] font-extrabold uppercase leading-[0.85] tracking-[-0.05em] transition-colors group-hover:text-accent2 md:text-[8vw]">
+              {c.name}
+            </a>
+            <p className="mt-5 max-w-xl text-lg text-ink/80">{c.note}</p>
+            {c.result && <p className="mt-2 max-w-xl text-ink">{c.result}</p>}
+          </li>
+        ))}
       </ul>
 
-      <div className="mt-24 grid gap-8 border-t border-line pt-10 md:grid-cols-[1fr_2fr]">
-        <h3 className="font-display text-4xl text-white">Live for a <em className="text-accent2">client</em></h3>
-        <ul className="space-y-10">
-          {CLIENT_WORK.map((c) => (
-            <li key={c.href}>
-              <p className="font-display text-3xl text-white md:text-4xl">{c.name}</p>
-              <p className="mt-2 text-mute">{c.city} · {c.note}</p>
-              {c.result && <p className="mt-2 text-ink">{c.result}</p>}
-              <a href={c.href} target="_blank" rel="noreferrer" className="mt-4 inline-block font-medium text-accent2 underline-offset-4 hover:underline">Visit live site ↗</a>
+      <h3 className="border-t border-line pt-8 font-display text-3xl font-extrabold uppercase tracking-[-0.03em] md:text-5xl">Demo sites by trade</h3>
+      <ul className="mt-8 border-t border-line">
+        {NICHES.map((n) => {
+          const href = n.demo ?? waLink(`Hi Shiva, I run a ${n.name.toLowerCase()} business. I'd like a free demo website.`);
+          return (
+            <li key={n.id} className="border-b border-line">
+              <a href={href} target="_blank" rel="noreferrer" data-cursor={n.demo ? "DEMO" : "ASK"} className="group grid items-baseline gap-2 py-6 md:grid-cols-[1fr_1.2fr_auto] md:gap-8 md:py-7">
+                <span className="font-display text-4xl font-extrabold uppercase leading-none tracking-[-0.04em] transition-colors group-hover:text-accent2 md:text-5xl">{n.name}</span>
+                <span className="text-mute">{n.pitch}</span>
+                <span className="flex items-center gap-3 text-sm font-semibold text-accent2">
+                  <span className="flex gap-1.5" aria-hidden>{n.palette.map((c) => <span key={c} className="h-3.5 w-3.5 rounded-full border border-line2" style={{ background: c }} />)}</span>
+                  {n.demo ? "Live demo ↗" : "Ask for a demo ↗"}
+                </span>
+              </a>
             </li>
-          ))}
-          <li>
-            <a href={MORE_DEMOS} target="_blank" rel="noreferrer" className="text-lg text-white underline underline-offset-8 transition-colors hover:text-accent2">More demo websites ↗</a>
-          </li>
-        </ul>
-      </div>
+          );
+        })}
+      </ul>
+      <a href={MORE_DEMOS} target="_blank" rel="noreferrer" className="mt-8 inline-block text-lg font-semibold text-ink underline underline-offset-8 transition-colors hover:text-accent2">More demo websites ↗</a>
     </div>
   );
 }

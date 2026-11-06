@@ -2,37 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ===== Palette =====
-   Ek hi accent: LIME (tumhare demo sites jaisa). Violet/purple glow hata diya.
-   Hero PURE #000 rehta hai, uske baad ka page --bg (warm near-black). Rang badalna ho to sirf yahan badlo (Tailwind classes follow karti hain).
-   ThemeSwitcher sirf --accent2 badalta hai. */
+/* ===== Palette: sirf 3 colour =====
+   Ink #0A0A0A (background) · Bone #F2EEE3 (text / light section) · Gold #FFC21A (accent, chain wala).
+   Rang badalna ho to sirf yahin badlo (Tailwind classes in vars se chalti hain). */
 :root {
-  --accent2: 216 255 58;    /* LIME #d8ff3a — default, ThemeSwitcher isse badal sakta hai */
-  --accent3: 216 255 58;    /* volt: fixed pop colour (ab accent2 jaisa hi) */
-  --bg: 10 10 9;            /* page base (warm near-black) */
-  --surface: 18 18 16;      /* panels / inputs */
-  --surface-2: 25 25 22;    /* hover */
-  --ink: 226 224 216;       /* body text (bone) */
-  --mute: 150 148 140;      /* secondary text */
-  --ink-dim: 178 176 168;
-  --faint: 84 83 78;
-  --line: rgb(255 255 255 / 0.1);
-  --line-2: rgb(255 255 255 / 0.18);
+  --accent2: 255 194 26;    /* GOLD */
+  --accent3: 255 194 26;
+  --bg: 10 10 10;           /* INK */
+  --surface: 22 22 20;      /* inputs / panels (ink se thoda upar) */
+  --surface-2: 30 30 27;
+  --ink: 242 238 227;       /* BONE: body text */
+  --mute: 154 150 140;
+  --ink-dim: 196 192 182;
+  --faint: 90 88 82;
+  --line: rgb(242 238 227 / 0.14);
+  --line-2: rgb(242 238 227 / 0.26);
 }
 
-html { background: #000; }
-body { color: #fff; -webkit-font-smoothing: antialiased; }
+html { background: rgb(var(--bg)); }
+body { color: rgb(var(--ink)); background: rgb(var(--bg)); -webkit-font-smoothing: antialiased; }
+
+/* Italic words (<em>) Instrument Serif me — headline ke contrast ke liye */
+em { font-family: var(--font-serif), Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
 
 @media (prefers-reduced-motion: reduce) { * { transition-duration: 0s !important; } }
-
 ::selection { background: rgb(var(--accent2)); color: #000; }
+html { scrollbar-width: thin; scrollbar-color: rgb(var(--accent2)) rgb(var(--bg)); }
 
-/* Scrollbar: accent2 thumb on black */
-html { scrollbar-width: thin; scrollbar-color: rgb(var(--accent2)) #000; }
-
-/* Hero ke turant baad #000 -> --bg ka halka fade (260px), phir flat --bg. Koi glow / grain / dots nahi. */
-.page-ground {
-  background:
-    linear-gradient(to bottom, #000, rgb(var(--bg))) top / 100% 260px no-repeat,
-    rgb(var(--bg));
+/* Film grain: bahut halka (static SVG noise, ~5%) */
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: 80; pointer-events: none; opacity: 0.05;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
+
+/* Bone (light) section: usi tokens ko ulta kar do, andar ke saare text-ink / text-mute / border-line khud badal jaate hain */
+.on-bone {
+  --ink: 10 10 10; --mute: 98 94 86; --line: rgb(10 10 10 / 0.18); --line-2: rgb(10 10 10 / 0.3);
+  background: rgb(242 238 227); color: rgb(10 10 10);
+}
+
+/* Marquee */
+@keyframes marquee { to { transform: translateX(-50%); } }
+.marquee-track { animation: marquee 38s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+
+/* Custom cursor (Cursor.tsx). Sirf mouse devices pe html.has-cursor lagta hai */
+.has-cursor, .has-cursor a, .has-cursor button { cursor: none; }
+.cursor-dot { transition: opacity .2s; }
+.cursor-dot > span {
+  position: absolute; left: 0; top: 0; display: grid; place-items: center; width: 12px; height: 12px; margin: -6px 0 0 -6px;
+  border-radius: 9999px; background: rgb(var(--accent2)); color: #000; font: 800 11px/1 var(--font-sans), sans-serif; letter-spacing: .04em;
+  transition: width .25s, height .25s, margin .25s;
+}
+.cursor-dot[data-big="1"] > span { width: 84px; height: 84px; margin: -42px 0 0 -42px; }

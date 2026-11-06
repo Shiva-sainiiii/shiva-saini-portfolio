@@ -6,21 +6,22 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        accent2: "rgb(var(--accent2) / <alpha-value>)",
-        accent3: "rgb(var(--accent3) / <alpha-value>)",   // volt, fixed pop colour
-        ground: "rgb(var(--bg) / <alpha-value>)",          // page base (hero ke baad)
-        surface: "rgb(var(--surface) / <alpha-value>)",    // cards / panels
-        surface2: "rgb(var(--surface-2) / <alpha-value>)", // card hover
-        ink: "rgb(var(--ink) / <alpha-value>)",            // body text
-        mute: "rgb(var(--mute) / <alpha-value>)",          // secondary text
-        inkdim: "rgb(var(--ink-dim) / <alpha-value>)",     // dim text (SOLID — alpha nahi, taaki grain glyph ke andar na dikhe)
-        faint: "rgb(var(--faint) / <alpha-value>)",        // decorative glyphs (+, inactive stars) — SOLID
-        line: "var(--line)",                                // border white/8
-        line2: "var(--line-2)",                             // border (inputs / hover)
+        accent2: "rgb(var(--accent2) / <alpha-value>)",   // gold
+        accent3: "rgb(var(--accent3) / <alpha-value>)",
+        ground: "rgb(var(--bg) / <alpha-value>)",          // ink background
+        surface: "rgb(var(--surface) / <alpha-value>)",
+        surface2: "rgb(var(--surface-2) / <alpha-value>)",
+        ink: "rgb(var(--ink) / <alpha-value>)",            // bone text (.on-bone me ulta)
+        mute: "rgb(var(--mute) / <alpha-value>)",
+        inkdim: "rgb(var(--ink-dim) / <alpha-value>)",
+        faint: "rgb(var(--faint) / <alpha-value>)",
+        line: "var(--line)",
+        line2: "var(--line-2)",
       },
       fontFamily: {
-        sans: ["var(--font-manrope)", "system-ui", "sans-serif"],
-        display: ["var(--font-display)", "Georgia", "serif"], // high-contrast serif (headings), demo sites jaisa editorial look
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],       // Bricolage Grotesque
+        display: ["var(--font-sans)", "system-ui", "sans-serif"],    // headlines bhi Bricolage (800 weight)
+        serif: ["var(--font-serif)", "Georgia", "serif"],            // Instrument Serif (italic words)
       },
     },
   },

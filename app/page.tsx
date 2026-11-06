@@ -1,6 +1,7 @@
-import AsciiLoader from "@/components/AsciiLoader";
-import LaptopIntro from "@/components/LaptopIntro";
+import Cursor from "@/components/Cursor";
+import GlassesHero from "@/components/GlassesHero";
 import Navbar from "@/components/Navbar";
+import Preloader from "@/components/Preloader";
 import Sections from "@/components/Sections";
 import { defaults, fetchContent } from "@/lib/content";
 import { SERVICES, SITE } from "@/lib/data";
@@ -47,9 +48,10 @@ export default async function Home() {
     <main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceLd) }} />
-      <AsciiLoader />
+      <Preloader />
+      <Cursor />
       <Navbar />
-      <LaptopIntro />
+      <GlassesHero />
       <Sections initial={content} />
     </main>
   );
