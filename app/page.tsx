@@ -1,5 +1,5 @@
 import Cursor from "@/components/Cursor";
-import GlassesHero from "@/components/GlassesHero";
+import VideoHero from "@/components/VideoHero";
 import Navbar from "@/components/Navbar";
 import Preloader from "@/components/Preloader";
 import Sections from "@/components/Sections";
@@ -51,7 +51,7 @@ export default async function Home() {
       <Preloader />
       <Cursor />
       <Navbar />
-      <GlassesHero />
+      <VideoHero />
       <Sections initial={content} />
     </main>
   );
