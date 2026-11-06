@@ -53,7 +53,7 @@ export function createHeroScene(canvas: HTMLCanvasElement, o: { onReady?: () => 
   // chain rig (do halves = U). chain = pivot (screen ke upar), chainBody = U neeche latakta hai
   const chain = new THREE.Group(); scene.add(chain);
   const chainBody = new THREE.Group(); chain.add(chainBody);
-  let chainRawW = 1;
+  let chainRawW = 1, chainRawH = 1;
 
   let ready = 0, disposed = false;
   const done = () => { if (++ready === 2 && !disposed) { layout(); o.onReady?.(); } };
@@ -77,7 +77,7 @@ export function createHeroScene(canvas: HTMLCanvasElement, o: { onReady?: () => 
     const b = new THREE.Box3().setFromObject(src);
     // arc ka flat chhor (min x, max y) = U ka sabse neecha point; wahin se mirror
     const P = new THREE.Vector3(b.min.x, b.max.y, (b.min.z + b.max.z) / 2);
-    chainRawW = (b.max.x - b.min.x) * 2;
+    chainRawW = (b.max.x - b.min.x) * 2; chainRawH = b.max.y - b.min.y;
     const mk = (mirror: boolean) => {
       const half = new THREE.Group();
       const m = src.clone(true);
@@ -99,13 +99,15 @@ export function createHeroScene(canvas: HTMLCanvasElement, o: { onReady?: () => 
     L.visH = 2 * Math.tan((FOV * Math.PI) / 360) * DIST; L.visW = L.visH * camera.aspect;
     const wide = camera.aspect > 1;
     L.gw = wide ? Math.min(L.visW * 0.34, 4.6) : L.visW * 0.72;
-    L.gx = wide ? L.visW * 0.2 : 0;
-    L.gy = wide ? -L.visH * 0.04 : -L.visH * 0.1;
-    L.cw = wide ? L.visW * 0.46 : L.visW * 0.9;
-    L.cx = wide ? -L.visW * 0.2 : 0;
-    L.cy = L.visH / 2 + 0.15;
+    L.gx = wide ? L.visW * 0.26 : 0;
+    L.gy = wide ? -L.visH * 0.1 : -L.visH * 0.1;
+    L.cw = wide ? L.visW * 0.6 : L.visW * 0.95;
+    L.cx = wide ? -L.visW * 0.12 : 0;
+    L.cy = L.visH / 2 + 0.1; // U ke dono chhor screen ke top edge pe, beech neeche latakta hai
     glassesInner.scale.setScalar(L.gw / (glassesInner.userData.w || 1));
-    chainBody.scale.setScalar(L.cw / chainRawW);
+    const cs = L.cw / chainRawW;
+    chainBody.scale.setScalar(cs);
+    chainBody.position.y = -chainRawH * cs; // U ka upar wala level pivot pe (sway wahin se)
     chain.position.set(L.cx, L.cy, 0);
   }
   const ro = new ResizeObserver(layout); ro.observe(canvas);
