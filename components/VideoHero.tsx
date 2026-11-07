@@ -41,14 +41,13 @@ export default function VideoHero() {
     <section id="top" className="relative h-[100svh] min-h-[560px] overflow-hidden">
       <video
         ref={ref}
-        muted playsInline preload="auto"
+        src="/media/hero-logo-reveal.mp4"
+        muted playsInline preload="metadata"
         poster="/media/hero-poster.jpg"
         onError={() => setStill(true)}
         aria-hidden
         className={`absolute inset-0 h-full w-full object-cover mix-blend-lighten ${still ? "hidden" : ""}`}
-      >
-        <source src="/media/hero-logo-reveal.mp4" type="video/mp4" />
-      </video>
+      />
       {/* still mode: sirf poster (aakhri frame) */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       {still && <img src="/media/hero-poster.jpg" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover mix-blend-lighten" />}
@@ -58,7 +57,7 @@ export default function VideoHero() {
 
       <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-6 px-5 pb-8 md:px-10 md:pb-12">
         <div>
-          <h1 className="font-display text-[14vw] font-extrabold uppercase leading-[0.82] tracking-[-0.05em] md:text-[6.2vw]">
+          <h1 className="font-display text-[14vw] font-extrabold uppercase leading-[0.82] tracking-[-0.05em] md:text-[5vw]">
             <span className="block">Your shop,</span>
             <span className="block text-accent2">online.</span>
             <span className="sr-only"> — websites for local businesses in Haryana by {SITE.name}</span>
