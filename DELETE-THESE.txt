@@ -1,4 +1,0 @@
-Ye files project se DELETE kar do (ab use nahi hoti):
-components/FloatingPlane.tsx
-components/PlaneLoader.tsx
-public/models/paper-airplane.glb
