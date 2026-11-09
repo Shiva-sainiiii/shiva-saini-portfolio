@@ -1,5 +1,5 @@
 import { site, wa, heroLines, heroStats, sapna, templates, services, process, projects, easy, experience, certs } from "@/data/content";
-import { Mail, Phone, Pin, GearInfinity, LinkedIn, GitHub, WhatsApp } from "@/components/Icons";
+import { Mail, Phone, Pin, GearInfinity, LinkedIn, GitHub, WhatsApp, Instagram, Google, WebsiteIcon } from "@/components/Icons";
 import ProjectList from "@/components/ProjectList";
 import Rotator from "@/components/Rotator";
 import TradeIcon from "@/components/TradeIcons";
@@ -95,7 +95,7 @@ export function Services() {
     <section id="services" className="sec wall chalk">
       <h2 className="d">What I do</h2>
       <div className="svc">
-        {services.map(([a, b]) => (<div key={a} className="svc-row"><div className="svc-n">{a}</div><div className="svc-d">{b}</div></div>))}
+        {services.map(([a, b], i) => { const Ic = [WebsiteIcon, Google, WhatsApp, Instagram][i]; return (<div key={a} className="svc-row"><div className="svc-n">{Ic && <span className="svc-ico"><Ic size={34} /></span>}<span>{a}</span></div><div className="svc-d">{b}</div></div>); })}
       </div>
       <div className="stickers">
         <span className="small b">Demo sites for</span>
