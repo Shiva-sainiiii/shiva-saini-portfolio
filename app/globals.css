@@ -558,7 +558,7 @@ html[data-accent=pink]{--yel:#F472B6;--acc-rgb:244,114,182;--hue:-75deg}
  .frame.plain{border:0}
 
  /* statue: thoda neeche aur bada */
- .hero-right{width:min(760px,100%,calc((100vh - 170px)*1.25))}
- .hero-art img{transform:translateY(3%) scale(1.1);transform-origin:50% 100%}
+ .hero-right{width:min(660px,100%,calc((100vh - 200px)*1.08))}
+ .hero-art img{transform:translateY(4%) scale(1.03);transform-origin:50% 100%}
  .hero-right .stats{position:relative;z-index:2;margin-top:14px}
 }
