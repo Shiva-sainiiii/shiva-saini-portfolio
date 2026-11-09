@@ -1,5 +1,5 @@
 import { site, wa, heroLines, heroStats, sapna, templates, services, process, projects, easy, experience, certs } from "@/data/content";
-import { Mail, Phone, Pin, GearInfinity } from "@/components/Icons";
+import { Mail, Phone, Pin, GearInfinity, LinkedIn, GitHub, WhatsApp } from "@/components/Icons";
 import ProjectList from "@/components/ProjectList";
 import Rotator from "@/components/Rotator";
 import TradeIcon from "@/components/TradeIcons";
@@ -196,14 +196,14 @@ export function Contact() {
       <div><div className="open-sign"><span className="d">Open</span><small>for freelance work and internships</small></div><h2 className="d huge">Let's talk.</h2></div>
       <div className="contact-grid">
         <div>
-          <a className="btn dk big" href={wa()} target="_blank" rel="noreferrer">WhatsApp me</a>
+          <a className="btn dk big" href={wa()} target="_blank" rel="noreferrer"><WhatsApp size={22} />WhatsApp me</a>
           <div className="row-btns pair">
             <a className="btn wh" href={`mailto:${site.email}`}><Mail size={20} />Email</a>
             <a className="btn wh" href={`tel:${site.phone.replace(/\s/g, "")}`}><Phone size={20} />Call</a>
           </div>
           <div className="row-btns mini">
-            {ok(site.linkedin) && <a className="btn alt" href={site.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>}
-            {ok(site.github) && <a className="btn alt" href={site.github} target="_blank" rel="noreferrer">GitHub</a>}
+            {ok(site.linkedin) && <a className="btn alt" href={site.linkedin} target="_blank" rel="noreferrer"><LinkedIn size={20} />LinkedIn</a>}
+            {ok(site.github) && <a className="btn alt" href={site.github} target="_blank" rel="noreferrer"><GitHub size={20} />GitHub</a>}
           </div>
         </div>
         <div className="mapbox">
