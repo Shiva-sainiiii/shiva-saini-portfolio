@@ -19,7 +19,7 @@ export const wa = (t = "Hi Shiva, I want a website for my business") =>
 // Hero signboard ki do lines. Yahin se badlo (har line chhoti rakho, mobile par bhi ek line mein aani chahiye).
 // Hero ke neeche stats. clients: happy clients ka number (khali rakhoge to hide ho jayega).
 export const heroStats = { clients: "3+" };
-export const heroLines = ["Your business,", "now online."];
+export const heroLines = ["Your business,", "Now online."];
 
 // result: jab asli number/line ho tab bharo (khali = row hide). image = desktop screenshot, mobile = phone screenshot (dono public/shots/ me hain).
 export const sapna = { result: "", image: "/shots/sapna-desktop.png", mobile: "/shots/sapna-mobile.jpg" };
