@@ -25,3 +25,28 @@ const B = ({ size = 20, children, ...p }) => (<svg width={size} height={size} vi
 export const LinkedIn = (p) => <B {...p}><rect width="24" height="24" rx="4.5" fill="#0A66C2" /><path fill="#fff" d="M6.94 9.5H4.1V19h2.84V9.5zM5.52 5a1.65 1.65 0 1 0 0 3.3 1.65 1.65 0 0 0 0-3.3zM19.9 13.6c0-2.6-1.4-4.3-3.6-4.3-1.2 0-2.1.6-2.5 1.3V9.5H11V19h2.8v-5c0-1.3.6-2.2 1.8-2.2 1.1 0 1.5.8 1.5 2.2V19h2.8v-5.4z" /></B>;
 export const GitHub = (p) => <B {...p}><circle cx="12" cy="12" r="12" fill="#fff" /><path fill="#181717" d="M12 2.5a9.5 9.5 0 0 0-3 18.5c.5.1.65-.2.65-.46v-1.7c-2.65.58-3.2-1.27-3.2-1.27-.43-1.1-1.06-1.4-1.06-1.4-.87-.6.07-.58.07-.58.96.07 1.47 1 1.47 1 .85 1.46 2.24 1.04 2.78.8.09-.62.33-1.04.6-1.28-2.1-.24-4.34-1.05-4.34-4.7 0-1.04.37-1.9.98-2.56-.1-.24-.43-1.2.1-2.54 0 0 .8-.26 2.6.98a9 9 0 0 1 4.74 0c1.8-1.24 2.6-.98 2.6-.98.52 1.34.2 2.3.1 2.54.6.66.98 1.52.98 2.56 0 3.66-2.25 4.46-4.35 4.7.34.3.65.88.65 1.77v2.62c0 .26.16.56.66.46A9.5 9.5 0 0 0 12 2.5z" /></B>;
 export const WhatsApp = (p) => <B {...p}><circle cx="12" cy="12" r="12" fill="#25D366" /><path fill="#fff" d="M17.5 14.4c-.25-.12-1.45-.72-1.68-.8-.22-.08-.39-.12-.55.12-.16.25-.63.8-.77.96-.14.16-.28.18-.53.06-.25-.12-1.03-.38-1.96-1.2-.72-.64-1.2-1.43-1.35-1.67-.14-.25-.02-.38.1-.5.11-.11.25-.28.37-.42.12-.14.16-.25.25-.4.08-.17.04-.31-.02-.43-.06-.12-.55-1.32-.75-1.8-.2-.47-.4-.4-.55-.41h-.47c-.16 0-.43.06-.65.31-.22.25-.85.83-.85 2.03s.87 2.35.99 2.52c.12.16 1.71 2.6 4.14 3.65.58.25 1.03.4 1.38.5.58.18 1.1.16 1.52.1.46-.07 1.45-.6 1.65-1.17.2-.57.2-1.06.14-1.17-.06-.1-.22-.16-.47-.28zM12 3.5a8.5 8.5 0 0 0-7.3 12.9L3.5 20.5l4.2-1.1A8.5 8.5 0 1 0 12 3.5z" /></B>;
+export const Instagram = ({ size = 20, ...p }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" {...p}>
+    <defs><linearGradient id="igg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stopColor="#FEDA75" /><stop offset=".3" stopColor="#FA7E1E" /><stop offset=".55" stopColor="#D62976" /><stop offset=".8" stopColor="#962FBF" /><stop offset="1" stopColor="#4F5BD5" /></linearGradient></defs>
+    <rect width="24" height="24" rx="6.5" fill="url(#igg)" />
+    <rect x="5.2" y="5.2" width="13.6" height="13.6" rx="4" fill="none" stroke="#fff" strokeWidth="1.8" />
+    <circle cx="12" cy="12" r="3.2" fill="none" stroke="#fff" strokeWidth="1.8" />
+    <circle cx="16.4" cy="7.6" r="1.1" fill="#fff" />
+  </svg>
+);
+export const Google = ({ size = 20, ...p }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" {...p}>
+    <path fill="#4285F4" d="M23 12.27c0-.8-.07-1.56-.2-2.3H12v4.35h6.17a5.28 5.28 0 0 1-2.29 3.47v2.88h3.7C21.74 18.7 23 15.7 23 12.27z" />
+    <path fill="#34A853" d="M12 23.5c3.1 0 5.7-1.03 7.6-2.8l-3.7-2.88c-1.03.7-2.35 1.1-3.9 1.1-3 0-5.54-2.02-6.45-4.74H1.74v2.97A11.5 11.5 0 0 0 12 23.5z" />
+    <path fill="#FBBC05" d="M5.55 14.18a6.9 6.9 0 0 1 0-4.36V6.85H1.74a11.5 11.5 0 0 0 0 10.3l3.81-2.97z" />
+    <path fill="#EA4335" d="M12 5.08c1.69 0 3.2.58 4.4 1.72l3.3-3.3C17.7 1.64 15.1.5 12 .5A11.5 11.5 0 0 0 1.74 6.85l3.81 2.97C6.46 7.1 9 5.08 12 5.08z" />
+  </svg>
+);
+export const WebsiteIcon = ({ size = 20, ...p }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" {...p}>
+    <rect x="1.5" y="3.5" width="21" height="17" rx="3" fill="none" stroke="currentColor" strokeWidth="1.8" />
+    <path d="M1.5 8.5h21" stroke="currentColor" strokeWidth="1.8" />
+    <circle cx="5" cy="6" r=".9" fill="currentColor" /><circle cx="8" cy="6" r=".9" fill="currentColor" />
+    <path d="m10 13-2.2 2.2L10 17.4M14 13l2.2 2.2L14 17.4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
