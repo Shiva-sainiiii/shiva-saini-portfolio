@@ -206,11 +206,10 @@ export function Contact() {
             {ok(site.github) && <a className="btn alt" href={site.github} target="_blank" rel="noreferrer">GitHub</a>}
           </div>
         </div>
-        <a className="mapcard" href={site.mapLink} target="_blank" rel="noreferrer">
-          <span className="mc-pin"><Pin size={26} /></span>
-          <span className="mc-t">{site.location}</span>
-          <span className="mc-l">Open in Maps ↗</span>
-        </a>
+        <div className="mapbox">
+          <iframe title={`Map: ${site.location}`} src={site.mapEmbed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
+          <a className="map-cap" href={site.mapLink} target="_blank" rel="noreferrer"><span><Pin size={18} /> {site.location}</span><span>Open in Maps ↗</span></a>
+        </div>
       </div>
     </section>
   );
