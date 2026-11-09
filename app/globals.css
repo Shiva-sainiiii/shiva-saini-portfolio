@@ -562,3 +562,18 @@ html[data-accent=pink]{--yel:#F472B6;--acc-rgb:244,114,182;--hue:-75deg}
  .hero-art img{transform:translateY(4%) scale(1.03);transform-origin:50% 100%}
  .hero-right .stats{position:relative;z-index:2;margin-top:14px}
 }
+
+/* ===== v6: typography polish + brand icons ===== */
+body{line-height:1.65}
+.hero-title{text-transform:none;letter-spacing:-.04em}
+.hero-title .t1{font-weight:300}
+.hero .lead{max-width:640px}
+.lead,.big2{max-width:62ch}
+.stat span{white-space:nowrap}.stat b{letter-spacing:-.02em}.stat span{font-size:13px;letter-spacing:.02em}
+.contact .btn,.contact .btn.big{display:inline-flex;align-items:center;justify-content:center;gap:10px}
+.contact .btn.big{display:flex}
+.contact .btn svg{flex:none}
+@media (min-width:821px){
+ .nav nav{gap:40px}
+ .nav nav a:not(.btn){font-size:16.5px;font-weight:500;letter-spacing:.01em}
+}
