@@ -20,14 +20,14 @@ export function Hero() {
             return <span key={l} className="t2">{first} <em>{rest.join(" ")}</em></span>;
           })}</h1>
           <p className="hero-sub">I build the website behind the sign.</p>
-          <p className="lead">Full-stack developer. Live client sites in Haryana.</p>
+          <p className="lead">Full-stack web developer in Sonipat, Haryana. Live client sites.</p>
           <div className="row-btns">
             <a className="btn" href={wa()} target="_blank" rel="noreferrer">Get a website for your business →</a>
             <a className="btn alt" href={site.resume} target="_blank" rel="noreferrer">Hiring? See my resume</a>
           </div>
         </div>
         <div className="hero-right">
-          <div className="hero-art"><span className="disc" /><span className="orbit-wrap" aria-hidden="true"><span className="arc"><i className="star" /></span></span><img src="/statue.webp" alt="" width="1000" height="960" /></div>
+          <div className="hero-art"><span className="disc" /><span className="orbit-wrap" aria-hidden="true"><span className="arc"><i className="star" /></span></span><img src="/statue.webp" alt="" width="1000" height="960" fetchPriority="high" decoding="async" /></div>
           <div className="stats">
             <div className="stat"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6" /></svg><div><b>{projects.length}+</b><span>Projects</span></div></div>
             {heroStats.clients && <div className="stat"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8" /></svg><div><b>{heroStats.clients}</b><span>Happy Clients</span></div></div>}
@@ -55,8 +55,8 @@ export function Sapna() {
         </div>
         {sapna.image && (
           <div className="shots-wrap">
-            <div className="browser"><div className="browser-bar"><i /><i /><i /></div><img src={sapna.image} alt="Dr. Sapna's Dental Care website" style={{ display: "block", width: "100%" }} /></div>
-            {sapna.mobile && <div className="sphone"><img src={sapna.mobile} alt="Dr. Sapna's Dental Care on mobile" /></div>}
+            <div className="browser"><div className="browser-bar"><i /><i /><i /></div><img src={sapna.image} alt="Dr. Sapna's Dental Care clinic website in Rohtak, built by Shiva Saini" loading="lazy" decoding="async" style={{ display: "block", width: "100%" }} /></div>
+            {sapna.mobile && <div className="sphone"><img src={sapna.mobile} alt="Dr. Sapna's Dental Care website on a mobile phone" loading="lazy" decoding="async" /></div>}
           </div>
         )}
       </div>
@@ -156,7 +156,7 @@ export function About() {
       <div className="split about">
         <div className="vcard">
           {site.photo
-            ? <img className="vc-photo" src={site.photo} alt={site.name} />
+            ? <img className="vc-photo" src={site.photo} alt={`${site.name}, full-stack web developer from Kharkhoda, Haryana`} loading="lazy" decoding="async" />
             : <div className="vc-logo"><img src="/shiva-logo.png" alt="" /></div>}
           <div className="vc-top"><div><div className="vc-n">{site.name}</div><div className="vc-r">Full-stack developer</div></div></div>
           <div className="vc-c">{site.location}</div>
@@ -180,7 +180,7 @@ export function Certificates() {
       <div className="between"><h2 className="d">Certificates</h2><span className="small">{certs.some((c) => c.image) ? "Tap any one to open it full size." : ""}</span></div>
       <div className="certs">
         {certs.map((c, i) => {
-          const inner = (<>{c.image && <img src={c.image} alt={c.title} />}<b>{c.title}</b><span>{c.by}</span></>);
+          const inner = (<>{c.image && <img src={c.image} alt={`${c.title} certificate, ${c.by}`} loading="lazy" decoding="async" />}<b>{c.title}</b><span>{c.by}</span></>);
           return c.image
             ? <a key={i} href={c.image} target="_blank" rel="noreferrer" className="frame">{inner}</a>
             : <div key={i} className="frame plain">{inner}</div>;

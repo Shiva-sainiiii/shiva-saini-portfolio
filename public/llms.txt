@@ -1,0 +1,20 @@
+# Shiva Saini
+
+> Full-stack web developer in Kharkhoda (Sonipat), Haryana, India. Builds fast websites for local businesses (clinics, gyms, cafes, jewellers, real estate) and AI tools. Free demo first, then build and launch.
+
+## Links
+- Portfolio: https://shivasainiportfolio.vercel.app
+- Resume: https://shivasainiportfolio.vercel.app/resume.pdf
+- GitHub: https://github.com/Shiva-sainiiii
+- LinkedIn: https://www.linkedin.com/in/shiva-sainiiii
+- Live client site: https://drsapnadentalrohtak.com/
+
+## Services
+- Website Development
+- Google Business Setup
+- WhatsApp Business Setup
+- Insta Business Boost
+
+## Contact
+- WhatsApp / phone: +91 88130 08167
+- Email: shivasaini.5666@gmail.com

@@ -22,7 +22,7 @@ export const heroStats = { clients: "3+" };
 export const heroLines = ["Your business,", "Now online."];
 
 // result: jab asli number/line ho tab bharo (khali = row hide). image = desktop screenshot, mobile = phone screenshot (dono public/shots/ me hain).
-export const sapna = { result: "", image: "/shots/sapna-desktop.png", mobile: "/shots/sapna-mobile.jpg" };
+export const sapna = { result: "", image: "/shots/sapna-desktop.webp", mobile: "/shots/sapna-mobile.jpg" };
 
 export const templates = [
   { name: "Dentist", text: "Clinic site with booking, treatments and a chatbot.", c: ["#0e5a6b", "#7fe3f0"], demo: "https://egsite.vercel.app/samples/dental/3d/index.html" },
@@ -44,12 +44,12 @@ export const process = [
 ];
 // [naam, stack, description, live link, code link, [screenshots]] — screenshots public/shots/ me rakho
 export const projects = [
-  ["EasyDevOps", "Flask · Python intent parser · Platform APIs", "Deploy from a phone: GitHub, Vercel, Render, Netlify on one screen.", "https://easydevops.vercel.app", "", ["/shots/easydevops.png"]],
+  ["EasyDevOps", "Flask · Python intent parser · Platform APIs", "Deploy from a phone: GitHub, Vercel, Render, Netlify on one screen.", "https://easydevops.vercel.app", "", ["/shots/easydevops.webp"]],
   ["CodeAgent", "Vanilla JS · AI API", "Mobile-first coding assistant with live preview and self-testing.", "https://codeagentai.vercel.app/", "https://github.com/Shiva-sainiiii/Code-Editor-Ai", []],
   ["Code Editor AI", "AI · Web app", "AI-assisted code editor in the browser.", "https://code-editor-ai-taupe.vercel.app/", "", []],
   ["Code Editor AI 2", "AI · Web app", "Second build of the AI code editor.", "https://codeeditorai-blush.vercel.app/", "", []],
-  ["Snake Rush", "Canvas · Vanilla JS", "Browser slither game with AI snakes that have personalities.", "https://snakerushgame.vercel.app/", "https://github.com/Shiva-sainiiii/SnakeRush", ["/shots/snake-rush-game.png"]],
-  ["GuessArt", "PeerJS · WebRTC · Canvas", "Multiplayer drawing and guessing game with voice chat. Peer to peer, no backend.", "https://guessart.vercel.app/", "", ["/shots/guessart.png"]],
+  ["Snake Rush", "Canvas · Vanilla JS", "Browser slither game with AI snakes that have personalities.", "https://snakerushgame.vercel.app/", "https://github.com/Shiva-sainiiii/SnakeRush", ["/shots/snake-rush-game.webp"]],
+  ["GuessArt", "PeerJS · WebRTC · Canvas", "Multiplayer drawing and guessing game with voice chat. Peer to peer, no backend.", "https://guessart.vercel.app/", "", ["/shots/guessart.webp"]],
   ["AI Mind Trap", "AI · Quiz game", "Quiz and puzzle game that tries to trap your mind.", "https://ai-mind-trap.vercel.app/", "", []],
   ["Online Games", "Web games", "A hub of small browser games.", "https://onlinegames-one.vercel.app/", "", []],
   ["Horror Tic Tac Toe", "Web game", "Tic tac toe with a horror twist.", "https://horrortictactoe.vercel.app/", "", []],
