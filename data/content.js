@@ -92,3 +92,13 @@ Services: website development, Google Business setup, WhatsApp Business setup, I
 Process: free demo first, then build, then launch.
 Projects: EasyDevOps (Flask, deploy from a phone), CodeAgent, Snake Rush, Blog Website.
 For pricing or hiring, tell them to message Shiva on WhatsApp (${site.phone}). If unsure, say so.`;
+
+// Home page ke FAQ. Visible bhi hain aur Google ke liye FAQ schema bhi inse banta hai.
+export const homeFaq = [
+  ["Do you really make a demo before I pay?", "Yes. Tell me about your business on WhatsApp and I make a demo website before you pay anything."],
+  ["Which businesses do you build websites for?", "Clinics, gyms, cafes, jewellers, real estate and other local shops and services in Sonipat, Rohtak and across Haryana."],
+  ["Where are you based?", `I am based in ${site.location}. I work with businesses across Haryana, and online with anyone who prefers WhatsApp.`],
+  ["What do you build websites with?", "Next.js, Supabase and AI tools where they actually help, like a chatbot that answers customer questions."],
+  ["Do you also set up Google Business and WhatsApp Business?", "Yes. Google Business Setup and WhatsApp Business Setup are part of what I do, so customers can find you on Google and message you."],
+  ["How do I contact you?", `Message me on WhatsApp at ${site.phone}, or email ${site.email}.`],
+];

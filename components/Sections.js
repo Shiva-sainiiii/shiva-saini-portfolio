@@ -3,6 +3,10 @@ import { Mail, Phone, Pin, GearInfinity, LinkedIn, GitHub, WhatsApp, Instagram, 
 import ProjectList from "@/components/ProjectList";
 import Rotator from "@/components/Rotator";
 import TradeIcon from "@/components/TradeIcons";
+import Link from "next/link";
+import Faq from "@/components/Faq";
+import { trades } from "@/data/trades";
+import { homeFaq } from "@/data/content";
 
 // Khali ya "#" link ko hide karne ke liye
 const ok = (u) => u && u !== "#";
@@ -81,7 +85,7 @@ export function Templates() {
                 ? <a className="tagy" href={t.demo} target="_blank" rel="noreferrer">Live demo ↗</a>
                 : <a className="tagy" href={wa(`Hi, I'd like the ${t.name} template`)} target="_blank" rel="noreferrer">Ask for demo</a>}
             </div>
-            <div className="rate-d">{t.text} <a className="ul2" href={wa(`Hi Shiva, I run a ${t.name.toLowerCase()} business. I'd like this website.`)} target="_blank" rel="noreferrer">Get this ↗</a></div>
+            <div className="rate-d">{t.text} {trades.find((x) => x.match === t.name) && <><Link className="ul2" href={`/${trades.find((x) => x.match === t.name).slug}`}>Details →</Link> · </>}<a className="ul2" href={wa(`Hi Shiva, I run a ${t.name.toLowerCase()} business. I'd like this website.`)} target="_blank" rel="noreferrer">Get this ↗</a></div>
           </div>
         ))}
       </div>
@@ -211,6 +215,15 @@ export function Contact() {
           <a className="map-cap" href={site.mapLink} target="_blank" rel="noreferrer"><span><Pin size={18} /> {site.location}</span><span>Open in Maps ↗</span></a>
         </div>
       </div>
+    </section>
+  );
+}
+
+export function FaqSection() {
+  return (
+    <section id="faq" className="sec wall chalk">
+      <h2 className="d">Questions</h2>
+      <Faq items={homeFaq} />
     </section>
   );
 }
