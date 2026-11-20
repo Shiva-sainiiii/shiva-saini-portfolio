@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { site, wa } from "@/data/content";
 import { trades } from "@/data/trades";
+import { courses } from "@/data/courses";
 
 export default function Footer() {
   return (
@@ -14,6 +15,10 @@ export default function Footer() {
         <div>
           <h3>Websites for</h3>
           <ul>{trades.map((t) => (<li key={t.slug}><Link href={`/${t.slug}`}>{t.match === "Real Estate" ? "Real estate" : t.match === "Jeweller" ? "Jewellers" : `${t.match}s`}</Link></li>))}</ul>
+        </div>
+        <div>
+          <h3>Free courses</h3>
+          <ul>{courses.map((c) => (<li key={c.slug}><Link href={`/courses/${c.slug}`}>{c.title}</Link></li>))}<li><Link href="/courses">All courses</Link></li></ul>
         </div>
         <div>
           <h3>Explore</h3>

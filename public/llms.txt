@@ -11,9 +11,15 @@
 
 ## Services
 - Website Development
+- AI Automation Setup
+- Custom CRM
+- AI Chatbot
+- Web App and Admin Panel
 - Google Business Setup
 - WhatsApp Business Setup
 - Insta Business Boost
+- Local SEO
+- Hosting, Domain and Deployment
 
 ## Contact
 - WhatsApp / phone: +91 88130 08167
@@ -25,3 +31,11 @@
 - Websites for jewellers: https://shivasainiportfolio.vercel.app/website-for-jewellers
 - Websites for cafes: https://shivasainiportfolio.vercel.app/website-for-cafes
 - Websites for real estate: https://shivasainiportfolio.vercel.app/website-for-real-estate
+
+## EasyDevOps
+- Easy DevOps: deploy from chat, no CLI. Create GitHub repos, deploy to Vercel, Netlify and Render, manage env vars and pull requests in English or Hinglish. https://easydevops.vercel.app
+
+## Free courses
+- All courses: https://shivasainiportfolio.vercel.app/courses
+- Python for Beginners (9 chapters): https://shivasainiportfolio.vercel.app/courses/python
+- Cloud Computing Basics (8 chapters): https://shivasainiportfolio.vercel.app/courses/cloud-computing

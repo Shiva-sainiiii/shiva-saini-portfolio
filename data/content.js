@@ -33,9 +33,15 @@ export const templates = [
 ];
 export const services = [
   ["Website Development", "Fast, responsive and AI-powered websites for your business."],
+  ["AI Automation Setup", "Replies to enquiries, lead sorting and reminders handled automatically with AI and WhatsApp, so you stop doing the same work twice."],
+  ["Custom CRM", "Your own CRM to track leads, follow-ups and customers, built around how your business actually works."],
+  ["AI Chatbot", "A chatbot for your website or WhatsApp that answers customer questions and passes serious leads to you."],
+  ["Web App & Admin Panel", "Dashboards, booking systems and admin panels, so you can update your site and manage orders yourself."],
   ["Google Business Setup", "Show up on Google Search and Maps for local customers."],
   ["WhatsApp Business Setup", "Business profile, catalog and quick replies, set up properly."],
   ["Insta Business Boost", "A business-ready Instagram profile and growth support."],
+  ["Local SEO", "Titles, pages, sitemap and Google profile set up so people in your city can find you."],
+  ["Hosting, Domain & Deployment", "Domain, hosting and deployment set up and looked after, so the site stays online and fast."],
 ];
 export const process = [
   ["Free demo", "Tell me about your business on WhatsApp. I make a demo website before you pay anything."],
@@ -44,7 +50,7 @@ export const process = [
 ];
 // [naam, stack, description, live link, code link, [screenshots]] — screenshots public/shots/ me rakho
 export const projects = [
-  ["EasyDevOps", "Flask · Python intent parser · Platform APIs", "Deploy from a phone: GitHub, Vercel, Render, Netlify on one screen.", "https://easydevops.vercel.app", "", ["/shots/easydevops.webp"]],
+  ["EasyDevOps", "Next.js · GitHub OAuth · Platform APIs", "Deploy from chat, no CLI: GitHub, Vercel, Netlify and Render on phone and laptop.", "https://easydevops.vercel.app", "", ["/shots/easydevops.webp"]],
   ["CodeAgent", "Vanilla JS · AI API", "Mobile-first coding assistant with live preview and self-testing.", "https://codeagentai.vercel.app/", "https://github.com/Shiva-sainiiii/Code-Editor-Ai", []],
   ["Code Editor AI", "AI · Web app", "AI-assisted code editor in the browser.", "https://code-editor-ai-taupe.vercel.app/", "", []],
   ["Code Editor AI 2", "AI · Web app", "Second build of the AI code editor.", "https://codeeditorai-blush.vercel.app/", "", []],
@@ -63,9 +69,11 @@ export const projects = [
 ];
 export const easy = [
   ["Problem", "June 2026, coding from a phone: GitHub meant adding and deleting files one by one, and Vercel meant a separate tab to import a repo and deploy."],
-  ["Decision: skip the AI call", "OpenRouter's free tier allows 15 requests a minute and 50 a day, and a public product would bill every user to my account. So commands run through a Python intent parser with suggestions while typing. AI only steps in for typos and complex requests."],
-  ["Decision: three ways to upload", "Files, a whole folder (added because files from different directories got mixed), or a zip, since Claude can hand you a zip of the whole project."],
-  ["Result", "Bulk delete of files, repos and folders, which GitHub itself does not offer. Chat history, all three platforms on one screen, and user API keys are not saved directly."],
+  ["What it does now", "Create and delete repos, edit files, upload files, a folder or a zip, manage branches and pull requests, import and deploy to Vercel, Netlify and Render, set env vars (or import a .env file), watch live build logs and roll back."],
+  ["Rules first, AI second", "Around 80 to 90 percent of everyday commands run on a rule-based parser with zero AI. AI handles complex asks like generating code or explaining a failed build, on the user's own Google AI Studio or OpenRouter key. Every reply shows whether rules or AI ran."],
+  ["Many tasks, one message", "“Create a repo, add index.html with this code and deploy it” runs as ordered steps. Pasted code is never altered or sent to AI, and the first failure stops the plan with a clear checklist."],
+  ["Safe by design", "GitHub OAuth sign-in, tokens and keys encrypted at rest, and a confirmation before delete, merge or rollback. Confirmations are signed, single-use and expire in 15 minutes."],
+  ["Phone and laptop", "Built phone-first (swipe actions, pull to refresh, undo toast), now just as comfortable on a laptop, with chats synced across devices. It understands Hinglish and supports teamwork: invite a friend, they open a pull request, you compare and merge."],
 ];
 export const experience = [
   ["Maincrafts Technology", "Web Development Intern", "Jun–Jul 2026"],
@@ -88,9 +96,9 @@ export const askChips = ["What did you build for Dr. Sapna?", "Which stack do yo
 export const aiContext = `You are Shiva Saini's portfolio assistant. Answer briefly and only from this info.
 Shiva is a full-stack developer (Next.js, Supabase, AI) from Kharkhoda, Haryana, with 3 web internships.
 Client work: Dr. Sapna's Dental Care, Rohtak: clinic website, admin panel she runs herself, Gemini chatbot.
-Services: website development, Google Business setup, WhatsApp Business setup, Insta business boost. Templates: dentist, gym, jeweller, cafe, real estate.
+Services: website development, AI automation setup, custom CRM, AI chatbot, web app and admin panel, Google Business setup, WhatsApp Business setup, Insta business boost, local SEO, hosting/domain/deployment. Templates: dentist, gym, jeweller, cafe, real estate.
 Process: free demo first, then build, then launch.
-Projects: EasyDevOps (Flask, deploy from a phone), CodeAgent, Snake Rush, Blog Website.
+Projects: EasyDevOps (deploy from chat to GitHub, Vercel, Netlify and Render, no CLI, English and Hinglish, on phone and laptop), CodeAgent, Snake Rush, Blog Website.\nFree courses on this site: Python for Beginners (9 chapters) and Cloud Computing Basics (8 chapters), at /courses.
 For pricing or hiring, tell them to message Shiva on WhatsApp (${site.phone}). If unsure, say so.`;
 
 // Home page ke FAQ. Visible bhi hain aur Google ke liye FAQ schema bhi inse banta hai.
@@ -99,6 +107,8 @@ export const homeFaq = [
   ["Which businesses do you build websites for?", "Clinics, gyms, cafes, jewellers, real estate and other local shops and services in Sonipat, Rohtak and across Haryana."],
   ["Where are you based?", `I am based in ${site.location}. I work with businesses across Haryana, and online with anyone who prefers WhatsApp.`],
   ["What do you build websites with?", "Next.js, Supabase and AI tools where they actually help, like a chatbot that answers customer questions."],
+  ["Do you offer AI automation or a custom CRM?", "Yes. I set up AI automation (for example WhatsApp enquiry replies and lead sorting) and build custom CRMs and admin panels around how your business works. Message me on WhatsApp and I will suggest what fits."],
+  ["Are the courses really free?", "Yes. The Python and Cloud Computing courses are free, with no sign-up. Your progress is saved only in your own browser."],
   ["Do you also set up Google Business and WhatsApp Business?", "Yes. Google Business Setup and WhatsApp Business Setup are part of what I do, so customers can find you on Google and message you."],
   ["How do I contact you?", `Message me on WhatsApp at ${site.phone}, or email ${site.email}.`],
 ];

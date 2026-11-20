@@ -4,6 +4,8 @@ import ProjectList from "@/components/ProjectList";
 import Rotator from "@/components/Rotator";
 import TradeIcon from "@/components/TradeIcons";
 import Link from "next/link";
+import { AutomationIcon, CrmIcon, ChatbotIcon, DashboardIcon, SearchIcon, CloudIcon } from "@/components/ServiceIcons";
+import { courses, totalMins } from "@/data/courses";
 import Faq from "@/components/Faq";
 import { trades } from "@/data/trades";
 import { homeFaq } from "@/data/content";
@@ -99,7 +101,7 @@ export function Services() {
     <section id="services" className="sec wall chalk">
       <h2 className="d">What I do</h2>
       <div className="svc">
-        {services.map(([a, b], i) => { const Ic = [WebsiteIcon, Google, WhatsApp, Instagram][i]; return (<div key={a} className="svc-row"><div className="svc-n">{Ic && <span className="svc-ico"><Ic size={34} /></span>}<span>{a}</span></div><div className="svc-d">{b}</div></div>); })}
+        {services.map(([a, b]) => { const Ic = { "Website Development": WebsiteIcon, "AI Automation Setup": AutomationIcon, "Custom CRM": CrmIcon, "AI Chatbot": ChatbotIcon, "Web App & Admin Panel": DashboardIcon, "Google Business Setup": Google, "WhatsApp Business Setup": WhatsApp, "Insta Business Boost": Instagram, "Local SEO": SearchIcon, "Hosting, Domain & Deployment": CloudIcon }[a]; return (<div key={a} className="svc-row"><div className="svc-n">{Ic && <span className="svc-ico"><Ic size={34} /></span>}<span>{a}</span></div><div className="svc-d">{b}</div></div>); })}
       </div>
       <div className="stickers">
         <span className="small b">Demo sites for</span>
@@ -132,7 +134,7 @@ export function Projects() {
   );
 }
 
-const flow = ["Your command", "Intent parser", "AI (only for typos or complex asks)", "GitHub · Vercel · Render · Netlify APIs"];
+const flow = ["Your message", "Rule-based parser", "AI (complex asks, your own key)", "GitHub · Vercel · Netlify · Render"];
 
 export function EasyDevOps() {
   return (
@@ -141,9 +143,10 @@ export function EasyDevOps() {
         <div>
           <span className="mk">Engineering project</span>
           <h2 className="d one-line ed-h" style={{ marginTop: 18 }}><GearInfinity className="ed-ico" size={40} /><span>Easy<br className="dbr" />DevOps</span></h2>
-          <p className="lead">Deploy without a laptop. GitHub, Vercel, Render and Netlify on one screen, driven by plain commands.</p>
-          <div className="stickers">{["Flask", "Vanilla JS", "Python intent parser", "Platform APIs"].map((x) => <span key={x} className="sticker">{x}</span>)}</div>
+          <p className="lead">Deploy from chat, no CLI. Create GitHub repos, deploy to Vercel, Netlify and Render, manage env vars and pull requests, in English or Hinglish. Works on phone and laptop.</p>
+          <div className="stickers">{["Next.js", "GitHub OAuth", "Rules-first parser", "AI Gateway", "Platform APIs"].map((x) => <span key={x} className="sticker">{x}</span>)}</div>
           <a className="btn" href={site.easyUrl} target="_blank" rel="noreferrer">Open live app ↗</a>
+          <p className="small edl">Read more: {[["Features", "/features"], ["How it works", "/how-it-works"], ["Commands", "/commands"], ["FAQ", "/faq"]].map(([l, p], k) => (<span key={l}>{k ? " · " : ""}<a className="ul2" href={`${site.easyUrl}${p}`} target="_blank" rel="noreferrer">{l}</a></span>))}</p>
         </div>
         <div className="notes">
           <div className="flow" aria-label="How a command flows">{flow.map((x) => <span key={x} className="fl">{x}</span>)}</div>
@@ -224,6 +227,27 @@ export function FaqSection() {
     <section id="faq" className="sec wall chalk">
       <h2 className="d">Questions</h2>
       <Faq items={homeFaq} />
+    </section>
+  );
+}
+
+export function CoursesTeaser() {
+  return (
+    <section id="courses" className="sec wall ink">
+      <span className="mk">Free</span>
+      <h2 className="d" style={{ marginTop: 18 }}>Learn with me</h2>
+      <p className="lead">Free courses, chapter by chapter, in simple English. Read, try the code and check yourself with a quiz. No sign-up.</p>
+      <div className="cgrid">
+        {courses.map((c) => (
+          <Link key={c.slug} href={`/courses/${c.slug}`} className="ccard">
+            <span className="mk">{c.level}</span>
+            <h3>{c.title}</h3>
+            <p>{c.desc}</p>
+            <span className="cmeta">{c.chapters.length} chapters · about {Math.round(totalMins(c) / 60 * 10) / 10} hours · Free</span>
+          </Link>
+        ))}
+      </div>
+      <div className="stickers"><Link className="btn" href="/courses">All free courses →</Link></div>
     </section>
   );
 }
