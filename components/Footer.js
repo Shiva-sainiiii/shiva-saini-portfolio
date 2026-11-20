@@ -18,7 +18,7 @@ export default function Footer() {
         </div>
         <div>
           <h3>Free courses</h3>
-          <ul>{courses.map((c) => (<li key={c.slug}><Link href={`/courses/${c.slug}`}>{c.title}</Link></li>))}<li><Link href="/courses">All courses</Link></li></ul>
+          <ul>{courses.filter((c) => c.featured).map((c) => (<li key={c.slug}><Link href={`/courses/${c.slug}`}>{c.title}</Link></li>))}<li><Link href="/courses">All {courses.length} courses</Link></li></ul>
         </div>
         <div>
           <h3>Explore</h3>

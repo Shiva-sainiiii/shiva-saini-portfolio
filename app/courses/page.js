@@ -4,11 +4,12 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import { wa } from "@/data/content";
-import { courses, totalMins } from "@/data/courses";
+import { courses, categories, catId, hours } from "@/data/courses";
 
 const base = process.env.NEXT_PUBLIC_SITE_URL || "https://shivasainiportfolio.vercel.app";
-const title = "Free Courses: Python and Cloud Computing, Chapter by Chapter | Shiva Saini";
-const desc = "Free chapter-wise courses in simple English: Python for beginners and Cloud Computing basics, with code examples, tasks and quizzes. No sign-up needed.";
+const lessons = courses.reduce((a, c) => a + c.chapters.length, 0);
+const title = "Free Coding, AI and Business Courses, Chapter by Chapter | Shiva Saini";
+const desc = `${courses.length} free courses, ${lessons} chapters, in simple English: Python, JavaScript, HTML and CSS, SQL, Git, cloud, AI and local business. No sign-up.`;
 
 export const metadata = {
   title: { absolute: title }, description: desc, alternates: { canonical: "/courses" },
@@ -17,6 +18,7 @@ export const metadata = {
 };
 
 export default function CoursesPage() {
+  const groups = categories.map((cat) => ({ cat, list: courses.filter((c) => c.cat === cat) })).filter((g) => g.list.length);
   const ld = {
     "@context": "https://schema.org",
     "@graph": [
@@ -34,21 +36,27 @@ export default function CoursesPage() {
         <section className="sec page-hero">
           <nav className="crumb" aria-label="Breadcrumb"><Link href="/">Home</Link><span>/</span><span>Free courses</span></nav>
           <h1 className="d">Free courses, chapter by chapter</h1>
-          <p className="lead">Short lessons in simple English. Read, copy the code, try the task and check yourself with a quiz. No sign-up, no fees.</p>
+          <p className="lead">{courses.length} courses and {lessons} short chapters in simple English. Read, copy the code, see the real output, try the task and check yourself with a quiz. No sign-up, no fees.</p>
+          <nav className="jump" aria-label="Course categories">{groups.map((g) => <a key={g.cat} href={`#${catId(g.cat)}`}>{g.cat}</a>)}</nav>
         </section>
+        {groups.map((g, k) => (
+          <section key={g.cat} id={catId(g.cat)} className={`sec wall ${k % 2 ? "ink" : "chalk"}`}>
+            <h2 className="d">{g.cat}</h2>
+            <div className="cgrid">
+              {g.list.map((c) => (
+                <Link key={c.slug} href={`/courses/${c.slug}`} className="ccard">
+                  <span className="mk">{c.level}</span>
+                  <h3>{c.title}</h3>
+                  <p>{c.desc}</p>
+                  <span className="cmeta">{c.chapters.length} chapters · about {hours(c)} hours · Free</span>
+                  <span className="btn">Start learning →</span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        ))}
         <section className="sec wall chalk">
-          <div className="cgrid">
-            {courses.map((c) => (
-              <Link key={c.slug} href={`/courses/${c.slug}`} className="ccard">
-                <span className="mk">{c.level}</span>
-                <h2>{c.title}</h2>
-                <p>{c.desc}</p>
-                <span className="cmeta">{c.chapters.length} chapters · about {Math.round(totalMins(c) / 60 * 10) / 10} hours · Free</span>
-                <span className="btn">Start learning →</span>
-              </Link>
-            ))}
-          </div>
-          <p className="small more">More courses will be added over time. Want a topic covered? <a className="ul2" href={wa("Hi Shiva, please add a course on ")} target="_blank" rel="noreferrer">Tell me on WhatsApp</a>.</p>
+          <p className="small more" style={{ marginTop: 0 }}>New chapters and courses are added over time. Want a topic covered? <a className="ul2" href={wa("Hi Shiva, please add a course on ")} target="_blank" rel="noreferrer">Tell me on WhatsApp</a>.</p>
         </section>
       </main>
       <Footer />

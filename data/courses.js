@@ -1,9 +1,19 @@
 // Free courses. Naya course ya chapter add karna ho to yahin object jodo: page, sitemap aur links apne aap ban jaate hain.
 // Block types: ["h", text] ["p", text] ["ul", [items]] ["code", lang, code] ["note", text] ["task", text] ["table", [headers], [[row]...]]
 // Text me `backtick` se inline code ban jaata hai. quiz = [sawal, [options], sahi_index, kyun]
-export const courses = [
+import { webCourses } from "./courses-web.js";
+import { toolsCourses } from "./courses-tools.js";
+import { moreCourses } from "./courses-more.js";
+
+// Code block ka 4th item (optional): { in: [...input()], out: "manual output", skip: true, hide: true, noPreview: true, height: 400, outLabel: "..." }
+const base = [
   {
-    slug: "python", title: "Python for Beginners", short: "Python", level: "Beginner",
+    slug: "python", title: "Python for Beginners", short: "Python", level: "Beginner", cat: "Programming", featured: true, updated: "2026-11-20",
+    faq: [
+      ["Is Python good for a complete beginner?", "Yes. Python reads almost like English and is used for websites, automation, data analysis and AI, so it is one of the best first languages."],
+      ["How long does it take to learn Python basics?", "The 9 chapters here take about two hours to read. With daily practice, most beginners are comfortable with the basics within a few weeks."],
+      ["Do I need to install Python to follow this course?", "Installing it is best, but you can also use an online Python editor or a phone app such as Pydroid 3."],
+    ],
     desc: "Learn Python from your first program to a number guessing game, chapter by chapter, in simple English. Free, with code examples, tasks and quizzes.",
     intro: "You do not need any coding experience. Each chapter is short, has code you can copy and run, one task to try yourself and a small quiz to check what you learned. By the end you will have built a real game.",
     outcomes: ["Write and run Python programs", "Use variables, numbers, text and user input", "Make decisions with if and repeat work with loops", "Store data in lists, dictionaries and sets", "Write your own functions", "Read and write files and handle errors", "Build a complete number guessing game"],
@@ -16,12 +26,12 @@ export const courses = [
           ["h", "What you need"],
           ["p", "A computer or phone with Python installed. On a laptop, download it from python.org and, on Windows, tick “Add Python to PATH” during setup. On Android, an app like Pydroid 3 works. You can also start in any online Python editor in your browser."],
           ["p", "To check that Python is installed, open a terminal (Command Prompt on Windows) and type:"],
-          ["code", "bash", "python --version"],
+          ["code", "bash", "python --version", { out: "Python 3.12.4" }],
           ["note", "On Mac and Linux the command is often `python3 --version`."],
           ["h", "Your first program"],
           ["code", "python", `print("Hello, world!")`],
           ["p", "`print()` shows text on the screen. Text inside quotes is called a string. Save the line in a file named `hello.py` and run it:"],
-          ["code", "bash", "python hello.py"],
+          ["code", "bash", "python hello.py", { out: "Hello, world!" }],
           ["h", "Comments and more lines"],
           ["code", "python", `# This is a comment. Python ignores it.
 print("My name is Shiva")  # a comment can also sit after code
@@ -89,13 +99,13 @@ print(not (age == 20))       # False`],
           ["h", "Taking input"],
           ["p", "`input()` asks the user to type something. It always returns text, even if the user types a number."],
           ["code", "python", `name = input("What is your name? ")
-print("Hello", name)`],
+print("Hello", name)`, { in: ["Asha"] }],
           ["h", "Converting types"],
           ["p", "Use `int()`, `float()` and `str()` to convert. Here is a tiny bill calculator that also uses an f-string, which puts values inside text with `{ }`:"],
           ["code", "python", `price = float(input("Price: "))
 qty = int(input("Quantity: "))
 total = price * qty
-print(f"Total bill: {total:.2f}")`],
+print(f"Total bill: {total:.2f}")`, { in: ["99.5", "3"] }],
           ["note", "`{total:.2f}` shows the number with exactly two decimal places."],
           ["h", "A common beginner mistake"],
           ["code", "python", `print("5" + "3")      # 53  (text joined together)
@@ -301,7 +311,7 @@ print(bill_with_gst(1000, 5))   # 1050.0`],
 except ValueError:
     print("That was not a number.")
 except ZeroDivisionError:
-    print("You cannot divide by zero.")`],
+    print("You cannot divide by zero.")`, { in: ["0"] }],
           ["h", "A file that may not exist"],
           ["code", "python", `try:
     with open("missing.txt") as f:
@@ -346,7 +356,7 @@ def play():
             print(f"Correct! You took {tries} tries.")
             break
 
-play()`],
+play()`, { out: "Your guess (1-100): 50\nToo high\nYour guess (1-100): 25\nToo low\nYour guess (1-100): abc\nPlease type a whole number.\nYour guess (1-100): 37\nCorrect! You took 3 tries.", outLabel: "Example game (the secret number is random each time)" }],
           ["h", "How it works"],
           ["ul", ["`import random` lets us use `random.randint(1, 100)`, which picks a whole number from 1 to 100, both ends included.", "`get_guess()` keeps asking until the user types a valid whole number. This is where `try` and `except` protect the game from crashing.", "`play()` holds the main loop. `if`, `elif` and `else` compare the guess with the secret.", "`break` leaves the loop when the guess is right."]],
           ["h", "Challenges"],
@@ -363,7 +373,12 @@ play()`],
     ],
   },
   {
-    slug: "cloud-computing", title: "Cloud Computing Basics", short: "Cloud Computing", level: "Beginner",
+    slug: "cloud-computing", title: "Cloud Computing Basics", short: "Cloud Computing", level: "Beginner", cat: "Developer Tools and Cloud", featured: false, updated: "2026-11-20",
+    faq: [
+      ["Do I need a credit card or cloud account for this course?", "No. The first seven chapters are concepts. The last chapter uses free plans of hosting platforms, and you should always check their current limits."],
+      ["Which cloud provider should a beginner learn first?", "The ideas are the same across AWS, Azure and Google Cloud. Learn the concepts here, then pick the provider that your target jobs or projects use."],
+      ["Is cloud computing only for big companies?", "No. Students and small businesses use it every day, for example to host a website or store files, and they pay only for what they use."],
+    ],
     desc: "Understand cloud computing from scratch: IaaS, PaaS, SaaS, regions, security, costs and your first deployment. Free, chapter by chapter, in simple English.",
     intro: "No cloud account or coding needed to follow the ideas. Each chapter explains one concept with everyday examples, compares AWS, Azure and Google Cloud where it helps, and ends with a short quiz. The last chapter walks you through putting a real page on the internet.",
     outcomes: ["Explain what cloud computing is and why it is used", "Tell IaaS, PaaS, SaaS and serverless apart", "Know public, private and hybrid cloud", "Name the core building blocks and their AWS, Azure and Google Cloud equivalents", "Understand regions, zones and reliability", "Follow basic cloud security habits", "Avoid surprise bills and deploy your first site"],
@@ -491,12 +506,12 @@ play()`],
           ["h", "Keep secrets out of your code"],
           ["p", "API keys, tokens and passwords must never be written in your code or pushed to GitHub. Keep them in environment variables or a secrets manager instead."],
           ["code", "bash", `# .env  (never commit this file)
-API_KEY=your-secret-here`],
+API_KEY=your-secret-here`, { skip: true }],
           ["code", "bash", `# .gitignore
-.env`],
+.env`, { skip: true }],
           ["code", "python", `import os
 
-api_key = os.environ["API_KEY"]`],
+api_key = os.environ["API_KEY"]`, { skip: true }],
           ["note", "If a key ever leaks, revoke it immediately and create a new one. Deleting the file from GitHub is not enough because the old version stays in the history."],
           ["h", "Protect data"],
           ["ul", ["Use HTTPS so data is encrypted while it travels.", "Turn on encryption at rest for storage and databases.", "Keep storage private by default. Public buckets have exposed many companies’ files.", "Back up important data and test the restore."]],
@@ -552,7 +567,7 @@ git add .
 git commit -m "first version"
 git branch -M main
 git remote add origin https://github.com/YOUR-NAME/my-first-site.git
-git push -u origin main`],
+git push -u origin main`, { skip: true }],
           ["h", "Step 3: Import it into a host"],
           ["p", "Sign in to Vercel or Netlify with GitHub, choose “Import” or “Add new site”, pick your repository and press Deploy. After a minute you get an https address."],
           ["h", "What just happened"],
@@ -571,5 +586,12 @@ git push -u origin main`],
     ],
   },
 ];
+
+// Listing order and categories
+const order = ["python", "javascript", "html-css", "sql", "git-github", "cloud-computing", "ai-basics", "local-business-online"];
+export const courses = [...base, ...webCourses, ...toolsCourses, ...moreCourses].sort((a, b) => order.indexOf(a.slug) - order.indexOf(b.slug));
+export const categories = ["Programming", "Web Development", "Databases", "Developer Tools and Cloud", "AI", "Business Online"];
+export const catId = (c) => c.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 export const courseBySlug = (s) => courses.find((c) => c.slug === s);
 export const totalMins = (c) => c.chapters.reduce((a, x) => a + x.mins, 0);
+export const hours = (c) => Math.round((totalMins(c) / 60) * 10) / 10;

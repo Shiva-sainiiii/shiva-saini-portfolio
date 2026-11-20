@@ -666,3 +666,56 @@ body{line-height:1.65}
  .lesson p,.lesson li{font-size:17px}.code pre code{font-size:13.5px}
  .pn .btn{width:100%;text-align:center}
 }
+
+/* ===== v9: copy button, outputs, preview, TOC sidebar, scorecard, jump links ===== */
+.code-h{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:5px 8px 5px 14px;border-bottom:1px solid var(--line)}
+.code-h .code-l{display:inline;padding:0;border:0}
+.copy{font:600 12px ui-monospace,Menlo,monospace;letter-spacing:.06em;color:var(--txt,#fff);background:rgba(255,255,255,.08);border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer;transition:background .15s,border-color .15s}
+.copy:hover{background:rgba(var(--acc-rgb),.18);border-color:rgba(var(--acc-rgb),.6)}
+.out{border-top:1px dashed rgba(255,255,255,.2);background:#06060a}
+.out-h{padding:6px 14px;font:600 12px ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:#34d399}
+.out pre{padding:4px 18px 16px}
+.out pre code{color:#b8f3d8}
+.out iframe{display:block;width:100%;border:0;background:#fff;min-height:160px;resize:vertical}
+.lessongrid{display:grid;grid-template-columns:270px minmax(0,1fr);gap:56px;align-items:start}
+.lesson-col{min-width:0}
+.lessonwrap .lessongrid .lesson,.lessonwrap .lessongrid .quiz,.lessonwrap .lessongrid .done-row,.lessonwrap .lessongrid .pn,.lessonwrap .lessongrid .more,.lessonwrap .lessongrid .qh,.lessonwrap .lessongrid .score-area{max-width:none}
+.lesson h2,.qh{scroll-margin-top:96px}
+.toc-side{position:sticky;top:92px;max-height:calc(100vh - 120px);overflow:auto;padding-right:8px;font-size:15px}
+.toc-mob{display:none}
+.tl{margin:18px 0 8px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.tl:first-child{margin-top:0}
+.tl a{color:var(--txt,#fff);text-decoration:underline;text-underline-offset:3px}
+.tl-list{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.tl-list.num{counter-reset:ch}.tl-list.num li{counter-increment:ch}
+.tl-list a{display:block;padding:6px 10px;border-radius:8px;color:var(--mut);line-height:1.35}
+.tl-list a:hover{color:var(--txt,#fff);background:rgba(255,255,255,.06)}
+.tl-list.num a:before{content:counter(ch) ". ";opacity:.6}
+.tl-list a.cur{color:#121316;background:var(--yel);font-weight:600}
+.jump{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.jump a{padding:8px 16px;border:1px solid var(--line);border-radius:999px;font-size:15px;color:var(--txt,#fff);transition:border-color .15s,color .15s}
+.jump a:hover{border-color:rgba(var(--acc-rgb),.7);color:var(--yel)}
+.score{border:1px solid var(--line);border-radius:20px;padding:26px;background:var(--glass,rgba(255,255,255,.04));margin-top:24px;max-width:860px}
+.score-top{display:flex;gap:28px;align-items:center;flex-wrap:wrap;margin-bottom:22px}
+.ring{width:132px;height:132px;border-radius:50%;display:grid;place-items:center;flex:none}
+.ring span{width:106px;height:106px;border-radius:50%;background:#0b0b10;display:grid;place-content:center;text-align:center}
+.ring b{font-size:30px;line-height:1;letter-spacing:-.02em}.ring i{font-style:normal;font-size:12px;color:var(--mut);letter-spacing:.1em;text-transform:uppercase}
+.score-t h3{margin:0;font-size:clamp(22px,2.6vw,28px);letter-spacing:-.02em}
+.lvl{margin:6px 0 10px;color:var(--yel);font-weight:700}
+.stats{list-style:none;margin:0;padding:0;display:grid;gap:4px;color:var(--mut)}.stats b{color:var(--txt,#fff)}
+.score .tbl{margin-top:4px}.score .tbl a:hover{color:var(--yel)}
+.score .small{margin:14px 0 0;color:var(--mut)}
+.linkbtn{background:none;border:0;padding:0;margin-left:12px;font:inherit;color:var(--yel);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.score .linkbtn{margin:10px 0 0;display:block}
+.score-area{margin-top:40px}
+@media (max-width:980px){
+ .lessongrid{grid-template-columns:1fr;gap:20px}
+ .toc-side{display:none}
+ .toc-mob{display:block;border:1px solid var(--line);border-radius:14px;padding:4px 16px;background:var(--glass,rgba(255,255,255,.04))}
+ .toc-mob summary{cursor:pointer;padding:12px 0;font-weight:600;list-style:none}
+ .toc-mob summary::-webkit-details-marker{display:none}
+ .toc-mob summary:after{content:"+";float:right;color:var(--yel);font-size:22px;line-height:1}
+ .toc-mob[open] summary:after{content:"–"}
+ .toc-mob[open]{padding-bottom:14px}
+ .score-top{gap:20px}.ring{width:112px;height:112px}.ring span{width:90px;height:90px}.ring b{font-size:26px}
+}

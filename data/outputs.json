@@ -1,0 +1,139 @@
+{
+ "python/first-program": {
+  "7": "Hello, world!",
+  "11": "My name is Shiva\nI am learning Python"
+ },
+ "python/variables-and-data-types": {
+  "1": "Asha 19 5.4 True",
+  "5": "<class 'int'>\n<class 'float'>\n<class 'str'>\n<class 'bool'>",
+  "9": "20",
+  "11": "Sonipat\nSONIPAT\n6\nHi there\nhahaha"
+ },
+ "python/operators-input-and-conversion": {
+  "4": "True\nTrue\nFalse",
+  "7": "What is your name? Asha\nHello Asha",
+  "10": "Price: 99.5\nQuantity: 3\nTotal bill: 298.50",
+  "13": "53\n8"
+ },
+ "python/if-elif-else": {
+  "1": "Not old enough yet",
+  "3": "Grade: C",
+  "6": "Weekend\nWe have it"
+ },
+ "python/loops": {
+  "3": "1\n2\n3\n4\n5",
+  "5": "H\ni\n!",
+  "8": "Round 1\nRound 2\nRound 3",
+  "11": "1\n2\n4\n5",
+  "13": "7 x 1 = 7\n7 x 2 = 14\n7 x 3 = 21\n7 x 4 = 28\n7 x 5 = 35\n7 x 6 = 42\n7 x 7 = 49\n7 x 8 = 56\n7 x 9 = 63\n7 x 10 = 70\n5050"
+ },
+ "python/lists-tuples-dicts-sets": {
+  "2": "apple\nmango\n['apple', 'mango', 'grapes']\n3\n['apple', 'mango']",
+  "5": "10 20",
+  "8": "Asha\nnot given\nname : Asha\nage : 20\ncity : Rohtak\ncourse : BCA",
+  "11": "{1, 2, 3}"
+ },
+ "python/functions": {
+  "1": "Hello, Asha\nHello, Ravi",
+  "4": "7",
+  "7": "25\n8",
+  "11": "1180.0\n1050.0"
+ },
+ "python/files-and-errors": {
+  "4": "Line one\nLine two",
+  "8": "Enter a number: 0\nYou cannot divide by zero.",
+  "10": "File not found."
+ },
+ "javascript/first-javascript": {
+  "4": "Hello, JavaScript!\n5",
+  "7": "Asha 20\nMy name is Asha and I am 20.",
+  "10": "string\nnumber\nboolean\nundefined"
+ },
+ "javascript/operators-and-conditions": {
+  "1": "9\n5\n14\n3.5\n1\n8",
+  "4": "true\nfalse\ntrue\ntrue",
+  "6": "true\nfalse\nfalse",
+  "8": "Grade C",
+  "10": "We are open",
+  "13": "Please enter your name"
+ },
+ "javascript/functions": {
+  "1": "Hello, Asha!\nHello, Ravi!",
+  "3": "1180\n1050",
+  "6": "36\nShiva Saini",
+  "9": "109\nundefined"
+ },
+ "javascript/arrays-and-objects": {
+  "2": "apple\n3\napple, banana, mango, grapes\ntrue\nbanana, mango",
+  "5": "Asha\n{\"name\":\"Asha\",\"age\":20,\"city\":\"Rohtak\",\"course\":\"BCA\"}\nname, age, city, course",
+  "8": "Bag\nNotebook costs 60\nPen costs 10\nBag costs 900",
+  "10": "Ravi Sonipat\nred green"
+ },
+ "javascript/loops-and-array-methods": {
+  "1": "Round 1\nRound 2\nRound 3\nCountdown 3\nCountdown 2\nCountdown 1\nH\ni\n!",
+  "4": "118.00, 295.00, 47.20, 1062.00, 17.70\n100, 250, 900\n40\n1305",
+  "7": "Total bill: 1180"
+ },
+ "javascript/async-and-fetch": {
+  "2": "1. start\n2. end of the script\n3. after the timer",
+  "5": "Preparing order...\nOrder ready!"
+ },
+ "javascript/debugging-and-project": {
+  "3": "5\nError: You cannot divide by zero"
+ },
+ "sql/tables-rows-columns": {
+  "7": "id | name  | city\n---+-------+--------\n1  | Asha  | Rohtak\n2  | Ravi  | Sonipat\n3  | Meena | Rohtak\n4  | Karan | Delhi\n5  | Neha  | NULL\n(5 rows)\n\nid | name         | price | stock\n---+--------------+-------+------\n1  | Notebook     | 60    | 120\n2  | Pen          | 10    | 500\n3  | Bag          | 899.5 | 15\n4  | Water Bottle | 250   | 40\n(4 rows)\n\nid | customer_id | product_id | quantity\n---+-------------+------------+---------\n1  | 1           | 1          | 3\n2  | 1           | 2          | 10\n3  | 2           | 3          | 1\n4  | 3           | 1          | 2\n5  | 3           | 4          | 1\n6  | 2           | 2          | 5\n(6 rows)"
+ },
+ "sql/select-and-where": {
+  "2": "name  | city\n------+--------\nAsha  | Rohtak\nRavi  | Sonipat\nMeena | Rohtak\nKaran | Delhi\nNeha  | NULL\n(5 rows)",
+  "5": "id | name  | city\n---+-------+-------\n1  | Asha  | Rohtak\n3  | Meena | Rohtak\n(2 rows)\n\nname         | price\n-------------+------\nBag          | 899.5\nWater Bottle | 250\n(2 rows)",
+  "7": "name         | price | stock\n-------------+-------+------\nNotebook     | 60    | 120\nWater Bottle | 250   | 40\n(2 rows)",
+  "8": "name\n-----\nAsha\nMeena\nKaran\n(3 rows)",
+  "11": "product  | rupees\n---------+-------\nNotebook | 60\nPen      | 10\n(2 rows)"
+ },
+ "sql/sorting-and-searching": {
+  "3": "name         | price\n-------------+------\nBag          | 899.5\nWater Bottle | 250\nNotebook     | 60\nPen          | 10\n(4 rows)\n\nname         | price\n-------------+------\nBag          | 899.5\nWater Bottle | 250\n(2 rows)",
+  "5": "city\n-------\nRohtak\nSonipat\nDelhi\nNULL\n(4 rows)",
+  "8": "name\n-----\nMeena\n(1 row)\n\nname\n-----\nAsha\nMeena\nNeha\n(3 rows)",
+  "11": "name\n----\n(0 rows)\n\nname\n----\nNeha\n(1 row)"
+ },
+ "sql/aggregates-and-group-by": {
+  "4": "total_customers\n---------------\n5\n(1 row)\n\nitems_sold\n----------\n22\n(1 row)\n\naverage_price | cheapest | dearest\n--------------+----------+--------\n304.88        | 10       | 899.5\n(1 row)",
+  "7": "city    | customers\n--------+----------\nNULL    | 1\nDelhi   | 1\nRohtak  | 2\nSonipat | 1\n(4 rows)",
+  "10": "product_id | sold\n-----------+-----\n1          | 5\n2          | 15\n(2 rows)"
+ },
+ "sql/insert-update-delete": {
+  "2": "id | name  | city\n---+-------+--------\n6  | Pooja | Panipat\n(1 row)",
+  "4": "name     | price\n---------+------\nNotebook | 65\n(1 row)",
+  "6": "customers\n---------\n5\n(1 row)",
+  "10": "name | stock\n-----+------\nBag  | 14\n(1 row)\n\nname | stock\n-----+------\nBag  | 15\n(1 row)"
+ },
+ "sql/joins": {
+  "4": "name  | product      | quantity\n------+--------------+---------\nAsha  | Notebook     | 3\nAsha  | Pen          | 10\nRavi  | Bag          | 1\nMeena | Notebook     | 2\nMeena | Water Bottle | 1\nRavi  | Pen          | 5\n(6 rows)",
+  "7": "name  | orders\n------+-------\nAsha  | 2\nRavi  | 2\nMeena | 2\nKaran | 0\nNeha  | 0\n(5 rows)",
+  "10": "name  | spent\n------+------\nRavi  | 949.5\nMeena | 370\nAsha  | 280\n(3 rows)"
+ },
+ "sql/design-keys-and-safe-sql": {
+  "5": "Error: FOREIGN KEY constraint failed"
+ },
+ "git-github/first-repository": {
+  "7": "Initialized empty Git repository in /home/you/my-project/.git/",
+  "9": "On branch main\n\nNo commits yet\n\nUntracked files:\n  (use \"git add <file>...\" to include in what will be committed)\n\tREADME.md\n\nnothing added to commit but untracked files present (use \"git add\" to track)",
+  "12": "On branch main\n\nNo commits yet\n\nChanges to be committed:\n  (use \"git rm --cached <file>...\" to unstage)\n\tnew file:   README.md",
+  "13": "[main (root-commit) 0a6cede] Add README\n 1 file changed, 1 insertion(+)\n create mode 100644 README.md",
+  "14": "0a6cede Add README"
+ },
+ "git-github/history-and-undo": {
+  "1": "Initialized empty Git repository in /home/you/demo/.git/\n[main (root-commit) 65eaecf] First commit\n 1 file changed, 1 insertion(+)\n create mode 100644 notes.txt",
+  "3": "diff --git a/notes.txt b/notes.txt\nindex e965047..f2c565e 100644\n--- a/notes.txt\n+++ b/notes.txt\n@@ -1 +1,2 @@\n Hello\n+Second line",
+  "7": "Hello",
+  "10": "[main 7070708] Add a mistake\n 1 file changed, 1 insertion(+)\n[main ccc4404] Revert \"Add a mistake\"\n Date: Fri Nov 20 10:00:00 2026 +0530\n 1 file changed, 1 deletion(-)\nccc4404 Revert \"Add a mistake\"\n7070708 Add a mistake\n65eaecf First commit",
+  "13": "?? .gitignore"
+ },
+ "git-github/branches-and-merging": {
+  "1": "Initialized empty Git repository in /home/you/demo/.git/\n[main (root-commit) 65eaecf] First commit\n 1 file changed, 1 insertion(+)\n create mode 100644 notes.txt",
+  "3": "* main\nSwitched to a new branch 'feature/contact'\n[feature/contact 1873adc] Add contact page\n 1 file changed, 1 insertion(+)\n create mode 100644 contact.txt\n1873adc Add contact page\n65eaecf First commit",
+  "5": "Switched to branch 'main'\nnotes.txt\nUpdating 65eaecf..1873adc\nFast-forward\n contact.txt | 1 +\n 1 file changed, 1 insertion(+)\n create mode 100644 contact.txt\ncontact.txt\nnotes.txt",
+  "7": "Deleted branch feature/contact (was 1873adc).\n* main"
+ }
+}

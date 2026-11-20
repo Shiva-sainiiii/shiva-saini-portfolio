@@ -98,7 +98,7 @@ Shiva is a full-stack developer (Next.js, Supabase, AI) from Kharkhoda, Haryana,
 Client work: Dr. Sapna's Dental Care, Rohtak: clinic website, admin panel she runs herself, Gemini chatbot.
 Services: website development, AI automation setup, custom CRM, AI chatbot, web app and admin panel, Google Business setup, WhatsApp Business setup, Insta business boost, local SEO, hosting/domain/deployment. Templates: dentist, gym, jeweller, cafe, real estate.
 Process: free demo first, then build, then launch.
-Projects: EasyDevOps (deploy from chat to GitHub, Vercel, Netlify and Render, no CLI, English and Hinglish, on phone and laptop), CodeAgent, Snake Rush, Blog Website.\nFree courses on this site: Python for Beginners (9 chapters) and Cloud Computing Basics (8 chapters), at /courses.
+Projects: EasyDevOps (deploy from chat to GitHub, Vercel, Netlify and Render, no CLI, English and Hinglish, on phone and laptop), CodeAgent, Snake Rush, Blog Website.\nFree courses on this site at /courses: Python, JavaScript, HTML and CSS, SQL, Git and GitHub, Cloud Computing, Generative AI and Prompting, and Get Your Local Business Online. Each has chapters, copyable code, outputs, quizzes and a scorecard.
 For pricing or hiring, tell them to message Shiva on WhatsApp (${site.phone}). If unsure, say so.`;
 
 // Home page ke FAQ. Visible bhi hain aur Google ke liye FAQ schema bhi inse banta hai.
@@ -108,7 +108,7 @@ export const homeFaq = [
   ["Where are you based?", `I am based in ${site.location}. I work with businesses across Haryana, and online with anyone who prefers WhatsApp.`],
   ["What do you build websites with?", "Next.js, Supabase and AI tools where they actually help, like a chatbot that answers customer questions."],
   ["Do you offer AI automation or a custom CRM?", "Yes. I set up AI automation (for example WhatsApp enquiry replies and lead sorting) and build custom CRMs and admin panels around how your business works. Message me on WhatsApp and I will suggest what fits."],
-  ["Are the courses really free?", "Yes. The Python and Cloud Computing courses are free, with no sign-up. Your progress is saved only in your own browser."],
+  ["Are the courses really free?", "Yes. All the courses (Python, JavaScript, HTML and CSS, SQL, Git, Cloud Computing, AI prompting and local business marketing) are free, with no sign-up. Your progress and quiz scores are saved only in your own browser."],
   ["Do you also set up Google Business and WhatsApp Business?", "Yes. Google Business Setup and WhatsApp Business Setup are part of what I do, so customers can find you on Google and message you."],
   ["How do I contact you?", `Message me on WhatsApp at ${site.phone}, or email ${site.email}.`],
 ];

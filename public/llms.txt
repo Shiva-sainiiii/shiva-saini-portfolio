@@ -35,7 +35,13 @@
 ## EasyDevOps
 - Easy DevOps: deploy from chat, no CLI. Create GitHub repos, deploy to Vercel, Netlify and Render, manage env vars and pull requests in English or Hinglish. https://easydevops.vercel.app
 
-## Free courses
+## Free courses (chapter by chapter, with code, outputs, quizzes and a scorecard)
 - All courses: https://shivasainiportfolio.vercel.app/courses
 - Python for Beginners (9 chapters): https://shivasainiportfolio.vercel.app/courses/python
+- JavaScript for Beginners (8 chapters): https://shivasainiportfolio.vercel.app/courses/javascript
+- HTML and CSS for Beginners (7 chapters): https://shivasainiportfolio.vercel.app/courses/html-css
+- SQL for Beginners (7 chapters): https://shivasainiportfolio.vercel.app/courses/sql
+- Git and GitHub for Beginners (6 chapters): https://shivasainiportfolio.vercel.app/courses/git-github
 - Cloud Computing Basics (8 chapters): https://shivasainiportfolio.vercel.app/courses/cloud-computing
+- Generative AI and Prompting Basics (6 chapters): https://shivasainiportfolio.vercel.app/courses/ai-basics
+- Get Your Local Business Online (6 chapters): https://shivasainiportfolio.vercel.app/courses/local-business-online

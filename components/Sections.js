@@ -5,7 +5,7 @@ import Rotator from "@/components/Rotator";
 import TradeIcon from "@/components/TradeIcons";
 import Link from "next/link";
 import { AutomationIcon, CrmIcon, ChatbotIcon, DashboardIcon, SearchIcon, CloudIcon } from "@/components/ServiceIcons";
-import { courses, totalMins } from "@/data/courses";
+import { courses, hours } from "@/data/courses";
 import Faq from "@/components/Faq";
 import { trades } from "@/data/trades";
 import { homeFaq } from "@/data/content";
@@ -232,22 +232,23 @@ export function FaqSection() {
 }
 
 export function CoursesTeaser() {
+  const shown = courses.filter((c) => c.featured);
   return (
     <section id="courses" className="sec wall ink">
       <span className="mk">Free</span>
       <h2 className="d" style={{ marginTop: 18 }}>Learn with me</h2>
-      <p className="lead">Free courses, chapter by chapter, in simple English. Read, try the code and check yourself with a quiz. No sign-up.</p>
+      <p className="lead">{courses.length} free courses, chapter by chapter, in simple English. Copy the code, see the output, take the quiz and track your score. No sign-up.</p>
       <div className="cgrid">
-        {courses.map((c) => (
+        {shown.map((c) => (
           <Link key={c.slug} href={`/courses/${c.slug}`} className="ccard">
             <span className="mk">{c.level}</span>
             <h3>{c.title}</h3>
             <p>{c.desc}</p>
-            <span className="cmeta">{c.chapters.length} chapters · about {Math.round(totalMins(c) / 60 * 10) / 10} hours · Free</span>
+            <span className="cmeta">{c.chapters.length} chapters · about {hours(c)} hours · Free</span>
           </Link>
         ))}
       </div>
-      <div className="stickers"><Link className="btn" href="/courses">All free courses →</Link></div>
+      <div className="stickers"><Link className="btn" href="/courses">See all {courses.length} courses →</Link></div>
     </section>
   );
 }
